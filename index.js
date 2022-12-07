@@ -1,5 +1,5 @@
 // Variables //
-
+require("dotenv").config();
 const { Client, GatewayIntentBits } = require("discord.js");
 const { readdirSync } = require("fs");
 const enmap = require("enmap");
@@ -35,4 +35,4 @@ for (const event of readdirSync("./events/")) {
 
 // Login //
 
-client.login(require("./config.json").token);
+client.login();

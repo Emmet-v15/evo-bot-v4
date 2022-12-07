@@ -5,6 +5,7 @@ specifiers:
   abort-controller: ^3.0.0
   colorette: ^2.0.19
   discord.js: ^14.5.0
+  dotenv: ^16.0.3
   enmap: ^5.9.2
   fs: ^0.0.1-security
   https-proxy-agent: ^5.0.1
@@ -17,6 +18,7 @@ dependencies:
   abort-controller: 3.0.0
   colorette: 2.0.19
   discord.js: 14.7.1
+  dotenv: 16.0.3
   enmap: 5.9.4
   fs: 0.0.1-security
   https-proxy-agent: 5.0.1
@@ -252,6 +254,11 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+    dev: false
+
+  /dotenv/16.0.3:
+    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
+    engines: {node: '>=12'}
     dev: false
 
   /end-of-stream/1.4.4:
