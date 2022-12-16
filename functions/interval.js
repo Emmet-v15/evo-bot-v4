@@ -3,7 +3,7 @@ module.exports = {
         fn(...args);
         setInterval(fn, delay, ...args);
     },
-    sleep: async(ms) => {
+    sleep: async (ms) => {
         return new Promise((resolve) => setTimeout(resolve, ms));
-    }
-}
+    },
+};

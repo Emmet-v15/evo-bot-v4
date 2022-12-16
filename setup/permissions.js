@@ -1,12 +1,18 @@
 const permissions = [
     { name: "Member", check: () => true },
-    { name: "Owner", check: (user, guild) => {
-        return user.id === guild.ownerId;
-    } },
-    { name: "Developer", check: (user, guild) => {
-        return user.id === "715601051041923123"
-    } }
-]
+    {
+        name: "Owner",
+        check: (user, guild) => {
+            return user.id === guild.ownerId;
+        },
+    },
+    {
+        name: "Developer",
+        check: (user, guild) => {
+            return user.id === "715601051041923123";
+        },
+    },
+];
 
 module.exports = {
     chart: permissions,
@@ -22,5 +28,5 @@ module.exports = {
     },
     haspermission: (user, guild, level) => {
         return permissions[level].check(user, guild);
-    }
-}
+    },
+};

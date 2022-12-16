@@ -6,21 +6,26 @@ const { rbx } = require("../../config.json");
 const handleUpdate = (client, version, category) => {
     const embed = new EmbedBuilder()
         .setTitle("Update Detected")
-        .addFields([{
-            name: "Version:",
-            value: version,
-            inline: true
-        }, {
-            name: "Download:",
-            value: `[Click Here](https://setup.rbxcdn.com/${version}-RobloxApp.zip)`,
-            inline: true
-        }])
+        .addFields([
+            {
+                name: "Version:",
+                value: version,
+                inline: true,
+            },
+            {
+                name: "Download:",
+                value: `[Click Here](https://setup.rbxcdn.com/${version}-RobloxApp.zip)`,
+                inline: true,
+            },
+        ])
         .setColor("Random")
-        .setTimestamp()
+        .setTimestamp();
     client.guilds.cache.forEach((guild) => {
         if (client.settings.get(guild.id, `roblox.${category}.latestVersion`) !== version) {
             client.settings.set(guild.id, version, `roblox.${category}.latestVersion`);
-            const channel = client.channels.cache.find(c => c.id === client.settings.get(guild.id, `roblox.${category}.channel`));
+            const channel = client.channels.cache.find(
+                (c) => c.id === client.settings.get(guild.id, `roblox.${category}.channel`)
+            );
             if (channel) {
                 channel.send({ embeds: [embed] });
             }
@@ -28,8 +33,8 @@ const handleUpdate = (client, version, category) => {
     });
 };
 
-module.exports = async(client) => {
-    const data = (await (await fetch(rbx.updateLink)).json());
+module.exports = async (client) => {
+    const data = await (await fetch(rbx.updateLink)).json();
     if (data.clientVersionUpload) {
         handleUpdate(client, data.clientVersionUpload, "updates");
     }

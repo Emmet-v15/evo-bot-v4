@@ -7,7 +7,7 @@ const updates = require("../systems/rbx/updates");
 const { instantInterval } = require("../functions/interval");
 const logger = require("../functions/logger");
 
-module.exports = async(client) => {
+module.exports = async (client) => {
     console.log(`Logged in as ${client.user.tag}, ${client.user.id}`);
     for (const system of readdirSync("./systems/", { withFileTypes: true })) {
         if (system.isDirectory() && existsSync(`./systems/${system.name}/init.js`)) {

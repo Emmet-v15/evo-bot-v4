@@ -6,7 +6,7 @@ module.exports = {
     name: "reload",
     description: "Reloads the given command",
     permission: 1,
-    execute: async(client, interaction) => {
+    execute: async (client, interaction) => {
         const target = interaction.options.getString("command");
         const path = `../${target}.js`;
         const [command, subcommand] = target.split("/");
@@ -21,8 +21,8 @@ module.exports = {
         interaction.editReply({ content: `\`${target.replace("/", " ")}\` has been reloaded` });
     },
     options: [
-        { type: "String", name: "command", description: "The command to reload", required: true, choices: choices }
-    ]
+        { type: "String", name: "command", description: "The command to reload", required: true, choices: choices },
+    ],
 };
 
 for (const command of readdirSync("./commands/", { withFileTypes: true })) {

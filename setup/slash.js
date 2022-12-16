@@ -6,7 +6,7 @@ const { token } = require("../config.json");
 
 const rest = new REST({ version: "10" }).setToken(token);
 
-module.exports = async(client) => {
+module.exports = async (client) => {
     const commands = [];
     const store = {};
 
@@ -36,5 +36,7 @@ module.exports = async(client) => {
     }
 
     client.commands = store;
-    await rest.put(Routes.applicationCommands(client.user.id), { body: commands });
-}
+    await rest.put(Routes.applicationCommands(client.user.id), {
+        body: commands,
+    });
+};

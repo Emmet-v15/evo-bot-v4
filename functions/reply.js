@@ -1,7 +1,7 @@
 const { writeFileSync, unlinkSync } = require("fs");
 
 module.exports = {
-    attachStringThenReply: async(interaction, message, attachments) => {
+    attachStringThenReply: async (interaction, message, attachments) => {
         var files;
         var names;
         if (attachments) {
@@ -13,8 +13,8 @@ module.exports = {
                 writeFileSync(name, attachment.content);
                 files.push({
                     name: `${attachment.name}.${attachment.ext}`,
-                    attachment: name
-                })
+                    attachment: name,
+                });
                 names.push(name);
             }
         }
@@ -24,5 +24,5 @@ module.exports = {
                 unlinkSync(names[i]);
             }
         }
-    }
+    },
 };

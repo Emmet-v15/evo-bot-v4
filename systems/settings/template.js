@@ -1,23 +1,23 @@
-module.exports = {	
+module.exports = {
     roles: [],
     logs: {
-        channel: ""
+        channel: "",
     },
     roblox: {
         status: {
             channel: "",
-            pageId: ""
+            pageId: "",
         },
         updates: {
             channel: "",
-            latestVersion: ""
+            latestVersion: "",
         },
         predictions: {
             channel: "",
-            latestVersion: ""
+            latestVersion: "",
         },
         groups: {
-            channel: ""
-        }
-    }
-}
+            channel: "",
+        },
+    },
+};

@@ -1,4 +1,17 @@
-const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+];
 
 module.exports = {
     dateToString: (date) => {
@@ -11,7 +24,7 @@ module.exports = {
             day += "nd";
         } else if (j == 3 && k != 13) {
             day += "rd";
-        } else { 
+        } else {
             day += "th";
         }
         return day + " " + months[date.getMonth()] + " " + date.getFullYear();
@@ -21,5 +34,5 @@ module.exports = {
     },
     dateTimeToString: (date) => {
         return `${module.exports.dateToString(date)}, ${module.exports.timeToString(date)}`;
-    }
-}
+    },
+};

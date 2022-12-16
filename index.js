@@ -16,14 +16,14 @@ client.settings = new enmap({
     name: "settings",
     fetchAll: false,
     autoFetch: true,
-    cloneLevel: "deep"
+    cloneLevel: "deep",
 });
 
 // Process //
 
-process.on("uncaughtException", logger.error(null, client));
+// process.on("uncaughtException", logger.error(null, client));
 
-process.on("unhandledRejection", logger.error(null, client));
+// process.on("unhandledRejection", logger.error(null, client));
 
 // Events //
 
