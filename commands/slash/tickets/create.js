@@ -7,7 +7,7 @@ module.exports = {
     permission: 1,
     execute: async (
         /** @type {require("discord.js").Client} */ client,
-        /** @type {require("discord.js").Interaction} */ interaction
+        /** @type {require("discord.js").CommandInteraction} */ interaction
     ) => {
         // Create the modal
         const modal = new ModalBuilder().setCustomId("myModal").setTitle("My Modal");

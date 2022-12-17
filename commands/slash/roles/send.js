@@ -6,7 +6,7 @@ module.exports = {
     permission: 1,
     execute: async (
         /** @type {require("discord.js").Client} */ client,
-        /** @type {require("discord.js").Interaction} */ interaction
+        /** @type {require("discord.js").CommandInteraction} */ interaction
     ) => {
         const channel = interaction.options.getChannel("channel") ?? interaction.channel;
         if (channel.permissionsFor(client.user).has("SEND_MESSAGES")) {

@@ -8,7 +8,7 @@ module.exports = {
     permission: 1,
     execute: async (
         /** @type {require("discord.js").Client} */ client,
-        /** @type {require("discord.js").Interaction} */ interaction
+        /** @type {require("discord.js").CommandInteraction} */ interaction
     ) => {
         interaction.deferReply({ ephemeral: true });
         const target = interaction.options.getString("command");

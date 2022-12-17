@@ -4,7 +4,7 @@ module.exports = {
     permission: 2,
     execute: async (
         /** @type {require("discord.js").Client} */ client,
-        /** @type {require("discord.js").Interaction} */ interaction
+        /** @type {require("discord.js").CommandInteraction} */ interaction
     ) => {
         const type = interaction.options.getString("type");
         const channel = interaction.options.getChannel("channel");

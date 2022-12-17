@@ -4,7 +4,7 @@ module.exports = {
     permission: 1,
     execute: async (
         /** @type {require("discord.js").Client} */ client,
-        /** @type {require("discord.js").Interaction} */ interaction
+        /** @type {require("discord.js").CommandInteraction} */ interaction
     ) => {
         const id = interaction.options.getRole("role").id;
         if (client.settings.get(interaction.guild.id, "roles").find((k) => k === id)) {

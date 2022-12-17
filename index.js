@@ -5,6 +5,8 @@ const enmap = require("enmap");
 
 const logger = require("./systems/logging/logger");
 const exception = require("./systems/logging/exception");
+const interactionCreate = require("./events/interactionCreate");
+const { InteractionWebhook } = require("discord.js");
 
 logger.log("Starting...", "log");
 

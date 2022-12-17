@@ -4,9 +4,9 @@ module.exports = {
     permission: 1,
     execute: async (
         /** @type {require("discord.js").Client} */ client,
-        /** @type {require("discord.js").Interaction} */ interaction
+        /** @type {require("discord.js").CommandInteraction} */ interaction
     ) => {
-        await interaction.reply({ content: "Shutting Down...", ephemeral: true });
+        await interaction.reply({ content: "Shutting Down..." });
         client.destroy();
         process.exit();
     },
