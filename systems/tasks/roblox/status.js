@@ -2,7 +2,7 @@ require("dotenv").config();
 const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fetch(...args));
 const { EmbedBuilder } = require("discord.js");
 const { bold } = require("@discordjs/builders");
-const instantInterval = require("../../../functions/interval");
+const { instantInterval } = require("../../../functions/interval");
 
 module.exports = async (client) => {
     instantInterval(

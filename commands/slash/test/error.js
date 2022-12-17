@@ -1,6 +1,6 @@
 module.exports = {
     name: "error",
-    description: "Throws an error to test the error handler",
+    description: "Throws an error to test the error handler.",
     permission: 2,
     execute: async (client, interaction) => {
         let message = interaction.options.getString("message");
@@ -9,6 +9,9 @@ module.exports = {
         throw new Error(message);
     },
     options: [
-        { type: "String", name: "message", description: "The message displayed on the stack trace", required: false },
+        { type: "String", name: "message", description: "the message displayed on the stack trace.", required: false },
     ],
 };
+
+// regex to check for string that don't start with a capital letter or do not end with .
+const regex = /(?<!\.)\b[a-z]/g;

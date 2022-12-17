@@ -1,6 +1,6 @@
 module.exports = {
     name: "add",
-    description: "Adds the specified role to the reaction list",
+    description: "Adds the specified role to the reaction list.",
     permission: 1,
     execute: async (client, interaction) => {
         const id = interaction.options.getRole("role").id;
@@ -11,5 +11,5 @@ module.exports = {
             interaction.editReply({ content: `<@&${id}> has been added to the reaction list` });
         }
     },
-    options: [{ type: "Role", name: "role", description: "The role to add to the reaction list", required: true }],
+    options: [{ type: "Role", name: "role", description: "The role to add to the reaction list.", required: true }],
 };

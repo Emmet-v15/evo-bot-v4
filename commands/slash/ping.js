@@ -2,7 +2,7 @@ const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
     name: "ping",
-    description: "Returns various latencies",
+    description: "Returns various latencies.",
     execute: async (client, interaction) => {
         interaction.editReply({
             embeds: [

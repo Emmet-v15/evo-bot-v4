@@ -1,6 +1,6 @@
 module.exports = {
     name: "channels",
-    description: "Gets the current log channel, or sets it if one is specified",
+    description: "Gets the current log channel, or sets it if one is specified.",
     permission: 2,
     execute: async (client, interaction) => {
         const cat = interaction.options.getString("category");
@@ -21,11 +21,11 @@ module.exports = {
     options: [
         {
             type: "String",
-            name: "category",
-            description: "The specified category",
+            name: "type",
+            description: "The type of channel to set.",
             required: true,
-            choices: { logs: "logs" },
+            choices: { logs: "logs", modlogs: "modlogs", updates: "updates", predictions: "predictions" },
         },
-        { type: "Channel", name: "channel", description: "The channel to send logs to" },
+        { type: "Channel", name: "channel", description: "The channel which should be used." },
     ],
 };

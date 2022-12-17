@@ -2,7 +2,7 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("
 
 module.exports = {
     name: "send",
-    description: "Sends a reaction embed to the specified channel, or the current one",
+    description: "Sends a reaction embed to the specified channel, or the current one.",
     permission: 1,
     execute: async (client, interaction) => {
         const channel = interaction.options.getChannel("channel") ?? interaction.channel;
@@ -36,5 +36,5 @@ module.exports = {
             interaction.editReply({ content: "I don't have permission to talk in that channel" });
         }
     },
-    options: [{ type: "Channel", name: "channel", description: "The channel to send the embed to" }],
+    options: [{ type: "Channel", name: "channel", description: "The channel to send the embed to." }],
 };

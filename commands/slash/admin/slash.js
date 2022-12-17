@@ -2,7 +2,7 @@ const slash = require("../../../systems/setup/slash");
 
 module.exports = {
     name: "slash",
-    description: "Reloads all slash commands",
+    description: "Reloads all slash commands.",
     permission: 1,
     execute: async (client, interaction) => {
         await slash(client);

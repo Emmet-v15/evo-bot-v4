@@ -1,4 +1,3 @@
-// Variables //
 require("dotenv").config();
 const { Client, GatewayIntentBits } = require("discord.js");
 const { readdirSync } = require("fs");
@@ -48,6 +47,7 @@ process.on("unhandledRejection", exception.bind(null, client));
 for (const event of readdirSync("./events/")) {
     if (event.endsWith(".js")) {
         client.on(event.substring(0, event.length - 3), require(`./events/${event}`).bind(null, client));
+        logger.log(`Loading Event: ${event}. 👌`);
     }
 }
 

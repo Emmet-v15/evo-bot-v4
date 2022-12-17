@@ -5,7 +5,7 @@ const permissions = require("../../systems/setup/permissions");
 
 module.exports = {
     name: "userinfo",
-    description: "Provides information about the mentioned user, or yourself",
+    description: "Provides information about the mentioned user, or yourself.",
     execute: async (client, interaction) => {
         const member = interaction.options.getMember("mention") ?? interaction.member;
         const user = member.user;
@@ -47,5 +47,5 @@ module.exports = {
             ephemeral: false,
         });
     },
-    options: [{ type: "User", name: "mention", description: "The member to provide information about" }],
+    options: [{ type: "User", name: "mention", description: "The member to provide information about." }],
 };

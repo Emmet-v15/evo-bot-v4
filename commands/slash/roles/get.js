@@ -2,7 +2,7 @@ const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
     name: "get",
-    description: "Gets every role on the reaction list",
+    description: "Gets every role on the reaction list.",
     permission: 1,
     execute: async (client, interaction) => {
         const roles = client.settings.get(interaction.guild.id, "roles");

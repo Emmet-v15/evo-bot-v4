@@ -1,6 +1,6 @@
 module.exports = {
     name: "empty",
-    description: "Placeholder command",
+    description: "Placeholder command.",
     permission: 2,
     execute: async (client, interaction) => {
         interaction.editReply({ content: "Example response" });
@@ -9,7 +9,7 @@ module.exports = {
         {
             type: "String",
             name: "options",
-            description: "Example Options",
+            description: "Example Options.",
             required: false,
         },
     ],
