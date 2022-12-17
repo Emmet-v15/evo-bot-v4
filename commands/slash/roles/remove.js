@@ -2,7 +2,10 @@ module.exports = {
     name: "remove",
     description: "Removes the specified role from the reaction list.",
     permission: 1,
-    execute: async (client, interaction) => {
+    execute: async (
+        /** @type {require("discord.js").Client} */ client,
+        /** @type {require("discord.js").Interaction} */ interaction
+    ) => {
         const id = interaction.options.getRole("role").id;
         if (client.settings.get(interaction.guild.id, "roles").find((k) => k === id)) {
             client.settings.remove(interaction.guild.id, id, "roles");

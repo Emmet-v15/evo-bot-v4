@@ -1,9 +1,10 @@
-const { EmbedBuilder } = require("discord.js");
-const { codeBlock } = require("@discordjs/builders");
+const { EmbedBuilder, codeBlock } = require("discord.js");
 const { CombinedError, CombinedPropertyError } = require("@sapphire/shapeshift");
 const path = require("path");
+const logger = require("./logger");
 
 const removeUnwantedTraces = (input) => {
+    if (!input) return input;
     const array = input.replaceAll(path.resolve("./"), ".").split("\n");
     var stack = "";
     for (var i = 0; i < array.length; i++) {
@@ -16,11 +17,19 @@ const removeUnwantedTraces = (input) => {
 };
 
 const handleError = (client, err) => {
-    const stack = codeBlock(
-        "sql",
-        err.stack ? removeUnwantedTraces(err.stack).replace(`Error: ${err.message}\n`, "") : ""
-    );
-    const msg = removeUnwantedTraces(err.message);
+    if (err instanceof CombinedError || err instanceof CombinedPropertyError) {
+        err.errors.forEach((e) => handleError(client, e));
+        return;
+    }
+
+    if (Array.isArray(err)) {
+        console.error(err);
+        return;
+    }
+
+    const stack = removeUnwantedTraces(err.stack)?.replace(`Error: ${err.message}\n`, "");
+
+    const msg = removeUnwantedTraces(err.message) || "No message";
     client.guilds.cache.forEach((guild) => {
         const channel = client.channels.cache.find((c) => c.id === client.settings.get(guild.id, "logs.channel"));
         if (channel) {
@@ -31,7 +40,7 @@ const handleError = (client, err) => {
                         .addFields([
                             {
                                 name: "Type:",
-                                value: err.constructor.name,
+                                value: err.constructor.name || "No type",
                                 inline: true,
                             },
                             {
@@ -41,7 +50,7 @@ const handleError = (client, err) => {
                             },
                             {
                                 name: "Stack:",
-                                value: stack,
+                                value: stack ? codeBlock("sql", stack) : "No stack",
                             },
                         ])
                         .setColor("#ff0000")
@@ -55,6 +64,7 @@ const handleError = (client, err) => {
 module.exports = (client, err) => {
     if (err instanceof CombinedError || err instanceof CombinedPropertyError) {
         for (var i = 0; i < err.errors.length; i++) {
+            logger.error(err.errors[i]);
             handleError(client, err.errors[i]);
         }
     } else {

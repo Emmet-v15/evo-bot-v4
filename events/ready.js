@@ -4,7 +4,7 @@ const slash = require("../systems/setup/slash");
 const logger = require("../systems/logging/logger");
 
 module.exports = async (client) => {
-    logger.log(`Logged in as ${client.user.tag}, ${client.user.id}`);
+    logger.log(`Logged in as [${client.user.id}] 👌`);
 
     client.guilds.cache.forEach((guild) => {
         client.settings.ensure(guild.id, require("../systems/settings/template.json"));

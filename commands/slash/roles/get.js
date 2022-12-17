@@ -4,7 +4,10 @@ module.exports = {
     name: "get",
     description: "Gets every role on the reaction list.",
     permission: 1,
-    execute: async (client, interaction) => {
+    execute: async (
+        /** @type {require("discord.js").Client} */ client,
+        /** @type {require("discord.js").Interaction} */ interaction
+    ) => {
         const roles = client.settings.get(interaction.guild.id, "roles");
         const array = [];
         for (var i = 0; i < roles.length; i++) {

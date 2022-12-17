@@ -4,7 +4,10 @@ module.exports = {
     name: "send",
     description: "Sends a reaction embed to the specified channel, or the current one.",
     permission: 1,
-    execute: async (client, interaction) => {
+    execute: async (
+        /** @type {require("discord.js").Client} */ client,
+        /** @type {require("discord.js").Interaction} */ interaction
+    ) => {
         const channel = interaction.options.getChannel("channel") ?? interaction.channel;
         if (channel.permissionsFor(client.user).has("SEND_MESSAGES")) {
             const roles = client.settings.get(interaction.guild.id, "roles");

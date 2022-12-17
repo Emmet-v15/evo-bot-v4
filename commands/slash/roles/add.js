@@ -2,7 +2,10 @@ module.exports = {
     name: "add",
     description: "Adds the specified role to the reaction list.",
     permission: 1,
-    execute: async (client, interaction) => {
+    execute: async (
+        /** @type {require("discord.js").Client} */ client,
+        /** @type {require("discord.js").Interaction} */ interaction
+    ) => {
         const id = interaction.options.getRole("role").id;
         if (client.settings.get(interaction.guild.id, "roles").find((k) => k === id)) {
             interaction.editReply({ content: `<@&${id}> is already a reaction role` });

@@ -2,7 +2,10 @@ module.exports = {
     name: "error",
     description: "Throws an error to test the error handler.",
     permission: 2,
-    execute: async (client, interaction) => {
+    execute: async (
+        /** @type {require("discord.js").Client} */ client,
+        /** @type {require("discord.js").Interaction} */ interaction
+    ) => {
         let message = interaction.options.getString("message");
         if (!message) message = "This is a test error";
         interaction.editReply({ content: "Throwing error..." });

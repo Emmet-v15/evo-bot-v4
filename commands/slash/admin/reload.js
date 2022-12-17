@@ -6,7 +6,11 @@ module.exports = {
     name: "reload",
     description: "Reloads the given command.",
     permission: 1,
-    execute: async (client, interaction) => {
+    execute: async (
+        /** @type {require("discord.js").Client} */ client,
+        /** @type {require("discord.js").Interaction} */ interaction
+    ) => {
+        interaction.deferReply({ ephemeral: true });
         const target = interaction.options.getString("command");
         const path = `../${target}.js`;
         const [command, subcommand] = target.split("/");
