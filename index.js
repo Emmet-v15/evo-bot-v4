@@ -18,9 +18,10 @@ client.settings = new enmap({
     fetchAll: false,
     autoFetch: true,
     cloneLevel: "deep",
+    dataDir: "./systems/settings/data",
 });
 
-// Process //
+// Process
 
 if (process.platform === "win32") {
     var rl = require("readline").createInterface({
@@ -42,7 +43,7 @@ process.on("uncaughtException", exception.bind(null, client));
 
 process.on("unhandledRejection", exception.bind(null, client));
 
-// Events and Tasks //
+// Events and Tasks
 
 for (const event of readdirSync("./events/")) {
     if (event.endsWith(".js")) {
@@ -68,7 +69,6 @@ for (const task of readdirSync("./systems/tasks", { withFileTypes: true })) {
         logger.log(`Loading Task: ${task.name}. 👌`);
     }
 }
-
-// Login //
+// Login
 
 client.login();

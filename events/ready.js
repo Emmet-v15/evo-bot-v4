@@ -6,6 +6,10 @@ const logger = require("../systems/logging/logger");
 module.exports = async (client) => {
     logger.log(`Logged in as ${client.user.tag}, ${client.user.id}`);
 
+    client.guilds.cache.forEach((guild) => {
+        client.settings.ensure(guild.id, require("../systems/settings/template.json"));
+    });
+
     for (const system of readdirSync("./systems/tasks/", { withFileTypes: true })) {
         if (system.isDirectory() && existsSync(`./systems/tasks/${system.name}`)) {
             for (const file of readdirSync(`./systems/tasks/${system.name}/`)) {
