@@ -1,0 +1,2 @@
+# used to correct punctuation
+description: "[^A-Z].*(?<!\.)\b\w+\b(?!\.)"
