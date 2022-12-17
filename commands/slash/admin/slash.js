@@ -1,5 +1,4 @@
-const slash = require("../../setup/slash");
-const reply = require("../../functions/reply");
+const slash = require("../../../systems/setup/slash");
 
 module.exports = {
     name: "slash",

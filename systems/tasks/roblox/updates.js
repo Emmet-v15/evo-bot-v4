@@ -1,7 +1,8 @@
+require("dotenv").config();
 const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fetch(...args));
 const { EmbedBuilder } = require("discord.js");
 
-const { rbx } = require("../../config.json");
+const instantInterval = require("../../../functions/interval");
 
 const handleUpdate = (client, version, category) => {
     const embed = new EmbedBuilder()
@@ -34,16 +35,22 @@ const handleUpdate = (client, version, category) => {
 };
 
 module.exports = async (client) => {
-    const data = await (await fetch(rbx.updateLink)).json();
-    if (data.clientVersionUpload) {
-        handleUpdate(client, data.clientVersionUpload, "updates");
-    }
-    const lines = (await (await fetch(rbx.pushLogLink)).text()).split("\n");
-    for (var i = lines.length - 1; i > 0; i--) {
-        const [edit, platform, version] = lines[i].split(" ");
-        if (platform === "WindowsPlayer") {
-            handleUpdate(client, version, "predictions");
-            break;
-        }
-    }
+    instantInterval(
+        async () => {
+            const data = await (await fetch(process.env.UPDATE_LINK)).json();
+            if (data.clientVersionUpload) {
+                handleUpdate(client, data.clientVersionUpload, "updates");
+            }
+            const lines = (await (await fetch(process.env.PUSH_LOG_LINK)).text()).split("\n");
+            for (var i = lines.length - 1; i > 0; i--) {
+                const [edit, platform, version] = lines[i].split(" ");
+                if (platform === "WindowsPlayer") {
+                    handleUpdate(client, version, "predictions");
+                    break;
+                }
+            }
+        },
+        1000 * 60,
+        client
+    );
 };

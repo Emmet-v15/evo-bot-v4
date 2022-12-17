@@ -1,5 +1,3 @@
-const reply = require("../../functions/reply");
-
 module.exports = {
     name: "add",
     description: "Adds the specified role to the reaction list",

@@ -1,6 +1,6 @@
 const { readdirSync } = require("fs");
 
-const { getpermissionlevel } = require("../setup/permissions");
+const { getpermissionlevel } = require("../systems/setup/permissions");
 
 // Buttons //
 

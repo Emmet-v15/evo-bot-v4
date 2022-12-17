@@ -1,5 +1,3 @@
-const reply = require("../../functions/reply");
-
 module.exports = {
     name: "remove",
     description: "Removes the specified role from the reaction list",

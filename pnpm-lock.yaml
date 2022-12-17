@@ -1,10 +1,12 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@discordjs/builders': ^1.4.0
+  '@sapphire/shapeshift': ^3.8.1
   '@sapphire/time-utilities': ^1.7.8
   abort-controller: ^3.0.0
   colorette: ^2.0.19
-  discord.js: ^14.5.0
+  discord.js: ^14.7.1
   dotenv: ^16.0.3
   enmap: ^5.9.2
   fs: ^0.0.1-security
@@ -14,6 +16,8 @@ specifiers:
   node-fetch: ^3.2.10
 
 dependencies:
+  '@discordjs/builders': 1.4.0
+  '@sapphire/shapeshift': 3.8.1
   '@sapphire/time-utilities': 1.7.8
   abort-controller: 3.0.0
   colorette: 2.0.19
@@ -33,7 +37,7 @@ packages:
     engines: {node: '>=16.9.0'}
     dependencies:
       '@discordjs/util': 0.1.0
-      '@sapphire/shapeshift': 3.7.1
+      '@sapphire/shapeshift': 3.8.1
       discord-api-types: 0.37.21
       fast-deep-equal: 3.1.3
       ts-mixer: 6.0.2
@@ -81,12 +85,12 @@ packages:
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
     dev: false
 
-  /@sapphire/shapeshift/3.7.1:
-    resolution: {integrity: sha512-JmYN/0GW49Vl8Hi4PwrsDBNjcuCylH78vWYolVys74LRIzilAAMINxx4RHQOdvYoz+ceJKVp4+zBbQ5kuIFOLw==}
+  /@sapphire/shapeshift/3.8.1:
+    resolution: {integrity: sha512-xG1oXXBhCjPKbxrRTlox9ddaZTvVpOhYLmKmApD/vIWOV1xEYXnpoFs68zHIZBGbqztq6FrUPNPerIrO1Hqeaw==}
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
     dependencies:
       fast-deep-equal: 3.1.3
-      lodash.uniqwith: 4.5.0
+      lodash: 4.17.21
     dev: false
 
   /@sapphire/snowflake/3.3.0:
@@ -354,10 +358,6 @@ packages:
 
   /lodash.snakecase/4.1.1:
     resolution: {integrity: sha512-QZ1d4xoBHYUeuouhEq3lk3Uq7ldgyFXGBhg04+oRLnIz8o9T65Eh+8YdroUwn846zchkA9yDsDl5CVVaV2nqYw==}
-    dev: false
-
-  /lodash.uniqwith/4.5.0:
-    resolution: {integrity: sha512-7lYL8bLopMoy4CTICbxygAUq6CdRJ36vFc80DucPueUee+d5NBRxz3FdT9Pes/HEx5mPoT9jwnsEJWz1N7uq7Q==}
     dev: false
 
   /lodash/4.17.21:

@@ -1,7 +1,5 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 
-const reply = require("../../functions/reply");
-
 module.exports = {
     name: "send",
     description: "Sends a reaction embed to the specified channel, or the current one",

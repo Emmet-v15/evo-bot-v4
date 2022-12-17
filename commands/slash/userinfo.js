@@ -1,7 +1,7 @@
 const { EmbedBuilder } = require("discord.js");
 
-const { dateToString } = require("../functions/datetime");
-const permissions = require("../setup/permissions");
+const { dateToString } = require("../../functions/datetime");
+const permissions = require("../../systems/setup/permissions");
 
 module.exports = {
     name: "userinfo",

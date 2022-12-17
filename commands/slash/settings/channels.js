@@ -1,9 +1,7 @@
-const reply = require("../../functions/reply");
-
 module.exports = {
     name: "channels",
     description: "Gets the current log channel, or sets it if one is specified",
-    permission: 1,
+    permission: 2,
     execute: async (client, interaction) => {
         const cat = interaction.options.getString("category");
         const channel = interaction.options.getChannel("channel");
