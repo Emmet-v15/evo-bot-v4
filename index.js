@@ -5,8 +5,6 @@ const enmap = require("enmap");
 
 const logger = require("./systems/logging/logger");
 const exception = require("./systems/logging/exception");
-const interactionCreate = require("./events/interactionCreate");
-const { InteractionWebhook } = require("discord.js");
 
 logger.log("Starting...", "log");
 
@@ -44,33 +42,35 @@ process.on("SIGINT", function () {
 process.on("uncaughtException", exception.bind(null, client));
 
 process.on("unhandledRejection", exception.bind(null, client));
-
 // Events and Tasks
 
 for (const event of readdirSync("./events/")) {
     if (event.endsWith(".js")) {
+        const task = logger.load(`Loading Event: ${event}.`);
         client.on(event.substring(0, event.length - 3), require(`./events/${event}`).bind(null, client));
-        logger.log(`Loading Event: ${event}. 👌`);
+        task.complete();
     }
 }
 
-for (const task of readdirSync("./systems/tasks", { withFileTypes: true })) {
-    if (task.isDirectory()) {
-        for (const file of readdirSync(`./systems/tasks/${task.name}/`)) {
-            if (file.endsWith(".js")) {
-                const path = `./systems/tasks/${task.name}/${file}`;
-                const module = require(path);
-                module(client);
-                logger.log(`Loading Task: ${task.name}/${file}. 👌`);
-            }
-        }
-    } else if (task.name.endsWith(".js")) {
-        const path = `./systems/tasks/${task.name}`;
-        const module = require(path);
-        module(client);
-        logger.log(`Loading Task: ${task.name}. 👌`);
-    }
-}
-// Login
+// for (const task of readdirSync("./systems/tasks", { withFileTypes: true })) {
+//     if (task.isDirectory()) {
+//         for (const file of readdirSync(`./systems/tasks/${task.name}/`, { withFileTypes: true })) {
+//             if (task.name.endsWith(".js")) {
+//                 console.log(task);
+//                 const task_ = logger.log(`Loading Task: ${task.name}/${file}.`);
+//                 const path = `./systems/tasks/${task.name}/${file}`;
+//                 const module = require(path);
+//                 module(client);
+//                 task_.complete();
+//             }
+//         }
+//     } else if (task.name.endsWith(".js")) {
+//         const task_ = logger.load(`Loading Task: ${task.name}.`);
+//         const path = `./systems/tasks/${task.name}`;
+//         const module = require(path);
+//         module(client);
+//         task_.complete();
+//     }
+// }
 
 client.login();

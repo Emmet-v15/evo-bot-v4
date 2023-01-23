@@ -6,6 +6,7 @@ module.exports = {
         /** @type {require("discord.js").Client} */ client,
         /** @type {require("discord.js").CommandInteraction} */ interaction
     ) => {
+        await interaction.deferReply({ ephemeral: true });
         const amount = interaction.options.getInteger("amount");
 
         if (amount < 1 || amount > 100) {
@@ -14,7 +15,7 @@ module.exports = {
 
         await interaction.channel.bulkDelete(amount, true).catch((err) => {
             console.error(err);
-            interaction.editReply({ content: "There was an error trying to prune messages in this channel!" });
+            return interaction.editReply({ content: "There was an error trying to prune messages in this channel!" });
         });
 
         interaction.editReply({ content: `Pruned ${amount} messages.` });

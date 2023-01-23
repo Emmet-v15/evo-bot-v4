@@ -1,7 +1,7 @@
 require("dotenv").config();
 const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fetch(...args));
 const { EmbedBuilder, bold } = require("discord.js");
-const { instantInterval } = require("../../../functions/interval");
+const { instantInterval } = require("../../../util/interval");
 
 module.exports = async (client) => {
     instantInterval(
@@ -25,9 +25,7 @@ module.exports = async (client) => {
                 .setColor("Random")
                 .setTimestamp();
             client.guilds.cache.forEach((guild) => {
-                const channel = client.channels.cache.find(
-                    (c) => c.id === client.settings.get(guild.id, "roblox.status.channel")
-                );
+                const channel = client.channels.cache.find((c) => c.id === client.settings.get(guild.id, "roblox.status.channel"));
                 if (channel) {
                     channel.messages
                         .fetch(client.settings.get(guild.id, "roblox.status.pageId"))

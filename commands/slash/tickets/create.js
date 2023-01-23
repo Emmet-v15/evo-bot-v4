@@ -1,61 +1,49 @@
+const { EmbedBuilder } = require("discord.js");
 const { ModalBuilder, TextInputBuilder, ActionRowBuilder, TextInputStyle } = require("discord.js");
-const { ChannelType, ThreadChannel } = require("discord.js");
 
 module.exports = {
     name: "create",
     description: "Create a ticket.",
     permission: 1,
-    execute: async (
-        /** @type {require("discord.js").Client} */ client,
-        /** @type {require("discord.js").CommandInteraction} */ interaction
-    ) => {
+    execute: async (/** @type {require("discord.js").Client} */ client, /** @type {require("discord.js").CommandInteraction} */ interaction) => {
         // Create the modal
-        const modal = new ModalBuilder().setCustomId("myModal").setTitle("My Modal");
+        const modal = new ModalBuilder().setCustomId("tickets-create").setTitle("Create a ticket");
 
         // Add components to modal
 
         // Create the text input components
-        const favoriteColorInput = new TextInputBuilder()
-            .setCustomId("favoriteColorInput")
+        const reasonInput = new TextInputBuilder()
+            .setCustomId("reason")
             // The label is the prompt the user sees for this input
-            .setLabel("What's your favorite color?")
-            // Short means only a single line of text
-            .setStyle(TextInputStyle.Short);
+            .setLabel("Please describe your issue in detail.")
+            .setStyle(TextInputStyle.Paragraph)
+            .setMinLength(10)
+            .setMaxLength(400)
+            .setRequired(true)
+            .setPlaceholder("e.g. I need help with my account. My issue is ...");
 
-        const hobbiesInput = new TextInputBuilder()
-            .setCustomId("hobbiesInput")
-            .setLabel("What's some of your favorite hobbies?")
-            // Paragraph means multiple lines of text.
-            .setStyle(TextInputStyle.Paragraph);
+        const executorInput = new TextInputBuilder()
+            .setCustomId("executor")
+            // The label is the prompt the user sees for this input
+            .setLabel("What executor are you using?")
+            .setStyle(TextInputStyle.Short)
+            .setMinLength(3)
+            .setMaxLength(20)
+            .setRequired(true)
+            .setPlaceholder("e.g. Synapse X, KRNL, etc.");
 
         // An action row only holds one text input,
         // so you need one action row per text input.
-        const firstActionRow = new ActionRowBuilder().addComponents(favoriteColorInput);
-        const secondActionRow = new ActionRowBuilder().addComponents(hobbiesInput);
+        const firstActionRow = new ActionRowBuilder().addComponents(reasonInput);
+        const secondActionRow = new ActionRowBuilder().addComponents(executorInput);
 
         // Add inputs to the modal
         modal.addComponents(firstActionRow, secondActionRow);
-
+        const userEmbed = new EmbedBuilder()
+            .setTitle("Ticket created")
+            .setDescription(`Your ticket has been created! You can view it here: (wip)`)
+            .setColor("#00ff00")
+            .setTimestamp();
         await interaction.showModal(modal);
-
-        /** @type {ThreadChannel} */
-        const thread = await interaction.channel.threads.create({
-            name: `${interaction.user.username.slice(0, 9).toLowerCase()}-${interaction.user.discriminator}`,
-            autoArchiveDuration: 24 * 60,
-            type: ChannelType.PrivateThread,
-            reason: "This is a test thread",
-        });
-
-        thread.members.add(interaction.user.id);
-
-        // interaction.editReply({ content: "Created Thread" });
     },
-    options: [
-        {
-            type: "String",
-            name: "options",
-            description: "Example Options.",
-            required: false,
-        },
-    ],
 };
