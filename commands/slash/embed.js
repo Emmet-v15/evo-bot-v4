@@ -51,6 +51,8 @@ module.exports = {
                 console.log("doing stuff");
 
                 const embed = generateEmbed(embedOptions);
+
+                console.log("did stuff");
                 interaction.editReply({
                     content: `Is this correct \`${id}\`?`,
                     embeds: [embed],
