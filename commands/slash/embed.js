@@ -1,8 +1,8 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 
 const generateEmbed = (embedOptions) => {
-    // check if there is any embed options
-    if (!Object.keys(embedOptions).length) return;
+    // check if embed options are valid
+    if (!Object.values(embedOptions).filter((value) => value !== null).length) return;
 
     const embed = new EmbedBuilder();
     if (embedOptions.title) embed.setTitle(embedOptions.title);
@@ -50,13 +50,12 @@ module.exports = {
 
         switch (action) {
             case "create": {
-                console.log("doing stuff");
-
                 const embed = generateEmbed(embedOptions);
+                if (!embed) return interaction.editReply({ content: "Invalid embed options." });
 
-                console.log("did stuff");
+                client.settings.set(interaction.guild.id, embedOptions, `embeds.${id}.unconfirmed`);
                 interaction.editReply({
-                    content: `Is this correct \`${id}\`?`,
+                    content: `Confirm creation of \`${id}\`?`,
                     embeds: [embed],
                     components: [
                         new ActionRowBuilder().addComponents(
@@ -84,10 +83,10 @@ module.exports = {
 
                 const embed = generateEmbed(oldEmbedOptions);
                 if (!embed) return interaction.editReply({ content: "Invalid embed options." });
-                client.settings.set(interaction.guild.id, oldEmbedOptions, `embeds.${id}.unconfirmed`);
 
+                client.settings.set(interaction.guild.id, oldEmbedOptions, `embeds.${id}.unconfirmed`);
                 interaction.editReply({
-                    content: `Preview of \`${id}\`:`,
+                    content: `Confirm changes of \`${id}\`?`,
                     embeds: [embed],
                     components: [
                         new ActionRowBuilder().addComponents(

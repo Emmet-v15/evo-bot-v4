@@ -1,6 +1,7 @@
 require("dotenv").config();
 const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fetch(...args));
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
+const logger = require("../../logging/logger");
 
 const { instantInterval } = require("../../../util/interval");
 
