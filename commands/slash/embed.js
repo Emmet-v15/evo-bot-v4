@@ -48,8 +48,9 @@ module.exports = {
 
         switch (action) {
             case "create": {
-                const embed = generateEmbed(embedOptions);
                 console.log("doing stuff");
+
+                const embed = generateEmbed(embedOptions);
                 interaction.editReply({
                     content: `Is this correct \`${id}\`?`,
                     embeds: [embed],
