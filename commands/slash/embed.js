@@ -15,6 +15,8 @@ const generateEmbed = (embedOptions) => {
     if (embedOptions.url) embed.setURL(embedOptions.url);
     if (embedOptions.timestamp) embed.setTimestamp(embedOptions.timestamp);
     if (embedOptions.fields) embed.addFields(embedOptions.fields);
+
+    return embed;
 };
 let embedIds = {};
 
