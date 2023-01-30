@@ -3,10 +3,8 @@ const { EmbedBuilder } = require("discord.js");
 module.exports = {
     name: "ping",
     description: "Returns various latencies.",
-    execute: async (
-        /** @type {require("discord.js").Client} */ client,
-        /** @type {require("discord.js").CommandInteraction} */ interaction
-    ) => {
+    permission: 0,
+    execute: async (/** @type {require("discord.js").Client} */ client, /** @type {require("discord.js").CommandInteraction} */ interaction) => {
         interaction.editReply({
             embeds: [
                 new EmbedBuilder()

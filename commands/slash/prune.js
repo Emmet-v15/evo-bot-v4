@@ -2,10 +2,7 @@ module.exports = {
     name: "prune",
     description: "Command to Bulk delete messages.",
     permission: 1,
-    execute: async (
-        /** @type {require("discord.js").Client} */ client,
-        /** @type {require("discord.js").CommandInteraction} */ interaction
-    ) => {
+    execute: async (/** @type {require("discord.js").Client} */ client, /** @type {require("discord.js").CommandInteraction} */ interaction) => {
         await interaction.deferReply({ ephemeral: true });
         const amount = interaction.options.getInteger("amount");
 

@@ -1,6 +1,14 @@
 const permissions = [
     { name: "Member", check: () => true },
     {
+        name: "Staff",
+        check: (user, guild) => {
+            const permission = client.settings.get(guild.id, `permissions.${user.id}`);
+            if (permission) return permission === 1;
+            return false;
+        },
+    },
+    {
         name: "Owner",
         check: (user, guild) => {
             return user.id === guild.ownerId;

@@ -6,7 +6,7 @@ const choices = {};
 module.exports = {
     name: "reload",
     description: "Reloads the given command.",
-    permission: 1,
+    permission: 3,
     execute: async (/** @type {require("discord.js").Client} */ client, /** @type {require("discord.js").CommandInteraction} */ interaction) => {
         await interaction.deferReply({ ephemeral: true });
         const target = interaction.options.getString("command");

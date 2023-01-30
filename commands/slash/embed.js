@@ -29,7 +29,7 @@ module.exports = {
     },
     name: "embed",
     description: "Create, edit and display embeds used in the bot.",
-    permission: 2,
+    permission: 1,
     execute: async (/** @type {require("discord.js").Client} */ client, /** @type {require("discord.js").CommandInteraction} */ interaction) => {
         await interaction.deferReply({ ephemeral: true });
         const action = interaction.options.getString("action");

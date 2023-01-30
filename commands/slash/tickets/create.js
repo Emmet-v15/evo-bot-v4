@@ -4,7 +4,7 @@ const { ModalBuilder, TextInputBuilder, ActionRowBuilder, TextInputStyle } = req
 module.exports = {
     name: "create",
     description: "Create a ticket.",
-    permission: 1,
+    permission: 0,
     execute: async (/** @type {require("discord.js").Client} */ client, /** @type {require("discord.js").CommandInteraction} */ interaction) => {
         // Create the modal
         const modal = new ModalBuilder().setCustomId("tickets-create").setTitle("Create a ticket");
