@@ -3,7 +3,7 @@ module.exports = {
     description: "Set permission level for a user.",
     permission: 2,
     execute: async (/** @type {require("discord.js").Client} */ client, /** @type {require("discord.js").CommandInteraction} */ interaction) => {
-        interaction.deferReply({ ephemeral: false });
+        await interaction.deferReply({ ephemeral: false });
         const user = interaction.options.getUser("user");
         const permission = interaction.options.getInteger("permission");
         if (user) {
