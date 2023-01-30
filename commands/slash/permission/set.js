@@ -11,7 +11,7 @@ module.exports = {
             // set permission for user to permission in the database
 
             // check if permission is valid
-            if (permission < 0 || permission > 2) return interaction.editReply({ content: "Invalid permission level. [1-2]" });
+            if (permission < 0 || permission > 2) return interaction.editReply({ content: "Invalid permission level. [0-2]" });
 
             client.settings.set(interaction.guild.id, permission, `permissions.${id}`);
 
