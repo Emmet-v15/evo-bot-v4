@@ -38,7 +38,7 @@ module.exports = async (/** @type {import("discord.js").Client}*/ client, /** @t
                 interaction.reply({
                     content: `You cannot use \`${
                         subcommand !== null ? `${interaction.commandName} ${subcommand}` : interaction.commandName
-                    }\`. Your permission level is \`[${permission}]\`, \`[${command.permission}]\` is required.`,
+                    }\`. Your permission level is \`[${permission}]\`, \`[${command.permission}]\` or above is required.`,
                 });
                 return;
             }
