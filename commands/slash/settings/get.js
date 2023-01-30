@@ -6,9 +6,10 @@ module.exports = {
         await interaction.deferReply({ ephemeral: false });
         const key = interaction.options.getString("key");
         if (user) {
+            console.log(value);
+
             if (!client.settings.has(interaction.guild.id, key)) return interaction.editReply({ content: "This key does not exist in the current guild." });
             const value = client.settings.get(interaction.guild.id, key);
-            console.log(value);
             interaction.editReply({ content: `The value for \`${key}\` is \`${value}\`` });
         }
     },
