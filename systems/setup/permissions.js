@@ -4,7 +4,7 @@ const permissions = [
         name: "Staff",
         check: (user, guild) => {
             const permission = guild.client.settings.get(guild.id, `permissions.${user.id}`);
-            if (permission) return permission === 1;
+            if (permission) return permission >= 1;
             return false;
         },
     },
