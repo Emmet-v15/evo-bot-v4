@@ -31,7 +31,7 @@ const handleError = (client, err) => {
 
     const msg = removeUnwantedTraces(err.message) || "No message";
     client.guilds.cache.forEach((guild) => {
-        const channel = client.channels.cache.find((c) => c.id === client.settings.get(guild.id, "logs.channel"));
+        const channel = client.channels.cache.find((c) => c.id === client.settings.get("global", "debug.channel"));
         if (channel) {
             channel.send({
                 embeds: [
