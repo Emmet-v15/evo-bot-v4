@@ -28,8 +28,10 @@ module.exports = {
         var level = 0;
         for (var i = 1; i < permissions.length; i++) {
             if (permissions[i].check(user, guild) === false) {
+                console.log("ofof");
                 break;
             }
+            console.log("yayy");
             level = i;
         }
         return level;
