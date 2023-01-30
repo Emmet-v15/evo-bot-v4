@@ -7,6 +7,7 @@ module.exports = {
         const key = interaction.options.getString("key");
         if (user) {
             const value = client.settings.get(interaction.guild.id, key);
+            console.log(value);
             interaction.editReply({ content: `The value for \`${key}\` is \`${value}\`` });
         }
     },
