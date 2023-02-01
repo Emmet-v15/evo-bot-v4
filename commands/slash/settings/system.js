@@ -10,6 +10,8 @@ module.exports = {
         const action = interaction.options.getString("action");
         const value = interaction.options.getString("value");
 
+        if (!scope) scope = "guild";
+
         if (action === "get") {
             if (scope == "global") {
                 if (!client.settings.has("global", key)) return interaction.editReply({ content: "This key does not exist globally." });
