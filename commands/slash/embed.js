@@ -127,6 +127,7 @@ module.exports = {
                     content: "Sent!",
                     ephemeral: true,
                 });
+                console.log("boom");
                 interaction.followUp({
                     embeds: [embed],
                     ephemeral: false,
