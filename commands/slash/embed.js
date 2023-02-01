@@ -125,10 +125,13 @@ module.exports = {
                 if (!embed) return interaction.editReply({ content: "Invalid embed options." });
                 interaction
                     .editReply({
-                        content: "Sent!",
+                        content: "Sending...",
                         ephemeral: true,
                     })
-                    .then(() => interaction.followUp({ embeds: [embed], ephemeral: false }));
+                    .then((msg) => {
+                        msg.delete();
+                        interaction.followUp({ embeds: [embed], ephemeral: false });
+                    });
 
                 break;
             }
