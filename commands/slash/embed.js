@@ -1,6 +1,7 @@
+const { CommandInteraction, Client } = require("discord.js");
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 
-const generateEmbed = (embedOptions) => {
+const generateEmbed = (embedOptions, author) => {
     // check if embed options are valid
     if (!Object.values(embedOptions).filter((value) => value !== null).length) return;
 
@@ -11,7 +12,7 @@ const generateEmbed = (embedOptions) => {
     if (embedOptions.footer) embed.setFooter(embedOptions.footer);
     if (embedOptions.thumbnail) embed.setThumbnail(embedOptions.thumbnail);
     if (embedOptions.image) embed.setImage(embedOptions.image);
-    if (embedOptions.author) embed.setAuthor(embedOptions.author);
+    if (embedOptions.author) embed.setAuthor({ name: author.username, iconURL: author?.displayAvatarURL() });
     if (embedOptions.url) embed.setURL(embedOptions.url);
     if (embedOptions.timestamp) embed.setTimestamp(embedOptions.timestamp);
     if (embedOptions.fields) embed.addFields(embedOptions.fields);
@@ -30,7 +31,7 @@ module.exports = {
     name: "embed",
     description: "Create, edit and display embeds used in the bot.",
     permission: 1,
-    execute: async (/** @type {require("discord.js").Client} */ client, /** @type {require("discord.js").CommandInteraction} */ interaction) => {
+    execute: async (/** @type {Client} */ client, /** @type {CommandInteraction} */ interaction) => {
         await interaction.deferReply({ ephemeral: true });
         const action = interaction.options.getString("action");
         const id = interaction.options.getString("id");
@@ -50,7 +51,7 @@ module.exports = {
 
         switch (action) {
             case "create": {
-                const embed = generateEmbed(embedOptions);
+                const embed = generateEmbed(embedOptions, interaction.member);
                 if (!embed) return interaction.editReply({ content: "Invalid embed options." });
 
                 client.settings.set(interaction.guild.id, embedOptions, `embeds.${id}.unconfirmed`);
@@ -81,7 +82,7 @@ module.exports = {
                 if (embedOptions.timestamp) oldEmbedOptions.timestamp = embedOptions.timestamp;
                 if (embedOptions.fields) oldEmbedOptions.fields = embedOptions.fields;
 
-                const embed = generateEmbed(oldEmbedOptions);
+                const embed = generateEmbed(oldEmbedOptions, interaction.member);
                 if (!embed) return interaction.editReply({ content: "Invalid embed options." });
 
                 client.settings.set(interaction.guild.id, oldEmbedOptions, `embeds.${id}.unconfirmed`);
@@ -100,7 +101,7 @@ module.exports = {
                 const embedOptions = client.settings.get(interaction.guild.id, `embeds.${id}`);
                 if (!embedOptions) return interaction.editReply({ content: `Embed \`${id}\` does not exist.` });
 
-                const embed = generateEmbed(embedOptions);
+                const embed = generateEmbed(embedOptions, interaction.member);
                 if (!embed) {
                     client.settings.delete(interaction.guild.id, `embeds.${id}`);
                     return interaction.editReply({ content: `Deleted \`${id}\`` });
@@ -121,7 +122,7 @@ module.exports = {
                 const embedOptions = client.settings.get(interaction.guild.id, `embeds.${id}`);
                 if (!embedOptions) return interaction.editReply({ content: `Embed \`${id}\` does not exist.` });
 
-                const embed = generateEmbed(embedOptions);
+                const embed = generateEmbed(embedOptions, interaction.member);
                 if (!embed) return interaction.editReply({ content: "Invalid embed options." });
                 interaction
                     .editReply({
