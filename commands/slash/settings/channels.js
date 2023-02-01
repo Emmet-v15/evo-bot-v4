@@ -18,6 +18,7 @@ module.exports = {
         } else if (action === "view") {
             interaction.editReply({ content: `The \`${type}\` channel is currently <#${client.settings.get(interaction.guild.id, `${type}.channel`)}>` });
         }
+    },
     options: [
         {
             type: "String",
