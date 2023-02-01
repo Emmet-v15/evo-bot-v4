@@ -200,7 +200,7 @@ module.exports = {
         {
             type: "Boolean",
             name: "author",
-            description: "Display author in embed?.",
+            description: "Display author in embed?",
             required: false,
         },
         {
