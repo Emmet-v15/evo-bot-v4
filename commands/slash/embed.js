@@ -128,9 +128,9 @@ module.exports = {
                         content: "Sending...",
                         ephemeral: true,
                     })
-                    .then((msg) => {
-                        msg.delete({ timeout: 5000 });
-                        interaction.followUp({ embeds: [embed], ephemeral: false });
+                    .then(async (msg) => {
+                        await interaction.followUp({ embeds: [embed], ephemeral: false });
+                        msg.delete();
                     });
 
                 break;
