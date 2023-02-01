@@ -198,9 +198,9 @@ module.exports = {
             required: false,
         },
         {
-            type: "String",
+            type: "Boolean",
             name: "author",
-            description: "Author of embed.",
+            description: "Display author in embed?.",
             required: false,
         },
         {
