@@ -123,11 +123,10 @@ module.exports = {
 
                 const embed = generateEmbed(embedOptions);
                 if (!embed) return interaction.editReply({ content: "Invalid embed options." });
-                interaction.reply({
+                interaction.editReply({
                     content: "Sent!",
                     ephemeral: true,
                 });
-                console.log("boom");
                 interaction.followUp({
                     embeds: [embed],
                     ephemeral: false,
