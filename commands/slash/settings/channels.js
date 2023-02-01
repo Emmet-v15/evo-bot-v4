@@ -7,16 +7,17 @@ module.exports = {
 
         const type = interaction.options.getString("type");
         const channel = interaction.options.getChannel("channel");
-        if (channel) {
-            const id = channel.id;
-            client.settings.set(interaction.guild.id, id, `${type}.channel`);
-            interaction.editReply({ content: `The \`${type}\` channel has been set to <#${id}>` });
-        } else {
-            interaction.editReply({
-                content: `The \`${type}\` channel is currently <#${client.settings.get(interaction.guild.id, `${type}.channel`)}>`,
-            });
+        const action = interaction.options.getString("action");
+
+        if (action === "remove") {
+            client.settings.delete(interaction.guild.id, `${type}.channel`);
+            interaction.editReply({ content: `The \`${type}\` channel has been removed.` });
+        } else if (action === "set") {
+            client.settings.set(interaction.guild.id, channel.id, `${type}.channel`);
+            interaction.editReply({ content: `The \`${type}\` channel has been set to <#${channel.id}>` });
+        } else if (action === "view") {
+            interaction.editReply({ content: `The \`${type}\` channel is currently <#${client.settings.get(interaction.guild.id, `${type}.channel`)}>` });
         }
-    },
     options: [
         {
             type: "String",
@@ -25,6 +26,13 @@ module.exports = {
             required: true,
             choices: { "General logs": "logs", "Moderator Logs": "modlogs", "Update Logs": "updates", "Prediction logs": "predictions" },
         },
-        { type: "Channel", name: "channel", description: "The channel which should be used." },
+        {
+            type: "String",
+            name: "action",
+            description: "Add or remove a channel.",
+            required: true,
+            choices: { Set: "set", Remove: "remove", View: "view" },
+        },
+        { type: "Channel", name: "channel", description: "The channel which should be used.", required: true },
     ],
 };
