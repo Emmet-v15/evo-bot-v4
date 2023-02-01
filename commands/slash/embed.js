@@ -128,9 +128,7 @@ module.exports = {
                         content: "Sending...",
                         ephemeral: true,
                     })
-                    .then(async (msg) => {
-                        await interaction.followUp({ embeds: [embed], ephemeral: false });
-                    });
+                    .then(() => interaction.followUp({ embeds: [embed], ephemeral: false }));
 
                 break;
             }
