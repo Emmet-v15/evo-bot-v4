@@ -5,6 +5,8 @@ module.exports = {
     execute: async (/** @type {require("discord.js").Client} */ client, /** @type {require("discord.js").CommandInteraction} */ interaction) => {
         await interaction.deferReply({ ephemeral: false });
 
+        console.log(interaction.options.data);
+
         const key = interaction.options.getString("key");
         const scope = interaction.options.getString("global");
         const action = interaction.options.getString("action");
