@@ -43,7 +43,7 @@ module.exports = {
             footer: interaction.options.getString("footer"),
             thumbnail: interaction.options.getString("thumbnail"),
             image: interaction.options.getString("image"),
-            author: interaction.options.getString("author"),
+            author: interaction.options.getBoolean("author"),
             url: interaction.options.getString("url"),
             timestamp: interaction.options.getString("timestamp"),
             fields: interaction.options.getString("fields"),
