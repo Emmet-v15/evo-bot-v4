@@ -10,8 +10,6 @@ module.exports = {
         const action = interaction.options.getString("action");
         const value = interaction.options.getString("value");
 
-        if (!scope) scope = "guild";
-
         if (action === "get") {
             if (scope == "global") {
                 if (!client.settings.has("global", key)) return interaction.editReply({ content: "This key does not exist globally." });
@@ -60,6 +58,13 @@ module.exports = {
         },
         {
             type: "String",
+            name: "global",
+            description: "Which databsae to modify or search.",
+            required: true,
+            choices: { Global: "global", Guild: "guild" },
+        },
+        {
+            type: "String",
             name: "key",
             description: "The key in the database.",
             required: true,
@@ -69,13 +74,6 @@ module.exports = {
             name: "value",
             description: "The value to set the key to.",
             required: false,
-        },
-        {
-            type: "String",
-            name: "global",
-            description: "Which databsae to modify or search.",
-            required: false,
-            choices: { Global: "global", Guild: "guild" },
         },
     ],
 };
