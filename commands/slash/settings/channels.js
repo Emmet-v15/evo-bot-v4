@@ -9,6 +9,7 @@ module.exports = {
         const channel = interaction.options.getChannel("channel");
         const action = interaction.options.getString("action");
 
+        if (action === "set" && !channel) return interaction.editReply({ content: "You must specify a channel to set." });
         if (action === "remove") {
             client.settings.delete(interaction.guild.id, `${type}.channel`);
             interaction.editReply({ content: `The \`${type}\` channel has been removed.` });
@@ -34,6 +35,6 @@ module.exports = {
             required: true,
             choices: { Set: "set", Remove: "remove", View: "view" },
         },
-        { type: "Channel", name: "channel", description: "The channel which should be used.", required: true },
+        { type: "Channel", name: "channel", description: "The channel which should be used." },
     ],
 };
