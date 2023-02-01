@@ -34,7 +34,6 @@ const generateButton = (version) => {
 };
 
 const handleUpdate = (client, version, category) => {
-    console.log("handling", version, category);
     let messageContent = {};
     if (category === "updates") {
         messageContent = {
@@ -50,14 +49,11 @@ const handleUpdate = (client, version, category) => {
     client.guilds.cache.forEach((guild) => {
         let oldUpdate = client.settings.get(guild.id, `${category}.latestVersion`);
         if (oldUpdate !== version) {
-            console.log("new update", version, category, oldUpdate);
             const channel = client.channels.cache.find((c) => c.id === client.settings.get(guild.id, `${category}.channel`));
             if (channel) {
-                console.log("channel found", channel.id, channel.name);
                 let roleId = client.settings.get(guild.id, `${category}.role`);
                 if (roleId) messageContent.content = `<@&${roleId}>`;
                 if (category === "updates") {
-                    console.log("sending update");
                     messageContent.embeds = [currentUpdateEmbed(version, guild)];
                     logger.warn(
                         `Roblox has updated to ${red(version)}${oldUpdate ? " from " + red(oldUpdate) : ""} [${greenBright(
@@ -82,8 +78,6 @@ const handleUpdate = (client, version, category) => {
 module.exports = async (client) => {
     instantInterval(
         async () => {
-            console.log("boom");
-
             const data = await (await fetch(process.env.UPDATE_LINK)).json();
             if (data.clientVersionUpload) {
                 handleUpdate(client, data.clientVersionUpload, "updates");
