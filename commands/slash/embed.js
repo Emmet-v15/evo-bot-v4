@@ -130,7 +130,6 @@ module.exports = {
                     })
                     .then(async (msg) => {
                         await interaction.followUp({ embeds: [embed], ephemeral: false });
-                        msg.delete();
                     });
 
                 break;
