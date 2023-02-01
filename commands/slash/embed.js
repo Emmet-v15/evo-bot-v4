@@ -126,6 +126,7 @@ module.exports = {
 
                 interaction.editReply({
                     embeds: [embed],
+                    ephemeral: false,
                 });
 
                 break;
