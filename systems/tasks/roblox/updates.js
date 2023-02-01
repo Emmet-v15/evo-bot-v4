@@ -2,12 +2,13 @@ require("dotenv").config();
 const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fetch(...args));
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const logger = require("../../logging/logger");
+const { red, greenBright } = require("colorette");
 
 const { instantInterval } = require("../../../util/interval");
 
 const currentUpdateEmbed = (version, guild) => {
     const embed = new EmbedBuilder().setTitle(`Roblox has Updated to ${version}`).setColor("ED4245").setTimestamp().setFooter({ text: "EvoV4" });
-    const oldUpdate = client.settings.get(guild.id, "updates.oldVersion");
+    const oldUpdate = guild.client.settings.get(guild.id, "updates.oldVersion");
     if (oldUpdate) {
         embed.setDescription(`From update ${oldUpdate}`);
     }
@@ -18,7 +19,7 @@ const futureUpdateEmbed = (version) => {
     return new EmbedBuilder()
         .setTitle(`Roblox will update to ${version}`)
         .setDescription(
-            `Expect this update <t:${Math.round(new Date().getTime() / 1000) + 172800}:R> or earlier\
+            `Expect this update <t:${Math.round(new Date().getTime() / 1000) + 172800}:R> or earlier\n
         Click the button below to download the update.`
         )
         .setColor("0099FF")
@@ -33,6 +34,7 @@ const generateButton = (version) => {
 };
 
 const handleUpdate = (client, version, category) => {
+    console.log("handling", version, category);
     let messageContent = {};
     if (category === "updates") {
         messageContent = {
@@ -48,28 +50,31 @@ const handleUpdate = (client, version, category) => {
     client.guilds.cache.forEach((guild) => {
         let oldUpdate = client.settings.get(guild.id, `${category}.latestVersion`);
         if (oldUpdate !== version) {
-            client.settings.set(guild.id, version, `${category}.oldVersion`);
-            client.settings.set(guild.id, version, `${category}.latestVersion`);
+            console.log("new update", version, category, oldUpdate);
             const channel = client.channels.cache.find((c) => c.id === client.settings.get(guild.id, `${category}.channel`));
             if (channel) {
+                console.log("channel found", channel.id, channel.name);
                 let roleId = client.settings.get(guild.id, `${category}.role`);
                 if (roleId) messageContent.content = `<@&${roleId}>`;
                 if (category === "updates") {
+                    console.log("sending update");
                     messageContent.embeds = [currentUpdateEmbed(version, guild)];
                     logger.warn(
-                        `Roblox has updated to ${red(version)}${oldUpdate ? " from " + oldUpdate : ""} [${greenBright(
+                        `Roblox has updated to ${red(version)}${oldUpdate ? " from " + red(oldUpdate) : ""} [${greenBright(
                             `http://setup.roblox.com/${version}-RobloxApp.zip`
                         )}]`
                     );
                 } else if (category === "predictions") {
                     logger.warn(
-                        `Roblox will update to ${red(version)}${oldUpdate ? " from " + oldUpdate : ""} [${greenBright(
+                        `Roblox will update to ${red(version)}${oldUpdate ? " from " + red(oldUpdate) : ""} [${greenBright(
                             `http://setup.roblox.com/${version}-RobloxApp.zip`
                         )}]`
                     );
                 }
                 channel.send(messageContent);
             }
+            client.settings.set(guild.id, version, `${category}.oldVersion`);
+            client.settings.set(guild.id, version, `${category}.latestVersion`);
         }
     });
 };
@@ -77,6 +82,8 @@ const handleUpdate = (client, version, category) => {
 module.exports = async (client) => {
     instantInterval(
         async () => {
+            console.log("boom");
+
             const data = await (await fetch(process.env.UPDATE_LINK)).json();
             if (data.clientVersionUpload) {
                 handleUpdate(client, data.clientVersionUpload, "updates");

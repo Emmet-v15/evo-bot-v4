@@ -1,6 +1,6 @@
 module.exports = {
-    name: "get",
-    description: "Read a value from the database.",
+    name: "delete",
+    description: "Delete a value in the database.",
     permission: 2,
     execute: async (/** @type {require("discord.js").Client} */ client, /** @type {require("discord.js").CommandInteraction} */ interaction) => {
         await interaction.deferReply({ ephemeral: false });
@@ -9,12 +9,12 @@ module.exports = {
 
         if (global) {
             if (!client.settings.has("global", key)) return interaction.editReply({ content: "This key does not exist globally." });
-            const value = client.settings.get("global", key);
-            interaction.editReply({ content: `The value for \`${key}\` is \`${value}\` globally.` });
+            client.settings.delete("global", key);
+            interaction.editReply({ content: `The value for \`${key}\` has been deleted globally.` });
         } else {
             if (!client.settings.has(interaction.guild.id, key)) return interaction.editReply({ content: "This key does not exist in the current guild." });
-            const value = client.settings.get(interaction.guild.id, key);
-            interaction.editReply({ content: `The value for \`${key}\` is \`${value}\` in this guild.` });
+            client.settings.delete(interaction.guild.id, key);
+            interaction.editReply({ content: `The value for \`${key}\` has been deleted in this guild.` });
         }
     },
     options: [
@@ -27,7 +27,7 @@ module.exports = {
         {
             type: "Boolean",
             name: "global",
-            description: "Whether or not the value to get is guild specific.",
+            description: "Whether or not the value to delete is guild specific.",
             required: false,
         },
     ],

@@ -6,14 +6,18 @@ module.exports = {
         await interaction.deferReply({ ephemeral: false });
         const key = interaction.options.getString("key");
         const value = interaction.options.getString("value");
-        const guildspecific = interaction.options.getBoolean("guildspecific");
+        const global = interaction.options.getBoolean("global");
 
-        if (guildspecific) {
-            client.settings.set(interaction.guild.id, value, key);
-            interaction.editReply({ content: `The value for \`${key}\` has been set to \`${value}\` in this guild.` });
-        } else {
+        if (global) {
+            const oldValue = client.settings.get("global", key);
             client.settings.set("global", value, key);
-            interaction.editReply({ content: `The value for \`${key}\` has been set to \`${value}\` globally.` });
+            interaction.editReply({ content: `The value for \`${key}\` has been set ${oldValue ? `` : `from \`${oldValue}\``} to \`${value}\` globally.` });
+        } else {
+            const oldValue = client.settings.get(interaction.guild.id, key);
+            client.settings.set(interaction.guild.id, value, key);
+            interaction.editReply({
+                content: `The value for \`${key}\` has been set ${oldValue ? `` : `from \`${oldValue}\``} to \`${value}\` in this guild.`,
+            });
         }
     },
     options: [
@@ -31,7 +35,7 @@ module.exports = {
         },
         {
             type: "Boolean",
-            name: "guildspecific",
+            name: "global",
             description: "Whether or not the value should be guild specific.",
             required: false,
         },
