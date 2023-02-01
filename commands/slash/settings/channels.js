@@ -14,6 +14,8 @@ module.exports = {
             client.settings.delete(interaction.guild.id, `${type}.channel`);
             interaction.editReply({ content: `The \`${type}\` channel has been removed.` });
         } else if (action === "set") {
+            const current = client.settings.get(interaction.guild.id, `${type}.channel`);
+            if (current === channel.id) return interaction.editReply({ content: `The \`${type}\` channel is already set to <#${channel.id}>` });
             client.settings.set(interaction.guild.id, channel.id, `${type}.channel`);
             interaction.editReply({ content: `The \`${type}\` channel has been set to <#${channel.id}>` });
         } else if (action === "view") {
