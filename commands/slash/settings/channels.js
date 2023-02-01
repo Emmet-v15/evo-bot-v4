@@ -25,17 +25,17 @@ module.exports = {
     options: [
         {
             type: "String",
-            name: "type",
-            description: "The type of channel to set.",
-            required: true,
-            choices: { "General logs": "logs", "Moderator Logs": "modlogs", "Update Logs": "updates", "Prediction logs": "predictions" },
-        },
-        {
-            type: "String",
             name: "action",
             description: "Add or remove a channel.",
             required: true,
             choices: { Set: "set", Remove: "remove", View: "view" },
+        },
+        {
+            type: "String",
+            name: "type",
+            description: "The type of channel to set.",
+            required: true,
+            choices: { "General logs": "logs", "Moderator Logs": "modlogs", "Update Logs": "updates", "Prediction logs": "predictions" },
         },
         { type: "Channel", name: "channel", description: "The channel which should be used." },
     ],
