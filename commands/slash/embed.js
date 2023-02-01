@@ -129,7 +129,7 @@ module.exports = {
                         ephemeral: true,
                     })
                     .then((msg) => {
-                        msg.delete();
+                        console.log(msg);
                         interaction.followUp({ embeds: [embed], ephemeral: false });
                     });
 
