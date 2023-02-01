@@ -5,8 +5,6 @@ module.exports = {
     execute: async (/** @type {require("discord.js").Client} */ client, /** @type {require("discord.js").CommandInteraction} */ interaction) => {
         await interaction.deferReply({ ephemeral: false });
 
-        console.log(interaction.options.data);
-
         const key = interaction.options.getString("key");
         const scope = interaction.options.getString("global");
         const action = interaction.options.getString("action");
@@ -38,6 +36,7 @@ module.exports = {
                 });
             }
         } else if (action === "delete") {
+            console.log(scope);
             if (scope == "global") {
                 if (!client.settings.has("global", key)) return interaction.editReply({ content: "This key does not exist globally." });
                 client.settings.delete("global", key);
