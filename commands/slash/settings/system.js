@@ -36,7 +36,6 @@ module.exports = {
                 });
             }
         } else if (action === "delete") {
-            console.log(scope);
             if (scope == "global") {
                 if (!client.settings.has("global", key)) return interaction.editReply({ content: "This key does not exist globally." });
                 client.settings.delete("global", key);
