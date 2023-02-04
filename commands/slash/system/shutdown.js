@@ -4,6 +4,7 @@ module.exports = {
     permission: 3,
     execute: async (/** @type {require("discord.js").Client} */ client, /** @type {require("discord.js").CommandInteraction} */ interaction) => {
         await interaction.reply({ content: "Shutting Down..." });
+        logger.info("Shutting Down... [Command]");
         client.destroy();
         process.exit();
     },

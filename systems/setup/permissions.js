@@ -3,6 +3,7 @@ const permissions = [
     {
         name: "Staff",
         check: (user, guild) => {
+            if (!guild.client.settings.has(guild.id, `permissions.${user.id}`)) return false;
             const permission = guild.client.settings.get(guild.id, `permissions.${user.id}`);
             if (permission) return permission >= 1;
             return false;
