@@ -3,7 +3,6 @@ const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fet
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const logger = require("../../logging/logger");
 const { red, greenBright } = require("colorette");
-
 const { instantInterval } = require("../../../util/interval");
 
 const currentUpdateEmbed = (version, guild) => {

@@ -8,15 +8,13 @@ const { sleep } = require("../util/interval");
 const buttons = {};
 const modals = {};
 
-(async () => {
-    for (const file of readdirSync("./events/buttons/")) {
-        if (file.endsWith(".js")) {
-            const task = logger.load(`Loading Buttons: ${file}.`);
-            buttons[file.substring(0, file.length - 3)] = require(`./buttons/${file}`);
-            task.complete();
-        }
+for (const file of readdirSync("./events/buttons/")) {
+    if (file.endsWith(".js")) {
+        const task = logger.load(`Loading Buttons: ${file}.`);
+        buttons[file.substring(0, file.length - 3)] = require(`./buttons/${file}`);
+        task.complete();
     }
-})();
+}
 
 for (const file of readdirSync("./events/modals/")) {
     if (file.endsWith(".js")) {
@@ -33,6 +31,14 @@ module.exports = async (/** @type {import("discord.js").Client}*/ client, /** @t
         const subcommand = interaction.options.getSubcommand(false);
         const command = subcommand !== null ? client.commands[interaction.commandName][subcommand] : client.commands[interaction.commandName];
         if (command.permission) {
+            if (!interaction.guild) {
+                interaction.reply({
+                    content: "This command can only be used in a server.",
+                    ephemeral: true,
+                });
+                return;
+            }
+
             let permission = getpermissionlevel(interaction.user, interaction.guild);
             if (permission < command.permission && interaction.user.id !== "715601051041923123") {
                 interaction.reply({
