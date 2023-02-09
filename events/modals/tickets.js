@@ -83,7 +83,7 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
                 .setColor("#00ff00")
                 .setTimestamp();
 
-            logChannel.send({ embeds: [logEmbed] });
+            logChannel.send({ embeds: [logEmbed], content: `<@&${client.settings.get(interaction.guild.id, "ticketOpen.role")}>` });
 
             return interaction.editReply({ embeds: [userEmbed] });
         }
