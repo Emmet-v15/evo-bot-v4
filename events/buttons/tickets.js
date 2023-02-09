@@ -35,6 +35,7 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
                 .setColor("#00ff00")
                 .setTimestamp();
 
+            interaction.deleteReply();
             return await ticket.send({ embeds: [claimEmbed] });
         }
         default:
