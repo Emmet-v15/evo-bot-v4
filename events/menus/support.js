@@ -37,9 +37,7 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
             const firstActionRow = new ActionRowBuilder().addComponents(reasonInput);
             const secondActionRow = new ActionRowBuilder().addComponents(executorInput);
 
-            if (interaction.customId === "select") {
-                await interaction.update({ content: "Something was selected!", components: [] });
-            }
+            await interaction.update({ content: "Something was selected!", components: [] });
             // Add inputs to the modal
             modal.addComponents(firstActionRow, secondActionRow);
             await interaction.showModal(modal);
