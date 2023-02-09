@@ -16,6 +16,7 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
             interaction.editReply({ embeds: [closeEmbed] });
             if (!ticket.locked) await ticket.setLocked(true);
             if (!ticket.archived) await ticket.setArchived(true);
+            return;
         }
         case "claim": {
             // check if user is allowed to claim the ticket
@@ -34,15 +35,10 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
                 .setColor("#00ff00")
                 .setTimestamp();
 
-            await ticket.send({ embeds: [claimEmbed] });
+            return await ticket.send({ embeds: [claimEmbed] });
         }
         default:
             interaction.editReply({ content: "[Error]: Button not implemented." });
             break;
     }
-
-    interaction.editReply({
-        content: `There was an error: tickets.js`,
-        ephemeral: true,
-    });
 };
