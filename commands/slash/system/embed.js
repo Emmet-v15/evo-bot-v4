@@ -30,6 +30,7 @@ const category = new ActionRowBuilder().addComponents(
                 value: "feature",
             },
         ])
+        .setMaxValues(0)
 );
 
 module.exports = {
