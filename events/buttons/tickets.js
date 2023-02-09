@@ -14,8 +14,8 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
 
             await ticket.send({ embeds: [closeEmbed] });
             interaction.editReply({ embeds: [closeEmbed] });
+            if (!ticket.locked) await ticket.setLocked(true);
             if (!ticket.archived) await ticket.setArchived(true);
-            if (!ticket.permissionsLocked) await ticket.setLocked(true);
         }
         case "claim": {
             // check if user is allowed to claim the ticket
