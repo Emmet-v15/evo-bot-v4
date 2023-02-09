@@ -53,8 +53,8 @@ module.exports = {
     options: [
         {
             type: "String",
-            name: "command",
-            description: "The command to reload. Leave empty to reload all.",
+            name: "type",
+            description: "The embed to be sent",
             required: false,
             choices: {
                 Ticket: "ticket",

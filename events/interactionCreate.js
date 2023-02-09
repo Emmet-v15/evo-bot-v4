@@ -7,6 +7,7 @@ const { sleep } = require("../util/interval");
 
 const buttons = {};
 const modals = {};
+const menus = {};
 
 for (const file of readdirSync("./events/buttons/")) {
     if (file.endsWith(".js")) {
@@ -20,6 +21,14 @@ for (const file of readdirSync("./events/modals/")) {
     if (file.endsWith(".js")) {
         const task = logger.load(`Loading Modals: ${file}.`);
         modals[file.substring(0, file.length - 3)] = require(`./modals/${file}`);
+        task.complete();
+    }
+}
+
+for (const file of readdirSync("./events/menus/")) {
+    if (file.endsWith(".js")) {
+        const task = logger.load(`Loading Menus: ${file}.`);
+        menus[file.substring(0, file.length - 3)] = require(`./menus/${file}`);
         task.complete();
     }
 }
@@ -57,5 +66,8 @@ module.exports = async (/** @type {import("discord.js").Client}*/ client, /** @t
     } else if (interaction.isModalSubmit()) {
         const args = interaction.customId.split("-");
         await modals[args.shift()](client, interaction, ...args);
+    } else if (interaction.isAnySelectMenu()) {
+        const args = interaction.customId.split("-");
+        await menus[args.shift()](client, interaction, ...args);
     }
 };
