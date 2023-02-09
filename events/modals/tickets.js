@@ -15,6 +15,7 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
                 type: ChannelType.PrivateThread,
                 reason: "Ticket created by user",
             });
+            thread.setInvitable(false);
 
             const ticketEmbed = new EmbedBuilder()
                 .setTitle(`Ticket for ${interaction.user.username}#${interaction.user.discriminator}`)
