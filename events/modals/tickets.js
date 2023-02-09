@@ -75,9 +75,4 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
             interaction.editReply({ content: "[Error]: Modal not implemented." });
             break;
     }
-
-    interaction.editReply({
-        content: `There was an error: tickets.js`,
-        ephemeral: true,
-    });
 };
