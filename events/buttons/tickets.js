@@ -13,7 +13,7 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
                 .setTimestamp();
 
             await ticket.send({ embeds: [closeEmbed] });
-            interaction.editReply({ embeds: [closeEmbed] });
+            interaction.deleteReply();
             if (!ticket.locked) await ticket.setLocked(true);
             if (!ticket.archived) await ticket.setArchived(true);
             return;
