@@ -1,4 +1,5 @@
 module.exports = async (/** @type {import("discord.js").Client} */ client, /** @type {import("discord.js").ButtonInteraction} */ interaction, ...args) => {
+    await interaction.deferReply({ ephemeral: true });
     const role = interaction.guild.roles.cache.find((r) => r.id == [args][0]);
     if (interaction.member.roles.cache.find((r) => r.id == role.id)) {
         // check if permission is higher than the bot

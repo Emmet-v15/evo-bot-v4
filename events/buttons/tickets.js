@@ -1,7 +1,7 @@
 const { EmbedBuilder } = require("discord.js");
 
 module.exports = async (/** @type {import("discord.js").Client} */ client, /** @type {import("discord.js").ModalSubmitInteraction} */ interaction, ...args) => {
-    interaction.deferReply({ ephemeral: true });
+    await interaction.deferReply({ ephemeral: true });
 
     switch (args[0]) {
         case "close": {
@@ -13,9 +13,9 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
                 .setTimestamp();
 
             await ticket.send({ embeds: [closeEmbed] });
+            interaction.editReply({ embeds: [closeEmbed] });
             if (!ticket.archived) await ticket.setArchived(true);
             if (!ticket.locked) await ticket.setLocked(true);
-            return interaction.editReply({ embeds: [closeEmbed] });
         }
         case "claim": {
             // check if user is allowed to claim the ticket
