@@ -30,35 +30,33 @@ const handleError = (client, err) => {
     const stack = removeUnwantedTraces(err.stack)?.replace(`Error: ${err.message}\n`, "");
 
     const msg = removeUnwantedTraces(err.message) || "No message";
-    client.guilds.cache.forEach((guild) => {
-        const channel = client.channels.cache.find((c) => c.id === client.settings.get("global", "debug.channel"));
-        if (channel) {
-            channel.send({
-                embeds: [
-                    new EmbedBuilder()
-                        .setTitle("Unhandled Error")
-                        .addFields([
-                            {
-                                name: "Type:",
-                                value: err.constructor.name || "No type",
-                                inline: true,
-                            },
-                            {
-                                name: "Message:",
-                                value: msg,
-                                inline: true,
-                            },
-                            {
-                                name: "Stack:",
-                                value: stack ? codeBlock("sql", stack) : "No stack",
-                            },
-                        ])
-                        .setColor("#ff0000")
-                        .setTimestamp(),
-                ],
-            });
-        }
-    });
+    const channel = client.channels.cache.find((c) => c.id === client.settings.get("global", "debug.channel"));
+    if (channel) {
+        channel.send({
+            embeds: [
+                new EmbedBuilder()
+                    .setTitle("Unhandled Error")
+                    .addFields([
+                        {
+                            name: "Type:",
+                            value: err.constructor.name || "No type",
+                            inline: true,
+                        },
+                        {
+                            name: "Message:",
+                            value: msg,
+                            inline: true,
+                        },
+                        {
+                            name: "Stack:",
+                            value: stack ? codeBlock("sql", stack) : "No stack",
+                        },
+                    ])
+                    .setColor("#ff0000")
+                    .setTimestamp(),
+            ],
+        });
+    }
 };
 
 module.exports = (client, err) => {
