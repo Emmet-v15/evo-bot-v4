@@ -39,11 +39,6 @@ module.exports = {
 
         // Add inputs to the modal
         modal.addComponents(firstActionRow, secondActionRow);
-        const userEmbed = new EmbedBuilder()
-            .setTitle("Ticket created")
-            .setDescription(`Your ticket has been created! You can view it here: (wip)`)
-            .setColor("#00ff00")
-            .setTimestamp();
         await interaction.showModal(modal);
     },
 };

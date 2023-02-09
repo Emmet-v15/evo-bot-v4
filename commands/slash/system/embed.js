@@ -2,7 +2,7 @@ const { EmbedBuilder } = require("discord.js");
 const { ActionRowBuilder } = require("discord.js");
 const { StringSelectMenuBuilder } = require("discord.js");
 
-const ticketEmbed = new EmbedBuilder()
+const supportEmbed = new EmbedBuilder()
     .setTitle("Support panel")
     .setDescription("Please select a category below to get started.")
     .setColor("0099FF")
@@ -11,7 +11,7 @@ const ticketEmbed = new EmbedBuilder()
 
 const category = new ActionRowBuilder().addComponents(
     new StringSelectMenuBuilder()
-        .setCustomId("category")
+        .setCustomId("support-category")
         .setPlaceholder("Select a category")
         .addOptions([
             {
@@ -42,11 +42,11 @@ module.exports = {
 
         switch (command) {
             case "ticket":
-                await interaction.editReply({ embeds: [ticketEmbed], components: [category] });
+                await interaction.editReply({ embeds: [supportEmbed], components: [category] });
                 break;
         }
 
-        interaction.channel.send({ embeds: [ticketEmbed], components: [category] });
+        interaction.channel.send({ embeds: [supportEmbed], components: [category] });
 
         interaction.deleteReply();
     },
