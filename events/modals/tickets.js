@@ -72,6 +72,16 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
 
             // log to the ticket log channel
             const logChannel = interaction.guild.channels.cache.find((c) => c.id == client.settings.get(interaction.guild.id, "logs.channel"));
+            const logEmbed = new EmbedBuilder()
+                .setTitle("Ticket created")
+                .setDescription(`Ticket created by <@${interaction.user.id}>`)
+                .addFields([
+                    { name: "Reason", value: reason, inline: true },
+                    { name: "Executor", value: executor, inline: true },
+                    { name: "Ticket", value: `<#${thread.id}>`, inline: true },
+                ])
+                .setColor("#00ff00")
+                .setTimestamp();
 
             return interaction.editReply({ embeds: [userEmbed] });
         }
