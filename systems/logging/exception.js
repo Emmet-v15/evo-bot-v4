@@ -68,6 +68,7 @@ module.exports = (client, err) => {
             handleError(client, err.errors[i]);
         }
     } else {
+        console.log("Error:", err);
         handleError(client, err);
     }
 };
