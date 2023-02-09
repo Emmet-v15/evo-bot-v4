@@ -30,7 +30,7 @@ const category = new ActionRowBuilder().addComponents(
                 value: "feature",
             },
         ])
-        .setMinValues(1)
+        .setMinValues(0)
         .setMaxValues(1)
 );
 
