@@ -83,6 +83,8 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
                 .setColor("#00ff00")
                 .setTimestamp();
 
+            logChannel.send({ embeds: [logEmbed] });
+
             return interaction.editReply({ embeds: [userEmbed] });
         }
         default:
