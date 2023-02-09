@@ -1,3 +1,8 @@
+const { TextInputBuilder } = require("discord.js");
+const { ModalBuilder } = require("discord.js");
+const { TextInputStyle } = require("discord.js");
+const { ActionRowBuilder } = require("discord.js");
+
 module.exports = async (/** @type {import("discord.js").Client} */ client, /** @type {import("discord.js").ButtonInteraction} */ interaction, ...args) => {
     await interaction.deferReply({ ephemeral: true });
 
