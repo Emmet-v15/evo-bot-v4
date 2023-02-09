@@ -75,7 +75,7 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
             break;
     }
 
-    interaction.reply({
+    interaction.editReply({
         content: `There was an error: tickets.js`,
         ephemeral: true,
     });

@@ -1,6 +1,8 @@
 const { EmbedBuilder } = require("discord.js");
 
 module.exports = async (/** @type {import("discord.js").Client} */ client, /** @type {import("discord.js").ModalSubmitInteraction} */ interaction, ...args) => {
+    interaction.deferReply({ ephemeral: true });
+
     switch (args[0]) {
         case "close": {
             const ticket = interaction.channel;
@@ -11,8 +13,9 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
                 .setTimestamp();
 
             await ticket.send({ embeds: [closeEmbed] });
-            await ticket.setArchived(true);
-            return interaction.reply({ embeds: [closeEmbed] });
+            if (!ticket.archived) await ticket.setArchived(true);
+            if (!ticket.locked) await ticket.setLocked(true);
+            return interaction.editReply({ embeds: [closeEmbed] });
         }
         case "claim": {
             // check if user is allowed to claim the ticket
@@ -34,11 +37,11 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
             await ticket.send({ embeds: [claimEmbed] });
         }
         default:
-            interaction.reply({ content: "[Error]: Button not implemented." });
+            interaction.editReply({ content: "[Error]: Button not implemented." });
             break;
     }
 
-    interaction.reply({
+    interaction.editReply({
         content: `There was an error: tickets.js`,
         ephemeral: true,
     });
