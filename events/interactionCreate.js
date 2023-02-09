@@ -48,8 +48,8 @@ module.exports = async (/** @type {import("discord.js").Client}*/ client, /** @t
                 });
                 return;
             }
+            logger.cmd(`${interaction.user.tag} used ${interaction.commandName}`);
         }
-        logger.cmd(`${interaction.user.tag} used ${interaction.commandName} in ${interaction.guild.name}`);
         let res = await command.execute(client, interaction);
     } else if (interaction.isButton()) {
         const args = interaction.customId.split("-");
