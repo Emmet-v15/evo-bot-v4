@@ -67,6 +67,7 @@ module.exports = async (/** @type {import("discord.js").Client}*/ client, /** @t
         const args = interaction.customId.split("-");
         await modals[args.shift()](client, interaction, ...args);
     } else if (interaction.isAnySelectMenu()) {
+        console.log(interaction.customId);
         const args = interaction.customId.split("-");
         console.log(args);
         await menus[args.shift()](client, interaction, ...args);
