@@ -27,7 +27,7 @@ for (const file of readdirSync("./events/modals/")) {
 
 for (const file of readdirSync("./events/menus/")) {
     if (file.endsWith(".js")) {
-        const task = logger.load(`Loading Menus: ${file}.`);
+        const task = logger.load(`Loading Menu: ${file}.`);
         menus[file.substring(0, file.length - 3)] = require(`./menus/${file}`);
         task.complete();
     }
@@ -68,6 +68,7 @@ module.exports = async (/** @type {import("discord.js").Client}*/ client, /** @t
         await modals[args.shift()](client, interaction, ...args);
     } else if (interaction.isAnySelectMenu()) {
         const args = interaction.customId.split("-");
+        console.log(args);
         await menus[args.shift()](client, interaction, ...args);
     }
 };
