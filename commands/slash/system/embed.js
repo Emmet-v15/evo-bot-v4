@@ -45,10 +45,10 @@ module.exports = {
                 await interaction.editReply({ embeds: [ticketEmbed], components: [category] });
                 break;
         }
-        interaction.editReply({
-            embeds: [ticketEmbed],
-            components: [category],
-        });
+
+        interaction.channel.send({ embeds: [ticketEmbed], components: [category] });
+
+        interaction.deleteReply();
     },
     options: [
         {
