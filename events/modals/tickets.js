@@ -69,6 +69,10 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
                 .setTimestamp();
 
             thread.members.add(interaction.user.id);
+
+            // log to the ticket log channel
+            const logChannel = interaction.guild.channels.cache.find((c) => c.id == client.settings.get(interaction.guild.id, "logs.channel"));
+
             return interaction.editReply({ embeds: [userEmbed] });
         }
         default:
