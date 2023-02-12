@@ -34,6 +34,9 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
         }
         case "executor": {
             /** @type {import("discord.js").ThreadChannel} */
+
+            const executor = interaction.values[0];
+
             const thread = await interaction.channel.threads.create({
                 name: `${interaction.user.username.slice(0, 9).toLowerCase()}-${interaction.user.discriminator}`,
                 autoArchiveDuration: 24 * 60,
