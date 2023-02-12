@@ -41,9 +41,9 @@ module.exports = {
                     emoji: "🔥",
                 },
                 {
-                    label: "Script-Ware",
-                    value: "script-ware",
-                    description: "Script-Ware (Not mac)",
+                    label: "Script-Ware Windows",
+                    value: "scriptware",
+                    description: "Script-Ware Windows",
                     emoji: "🔥",
                 },
                 {
