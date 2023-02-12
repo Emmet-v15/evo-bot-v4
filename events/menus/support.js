@@ -48,6 +48,7 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
 
             // get reason from userDB
             const reason = client.userDB.get(interaction.user.id, "tickets.reason");
+            client.userDB.delete(interaction.user.id, "tickets.reason");
 
             const thread = await interaction.channel.threads.create({
                 name: `${interaction.user.username.slice(0, 9).toLowerCase()}-${interaction.user.discriminator}`,
