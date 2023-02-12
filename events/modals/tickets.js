@@ -39,7 +39,7 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
 
             const executorActionRow = new ActionRowBuilder().addComponents(executorDropdown);
             // send the executor dropdown
-            await interaction.editReply({
+            return await interaction.editReply({
                 content: "Please select your executor",
                 components: [executorActionRow],
             });
