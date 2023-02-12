@@ -13,7 +13,7 @@ const supportEmbed = new EmbedBuilder()
     .setTimestamp()
     .setFooter({ text: "EvoTickets | Evo v4™️ | Select an action below" });
 
-const category = new ActionRowBuilder().addComponents(
+const supportComponents = new ActionRowBuilder().addComponents(
     new StringSelectMenuBuilder()
         .setCustomId("support-category")
         .setPlaceholder("Select a category")
@@ -35,6 +35,15 @@ const category = new ActionRowBuilder().addComponents(
         .setMaxValues(1)
 );
 
+const donatorEmbed = new EmbedBuilder()
+    .setTitle("Premium Access")
+    .setDescription(`If you have bought Premium, click the button below and the bot will guide you through the process of getting access to the premium features.`)
+    .setColor("BE00FC");
+
+const donatorComponents = new ActionRowBuilder().addComponents(
+    new ButtonBuilder().setCustomId("premium-access").setLabel("Get Premium Access").setStyle(ButtonStyle.Primary).setEmoji("🎁")
+);
+
 module.exports = {
     name: "embed",
     description: "Sends embeds used to allow easier accessibility for users, e.g. via buttons & dropdown menus.",
@@ -45,13 +54,12 @@ module.exports = {
 
         switch (command) {
             case "ticket":
-                await interaction.editReply({ embeds: [supportEmbed], components: [category] });
-                break;
+                await interaction.editReply({ embeds: [supportEmbed], components: [supportComponents] });
+            case "premium": {
+                await interaction.editReply({ embeds: [donatorEmbed], components: [donatorComponents] });
+                return;
+            }
         }
-
-        interaction.channel.send({ embeds: [supportEmbed], components: [category] });
-
-        interaction.deleteReply();
     },
     options: [
         {
@@ -61,6 +69,7 @@ module.exports = {
             required: false,
             choices: {
                 Ticket: "ticket",
+                Premium: "premium",
             },
         },
     ],
