@@ -21,6 +21,14 @@ client.settings = new enmap({
     dataDir: "./systems/settings/data",
 });
 
+client.userDB = new enmap({
+    name: "userDB",
+    fetchAll: false,
+    autoFetch: true,
+    cloneLevel: "deep",
+    dataDir: "./systems/userDB/data",
+});
+
 // Process
 
 if (process.platform === "win32") {
