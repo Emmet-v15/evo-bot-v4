@@ -12,6 +12,8 @@ const generateEmbed = (embedOptions, author) => {
     if (embedOptions.footer) embed.setFooter(embedOptions.footer);
     if (embedOptions.thumbnail) embed.setThumbnail(embedOptions.thumbnail);
     if (embedOptions.image) embed.setImage(embedOptions.image);
+    console.log(embedOptions.author);
+    console.log(author.displayAvatarURL());
     if (embedOptions.author) embed.setAuthor({ name: author.username, iconURL: author?.displayAvatarURL() });
     if (embedOptions.url) embed.setURL(embedOptions.url);
     if (embedOptions.timestamp) embed.setTimestamp(embedOptions.timestamp);
@@ -77,7 +79,7 @@ module.exports = {
                 if (embedOptions.footer) oldEmbedOptions.footer = embedOptions.footer;
                 if (embedOptions.thumbnail) oldEmbedOptions.thumbnail = embedOptions.thumbnail;
                 if (embedOptions.image) oldEmbedOptions.image = embedOptions.image;
-                if (embedOptions.author) oldEmbedOptions.author = embedOptions.author;
+                // if (embedOptions.author) oldEmbedOptions.author = embedOptions.author;
                 if (embedOptions.url) oldEmbedOptions.url = embedOptions.url;
                 if (embedOptions.timestamp) oldEmbedOptions.timestamp = embedOptions.timestamp;
                 if (embedOptions.fields) oldEmbedOptions.fields = embedOptions.fields;
