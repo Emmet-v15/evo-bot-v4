@@ -20,17 +20,14 @@ const category = new ActionRowBuilder().addComponents(
         .addOptions([
             {
                 label: "General",
-                description: "General support",
                 value: "general",
             },
             {
                 label: "Report a bug",
-                description: "Report a bug",
                 value: "bug",
             },
             {
                 label: "Suggest a feature",
-                description: "Suggest a feature",
                 value: "feature",
             },
         ])
