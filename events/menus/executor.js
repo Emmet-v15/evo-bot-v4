@@ -85,8 +85,6 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
             logChannel.send({ embeds: [logEmbed] });
 
             return interaction.editReply({ embeds: [userEmbed] });
-
-            return;
         }
     }
 };

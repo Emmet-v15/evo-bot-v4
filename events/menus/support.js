@@ -40,9 +40,7 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
 
             // Add inputs to the modal
             modal.addComponents(firstActionRow, secondActionRow);
-            await interaction.showModal(modal);
-
-            return;
+            return await interaction.showModal(modal);
         }
     }
 };
