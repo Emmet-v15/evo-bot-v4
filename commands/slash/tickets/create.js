@@ -25,10 +25,9 @@ module.exports = {
         // An action row only holds one text input,
         // so you need one action row per text input.
         const firstActionRow = new ActionRowBuilder().addComponents(reasonInput);
-        const secondActionRow = new ActionRowBuilder().addComponents(executorInput);
 
         // Add inputs to the modal
-        modal.addComponents(firstActionRow, secondActionRow);
+        modal.addComponents(firstActionRow);
         await interaction.showModal(modal);
     },
 };

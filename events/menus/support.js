@@ -22,23 +22,12 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
                 .setRequired(true)
                 .setPlaceholder("e.g. I need help with my account. My issue is ...");
 
-            const executorInput = new TextInputBuilder()
-                .setCustomId("executor")
-                // The label is the prompt the user sees for this input
-                .setLabel("What executor are you using?")
-                .setStyle(TextInputStyle.Short)
-                .setMinLength(3)
-                .setMaxLength(20)
-                .setRequired(true)
-                .setPlaceholder("e.g. Synapse X, KRNL, etc.");
-
             // An action row only holds one text input,
             // so you need one action row per text input.
             const firstActionRow = new ActionRowBuilder().addComponents(reasonInput);
-            const secondActionRow = new ActionRowBuilder().addComponents(executorInput);
 
             // Add inputs to the modal
-            modal.addComponents(firstActionRow, secondActionRow);
+            modal.addComponents(firstActionRow);
             return await interaction.showModal(modal);
         }
     }
