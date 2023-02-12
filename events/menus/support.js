@@ -37,7 +37,14 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
         case "executor": {
             /** @type {import("discord.js").ThreadChannel} */
 
-            const executor = interaction.values[1];
+            const executor = interaction.values[0];
+            const mappings = {
+                synapse: "Synapse X",
+                krnl: "KRNL",
+                scriptware: "Script-Ware",
+                other: "Other",
+            };
+            const executorName = mappings[executor];
 
             // get reason from modal
             const reason = interaction.message.components[0].components[0].value;
@@ -70,7 +77,7 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
                         value: `Expires <date:in X days/months>`,
                         inline: true,
                     },
-                    { name: "Executor", value: executor, inline: true },
+                    { name: "Executor", value: executorName, inline: true },
 
                     {
                         name: "HWID",

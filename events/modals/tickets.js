@@ -25,7 +25,7 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
                     },
                     {
                         label: "Script-Ware Windows",
-                        value: "script-ware",
+                        value: "scriptware",
                         description: "Script-Ware Mac is not supported",
                         emoji: "🔥",
                     },
