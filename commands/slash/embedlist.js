@@ -11,9 +11,14 @@ module.exports = {
         if (!embeds || !Object.keys(embeds).length) return interaction.editReply({ content: "No embeds found." });
 
         const embed = new EmbedBuilder().setTitle("Embeds").setDescription("test").setColor("0099FF");
+        let fields = [];
         for (const [id, embedOptions] of Object.entries(embeds)) {
-            embed.addField(id, Object.values(embedOptions).filter((value) => value !== null).length);
+            fields.push({ name: id, value: Object.values(embedOptions).filter((value) => value !== null).length });
         }
+        // use embed.addFields() instead of embed.addField() to add multiple fields at once (more efficient
+        // than adding them one by one)
+
+        embed.addFields(fields);
 
         interaction.editReply({
             embeds: [embed],
