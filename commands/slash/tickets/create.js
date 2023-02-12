@@ -31,7 +31,7 @@ module.exports = {
                 {
                     label: "Synapse X",
                     value: "synapse",
-                    description: "Synapse X (reccomended)",
+                    description: "Synapse X",
                     emoji: "🔥",
                 },
                 {
