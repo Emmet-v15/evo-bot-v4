@@ -91,6 +91,7 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
             );
 
             await thread.send({
+                content: `<@&${client.settings.get(interaction.guild.id, "ticketOpen.role")}>`,
                 embeds: [ticketEmbed],
                 components: [ticketButtons],
             });
