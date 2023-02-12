@@ -10,7 +10,10 @@ module.exports = {
         const embeds = client.settings.get(interaction.guild.id, "embeds");
         if (!embeds || !Object.keys(embeds).length) return interaction.editReply({ content: "No embeds found." });
 
-        const embed = new EmbedBuilder().setTitle("Embeds").setDescription("test").setColor("0099FF");
+        const embed = new EmbedBuilder()
+            .setTitle("Embeds")
+            .setDescription("Below are a list of embeds that are available on this server alongside their description")
+            .setColor("0099FF");
         let fields = [];
         for (const [id, embedOptions] of Object.entries(embeds)) {
             if (!embedOptions) continue;
