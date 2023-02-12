@@ -36,7 +36,9 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
             /** @type {import("discord.js").ThreadChannel} */
 
             const executor = interaction.values[0];
-            const reason = client.userDB.get(interaction.user.id, "tickets.reason");
+
+            // get reason from modal
+            const reason = interaction.message.components[0].components[0].value;
 
             const thread = await interaction.channel.threads.create({
                 name: `${interaction.user.username.slice(0, 9).toLowerCase()}-${interaction.user.discriminator}`,

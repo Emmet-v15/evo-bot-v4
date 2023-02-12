@@ -7,7 +7,6 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
     switch (args[0]) {
         case "create": {
             const reason = interaction.fields.getTextInputValue("reason");
-            client.userDB.set(interaction.user.id, reason, "tickets.reason");
 
             const executorDropdown = new StringSelectMenuBuilder()
                 .setCustomId("support-executor")
