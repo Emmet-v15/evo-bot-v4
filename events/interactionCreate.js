@@ -57,7 +57,8 @@ module.exports = async (/** @type {import("discord.js").Client}*/ client, /** @t
                 });
                 return;
             }
-            logger.event(`Command ${interaction.commandName} ${subcommand !== null ? subcommand : ""} used by ${interaction.user.tag} [${interaction.user.id}]`);
+            console.log(subcommand);
+            logger.event(`Command ${interaction.commandName} ${subcommand !== null ? ` ${subcommand} ` : " "}used by ${interaction.user.tag} [${interaction.user.id}]`);
         }
         let res = await command.execute(client, interaction);
     } else if (interaction.isButton()) {
