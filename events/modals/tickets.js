@@ -12,7 +12,6 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
                 .setCustomId("executor")
                 // The label is the prompt the user sees for this input
                 .setPlaceholder("Select your executor")
-                .setRequired(true)
                 .addOptions([
                     {
                         label: "Synapse X",
