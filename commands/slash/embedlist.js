@@ -13,6 +13,7 @@ module.exports = {
         const embed = new EmbedBuilder().setTitle("Embeds").setDescription("test").setColor("0099FF");
         let fields = [];
         for (const [id, embedOptions] of Object.entries(embeds)) {
+            if (!embedOptions) continue;
             fields.push({ name: id, value: embedOptions.description ? embedOptions.description : "No description" });
         }
 
