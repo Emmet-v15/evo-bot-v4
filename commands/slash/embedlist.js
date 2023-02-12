@@ -13,7 +13,7 @@ module.exports = {
         const embed = new EmbedBuilder().setTitle("Embeds").setDescription("test").setColor("0099FF");
         let fields = [];
         for (const [id, embedOptions] of Object.entries(embeds)) {
-            fields.push({ name: id, value: embedOptions.title });
+            fields.push({ name: id, value: id });
         }
         // use embed.addFields() instead of embed.addField() to add multiple fields at once (more efficient
         // than adding them one by one)
