@@ -42,7 +42,7 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
             // send the executor dropdown
             return await interaction
                 .editReply({
-                    content: "Please select your executor",
+                    content: `<@${interaction.user.id}> Please select your executor`,
                     components: [executorActionRow],
                 })
                 .then(() => {
