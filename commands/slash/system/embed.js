@@ -43,7 +43,7 @@ const donatorEmbed = new EmbedBuilder()
     .setColor("BE00FC");
 
 const donatorComponents = new ActionRowBuilder().addComponents(
-    new ButtonBuilder().setCustomId("premium-access").setLabel("Get Premium Access").setStyle(ButtonStyle.Primary).setEmoji("🎁")
+    new ButtonBuilder().setCustomId("premium-access").setLabel("Get Premium Access").setStyle(ButtonStyle.Success).setEmoji("🎁")
 );
 
 module.exports = {
@@ -56,9 +56,11 @@ module.exports = {
 
         switch (command) {
             case "ticket":
-                await interaction.editReply({ embeds: [supportEmbed], components: [supportComponents] });
+                interaction.deleteReply();
+                interaction.channel.send({ embeds: [supportEmbed], components: [supportComponents] });
             case "premium": {
-                await interaction.editReply({ embeds: [donatorEmbed], components: [donatorComponents] });
+                interaction.deleteReply();
+                interaction.channel.send({ embeds: [donatorEmbed], components: [donatorComponents] });
                 return;
             }
         }
