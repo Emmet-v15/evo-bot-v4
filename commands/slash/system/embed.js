@@ -39,7 +39,7 @@ const supportComponents = new ActionRowBuilder().addComponents(
 
 const donatorEmbed = new EmbedBuilder()
     .setTitle("Premium Access")
-    .setDescription(`If you have bought Premium, click the button below and the bot will guide you through the process of getting access to the premium features.`)
+    .setDescription(`If you have bought Premium, click the button below and the bot will guide you through the process of gaining access to the Premium script`)
     .setColor("BE00FC");
 
 const donatorComponents = new ActionRowBuilder().addComponents(
