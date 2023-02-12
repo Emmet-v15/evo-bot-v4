@@ -5,8 +5,7 @@ const { StringSelectMenuBuilder } = require("discord.js");
 const supportEmbed = new EmbedBuilder()
     .setTitle("Support panel")
     .setDescription(
-        `If you have a problem with the script, you can open a ticket so we can help resolve your issue.
-        use the dropdown below to open a support ticket, and our team will shortly be with you.
+        `If you have a problem with the script, you can open a ticket so we can help resolve your issue. **Use the dropdown below to open a support ticket**, and our team will shortly be with you.
         
         If you have a question, you can create a thread in <#1031233062706622544> where other community members can help you.
         
