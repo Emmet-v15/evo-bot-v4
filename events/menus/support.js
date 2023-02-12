@@ -36,6 +36,7 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
         }
         case "executor": {
             /** @type {import("discord.js").ThreadChannel} */
+            interaction.deferReply();
 
             const executor = interaction.values[0];
             const mappings = {

@@ -40,10 +40,16 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
 
             const executorActionRow = new ActionRowBuilder().addComponents(executorDropdown);
             // send the executor dropdown
-            return await interaction.editReply({
-                content: "Please select your executor",
-                components: [executorActionRow],
-            });
+            return await interaction
+                .editReply({
+                    content: "Please select your executor",
+                    components: [executorActionRow],
+                })
+                .then(() => {
+                    setTimeout(() => {
+                        interaction.deleteReply();
+                    }, 1000 * 30 * 5);
+                });
         }
         default:
             interaction.editReply({ content: "[Error]: Modal not implemented." });
