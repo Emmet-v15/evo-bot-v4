@@ -4,10 +4,13 @@ const { StringSelectMenuBuilder } = require("discord.js");
 
 const supportEmbed = new EmbedBuilder()
     .setTitle("Support panel")
-    .setDescription("Please select a category below to get started.")
+    .setDescription(
+        `If you have a problem with the script, you can open a ticket so we can help resolve your issue.
+        Press the button below to open a ticket, our support team will help resolve your issue.If you're still having issues with the script, you can open a ticket so we can help resolve your issue.`
+    )
     .setColor("0099FF")
     .setTimestamp()
-    .setFooter({ text: "EvoV4" });
+    .setFooter({ text: "EvoTickets | Evo v4™️ | Select an action below" });
 
 const category = new ActionRowBuilder().addComponents(
     new StringSelectMenuBuilder()

@@ -90,7 +90,7 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
                 ])
                 .setColor(interaction.member.displayHexColor)
                 .setFooter({
-                    text: "EvoTickets [BETA] | Project Evo V4 | Press the buttons below to close / claim the ticket",
+                    text: "EvoTickets | Evo V4™️ | Press the buttons below to close / claim the ticket",
                     iconURL: client.user.avatarURL(),
                 });
 
