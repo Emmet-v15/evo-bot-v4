@@ -52,7 +52,7 @@ module.exports = {
     permission: 3,
     execute: async (/** @type {require("discord.js").Client} */ client, /** @type {require("discord.js").CommandInteraction} */ interaction) => {
         await interaction.deferReply({ ephemeral: true });
-        const command = interaction.options.getString("command");
+        const command = interaction.options.getString("type");
 
         switch (command) {
             case "ticket":
