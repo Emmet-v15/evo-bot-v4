@@ -6,86 +6,43 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
     switch (args[0]) {
         case "create": {
             const reason = interaction.fields.getTextInputValue("reason");
-            const executor = interaction.fields.getTextInputValue("executor");
 
-            /** @type {import("discord.js").ThreadChannel} */
-            const thread = await interaction.channel.threads.create({
-                name: `${interaction.user.username.slice(0, 9).toLowerCase()}-${interaction.user.discriminator}`,
-                autoArchiveDuration: 24 * 60,
-                type: ChannelType.PrivateThread,
-                reason: "Ticket created by user",
+            const executorDropdown = new DropdownBuilder()
+                .setCustomId("executor")
+                // The label is the prompt the user sees for this input
+                .setLabel("What executor are you using?")
+                .setRequired(true)
+                .addOptions([
+                    {
+                        label: "Synapse X",
+                        value: "synapse",
+                        emoji: "🔥",
+                    },
+                    {
+                        label: "KRNL",
+                        value: "krnl",
+                        emoji: "🔥",
+                    },
+                    {
+                        label: "Script-Ware Windows",
+                        value: "script-ware",
+                        description: "Script-Ware Mac is not supported",
+                        emoji: "🔥",
+                    },
+                    {
+                        label: "Other",
+                        value: "other",
+                        description: "Support for other executors is not garaunteed.",
+                        emoji: "🔥",
+                    },
+                ]);
+
+            const executorActionRow = new ActionRowBuilder().addComponents(executorDropdown);
+            // send the executor dropdown
+            await interaction.editReply({
+                content: "Please select your executor",
+                components: [executorActionRow],
             });
-            thread.setInvitable(false);
-
-            const ticketEmbed = new EmbedBuilder()
-                .setTitle(`Ticket for ${interaction.user.username}#${interaction.user.discriminator}`)
-                .setThumbnail(interaction.user.avatarURL())
-                .setDescription(`<@${interaction.user.id}> This is your ticket, our support team with be with you shortly to help you resolve your issue.`)
-                .addFields([
-                    {
-                        name: "Account Age",
-                        value: `Made <t:${parseInt(interaction.user.createdTimestamp.toString().slice(0, -3))}:R>`,
-                        inline: true,
-                    },
-                    {
-                        name: "Join Date",
-                        value: `Joined <t:${parseInt(interaction.member.joinedTimestamp.toString().slice(0, -3))}:R>`,
-                        inline: true,
-                    },
-                    {
-                        name: "Premium Status",
-                        value: `Expires <date:in X days/months>`,
-                        inline: true,
-                    },
-                    { name: "Executor", value: executor, inline: true },
-
-                    {
-                        name: "HWID",
-                        value: "Hwid?",
-                        inline: true,
-                    },
-                    { name: "Reason", value: `**${reason}**`, inline: true },
-                ])
-                .setColor(interaction.member.displayHexColor)
-                .setFooter({
-                    text: "EvoTickets [BETA] | Project Evo V4 | Press the buttons below to close / claim the ticket",
-                    iconURL: client.user.avatarURL(),
-                });
-
-            const ticketButtons = new ActionRowBuilder().addComponents(
-                new ButtonBuilder().setCustomId("tickets-close").setLabel("Mark as completed").setEmoji("📨").setStyle(ButtonStyle.Danger),
-                new ButtonBuilder().setCustomId("tickets-claim").setLabel("Claim this ticket").setEmoji("📨").setStyle(ButtonStyle.Success)
-            );
-
-            await thread.send({
-                embeds: [ticketEmbed],
-                components: [ticketButtons],
-            });
-
-            const userEmbed = new EmbedBuilder()
-                .setTitle("Ticket created")
-                .setDescription(`Your ticket has been created! You can view it here: <#${thread.id}>`)
-                .setColor("#00ff00")
-                .setTimestamp();
-
-            thread.members.add(interaction.user.id);
-
-            // log to the ticket log channel
-            const logChannel = interaction.guild.channels.cache.find((c) => c.id == client.settings.get(interaction.guild.id, "logs.channel"));
-            const logEmbed = new EmbedBuilder()
-                .setTitle("Ticket created")
-                .setDescription(`Ticket created by <@${interaction.user.id}>`)
-                .addFields([
-                    { name: "Reason", value: reason, inline: true },
-                    { name: "Executor", value: executor, inline: true },
-                    { name: "Ticket", value: `<#${thread.id}>`, inline: true },
-                ])
-                .setColor("#00ff00")
-                .setTimestamp();
-
-            logChannel.send({ embeds: [logEmbed] });
-
-            return interaction.editReply({ embeds: [userEmbed] });
         }
         default:
             interaction.editReply({ content: "[Error]: Modal not implemented." });

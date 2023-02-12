@@ -22,46 +22,6 @@ module.exports = {
             .setRequired(true)
             .setPlaceholder("e.g. I need help with my account. My issue is ...");
 
-        const executorDropdown = new DropdownBuilder()
-            .setCustomId("executor")
-            // The label is the prompt the user sees for this input
-            .setLabel("What executor are you using?")
-            .setRequired(true)
-            .addOptions([
-                {
-                    label: "Synapse X",
-                    value: "synapse",
-                    emoji: "🔥",
-                },
-                {
-                    label: "KRNL",
-                    value: "krnl",
-                    emoji: "🔥",
-                },
-                {
-                    label: "Script-Ware Windows",
-                    value: "script-ware",
-                    description: "Script-Ware Mac is not supported",
-                    emoji: "🔥",
-                },
-                {
-                    label: "Other",
-                    value: "other",
-                    description: "Support for other executors is not garaunteed.",
-                    emoji: "🔥",
-                },
-            ]);
-
-        const executorInput = new TextInputBuilder()
-            .setCustomId("executor")
-            // The label is the prompt the user sees for this input
-            .setLabel("What executor are you using?")
-            .setStyle(TextInputStyle.Short)
-            .setMinLength(3)
-            .setMaxLength(20)
-            .setRequired(true)
-            .setPlaceholder("e.g. Synapse X, KRNL, etc.");
-
         // An action row only holds one text input,
         // so you need one action row per text input.
         const firstActionRow = new ActionRowBuilder().addComponents(reasonInput);
