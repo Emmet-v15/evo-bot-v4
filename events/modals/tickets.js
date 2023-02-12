@@ -11,7 +11,7 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
             const executorDropdown = new StringSelectMenuBuilder()
                 .setCustomId("executor")
                 // The label is the prompt the user sees for this input
-                .setLabel("What executor are you using?")
+                .setPlaceholder("What executor are you using?")
                 .setRequired(true)
                 .addOptions([
                     {
