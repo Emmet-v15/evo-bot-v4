@@ -15,8 +15,6 @@ module.exports = {
         for (const [id, embedOptions] of Object.entries(embeds)) {
             fields.push({ name: id, value: embedOptions.description ? embedOptions.description : "No description" });
         }
-        // use embed.addFields() instead of embed.addField() to add multiple fields at once (more efficient
-        // than adding them one by one)
 
         embed.addFields(fields);
 

@@ -12,9 +12,8 @@ const generateEmbed = (embedOptions, author) => {
     if (embedOptions.footer) embed.setFooter(embedOptions.footer);
     if (embedOptions.thumbnail) embed.setThumbnail(embedOptions.thumbnail);
     if (embedOptions.image) embed.setImage(embedOptions.image);
-    console.log(embedOptions.author);
-    console.log(author.displayAvatarURL());
-    if (embedOptions.author) embed.setAuthor({ name: author.username, iconURL: author?.displayAvatarURL() });
+
+    if (embedOptions.author) embed.setFooter({ name: `by ${author.username}`, iconURL: author?.displayAvatarURL() });
     if (embedOptions.url) embed.setURL(embedOptions.url);
     if (embedOptions.timestamp) embed.setTimestamp(embedOptions.timestamp);
     if (embedOptions.fields) embed.addFields(embedOptions.fields);
