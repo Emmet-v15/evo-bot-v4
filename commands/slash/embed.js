@@ -13,6 +13,8 @@ const generateEmbed = (embedOptions, author) => {
     if (embedOptions.thumbnail) embed.setThumbnail(embedOptions.thumbnail);
     if (embedOptions.image) embed.setImage(embedOptions.image);
 
+    console.log(author);
+
     if (embedOptions.author) embed.setFooter({ text: `by ${author.username}`, iconURL: author?.displayAvatarURL() });
     if (embedOptions.url) embed.setURL(embedOptions.url);
     if (embedOptions.timestamp) embed.setTimestamp(embedOptions.timestamp);
