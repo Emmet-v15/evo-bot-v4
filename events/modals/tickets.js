@@ -9,7 +9,7 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
             const reason = interaction.fields.getTextInputValue("reason");
 
             const executorDropdown = new StringSelectMenuBuilder()
-                .setCustomId("executor")
+                .setCustomId("support-executor")
                 // The label is the prompt the user sees for this input
                 .setPlaceholder("Select your executor")
                 .addOptions([
