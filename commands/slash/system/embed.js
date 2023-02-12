@@ -7,9 +7,7 @@ const supportEmbed = new EmbedBuilder()
     .setDescription(
         `If you have a problem with the script, you can open a ticket so we can help resolve your issue. **Use the dropdown below to open a support ticket**, and our team will shortly be with you.
         
-        If you have a question, you can create a thread in <#1031233062706622544> where other community members can help you.
-        
-        If you have a suggestion, or have a bug report, you can use the other two options in the dropdown below.`
+        If you have a question, you can create a thread in <#1031233062706622544> where other community members can help you.`
     )
     .setColor("0099FF")
     .setTimestamp()
