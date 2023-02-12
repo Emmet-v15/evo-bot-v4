@@ -22,6 +22,38 @@ module.exports = {
             .setRequired(true)
             .setPlaceholder("e.g. I need help with my account. My issue is ...");
 
+        const executorDropdown = new DropdownBuilder()
+            .setCustomId("executor")
+            // The label is the prompt the user sees for this input
+            .setLabel("What executor are you using?")
+            .setRequired(true)
+            .addOptions([
+                {
+                    label: "Synapse X",
+                    value: "synapse",
+                    description: "Synapse X (reccomended)",
+                    emoji: "🔥",
+                },
+                {
+                    label: "KRNL",
+                    value: "krnl",
+                    description: "KRNL",
+                    emoji: "🔥",
+                },
+                {
+                    label: "Script-Ware Windows",
+                    value: "script-ware",
+                    description: "Script-Ware Windows",
+                    emoji: "🔥",
+                },
+                {
+                    label: "Other",
+                    value: "other",
+                    description: "Support for other executors is not garaunteed.",
+                    emoji: "🔥",
+                },
+            ]);
+
         const executorInput = new TextInputBuilder()
             .setCustomId("executor")
             // The label is the prompt the user sees for this input
