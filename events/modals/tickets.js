@@ -32,7 +32,7 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
                     {
                         label: "Other",
                         value: "other",
-                        description: "Support for other executors is not garaunteed.",
+                        description: "Support for other executors is not guaranteed.",
                         emoji: "🔥",
                     },
                 ]);
