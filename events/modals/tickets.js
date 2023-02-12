@@ -1,3 +1,4 @@
+const { StringSelectMenuBuilder } = require("discord.js");
 const { ButtonBuilder, ActionRowBuilder, EmbedBuilder, ChannelType, ButtonStyle } = require("discord.js");
 
 module.exports = async (/** @type {import("discord.js").Client} */ client, /** @type {import("discord.js").ModalSubmitInteraction} */ interaction, ...args) => {
@@ -7,7 +8,7 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
         case "create": {
             const reason = interaction.fields.getTextInputValue("reason");
 
-            const executorDropdown = new DropdownBuilder()
+            const executorDropdown = new StringSelectMenuBuilder()
                 .setCustomId("executor")
                 // The label is the prompt the user sees for this input
                 .setLabel("What executor are you using?")
