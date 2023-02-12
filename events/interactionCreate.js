@@ -57,16 +57,19 @@ module.exports = async (/** @type {import("discord.js").Client}*/ client, /** @t
                 });
                 return;
             }
-            logger.cmd(`${interaction.user.tag} used ${interaction.commandName}`);
+            logger.event(`Command ${interaction.commandName} ${subcommand !== null ? subcommand : ""} used by ${interaction.user.tag} [${interaction.user.id}]`);
         }
         let res = await command.execute(client, interaction);
     } else if (interaction.isButton()) {
+        logger.event(`Button ${interaction.customId} pressed by ${interaction.user.tag} [${interaction.user.id}]`);
         const args = interaction.customId.split("-");
         await buttons[args.shift()](client, interaction, ...args);
     } else if (interaction.isModalSubmit()) {
+        logger.event(`Modal ${interaction.customId} submitted by ${interaction.user.tag} [${interaction.user.id}]`);
         const args = interaction.customId.split("-");
         await modals[args.shift()](client, interaction, ...args);
     } else if (interaction.isAnySelectMenu()) {
+        logger.event(`Menu ${interaction.customId} selected by ${interaction.user.tag} [${interaction.user.id}]`);
         const args = interaction.customId.split("-");
         await menus[args.shift()](client, interaction, ...args);
     }
