@@ -12,9 +12,6 @@ const generateEmbed = (embedOptions, author) => {
     if (embedOptions.footer) embed.setFooter(embedOptions.footer);
     if (embedOptions.thumbnail) embed.setThumbnail(embedOptions.thumbnail);
     if (embedOptions.image) embed.setImage(embedOptions.image);
-
-    console.log(author.user.username);
-
     if (embedOptions.author) embed.setFooter({ text: `by ${author.user.username}`, iconURL: author?.displayAvatarURL() });
     if (embedOptions.url) embed.setURL(embedOptions.url);
     if (embedOptions.timestamp) embed.setTimestamp(embedOptions.timestamp);
@@ -132,7 +129,7 @@ module.exports = {
                         content: "Sending...",
                         ephemeral: true,
                     })
-                    .then(() => interaction.followUp({ embeds: [embed], ephemeral: false }));
+                    .then(() => interaction.channel.send({ embeds: [embed], ephemeral: false }));
 
                 break;
             }
