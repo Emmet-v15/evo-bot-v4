@@ -11,7 +11,8 @@ exports.log = (content, type = "log") => {
     switch (type) {
         case "log":
             return console.log(`${timestamp} ${gray(type.toUpperCase())} ${content} `);
-
+        case "event":
+            return console.log(`${timestamp} ${green(type.toUpperCase())} ${content} `);
         case "load":
             process.stdout.write(`${timestamp} ${gray(type.toUpperCase())} ${content} `);
             console.log("👌");
@@ -46,3 +47,5 @@ exports.warn = (...args) => this.log(...args, "warn");
 exports.debug = (...args) => this.log(...args, "debug");
 
 exports.cmd = (...args) => this.log(...args, "cmd");
+
+exports.event = (...args) => this.log(...args, "event");
