@@ -31,19 +31,17 @@ module.exports = {
                 {
                     label: "Synapse X",
                     value: "synapse",
-                    description: "Synapse X",
                     emoji: "🔥",
                 },
                 {
                     label: "KRNL",
                     value: "krnl",
-                    description: "KRNL",
                     emoji: "🔥",
                 },
                 {
                     label: "Script-Ware Windows",
                     value: "script-ware",
-                    description: "Script-Ware Windows",
+                    description: "Script-Ware Mac is not supported",
                     emoji: "🔥",
                 },
                 {
