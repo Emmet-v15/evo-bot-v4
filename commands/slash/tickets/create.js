@@ -1,4 +1,3 @@
-const { StringSelectMenuBuilder } = require("discord.js");
 const { EmbedBuilder } = require("discord.js");
 const { ModalBuilder, TextInputBuilder, ActionRowBuilder, TextInputStyle } = require("discord.js");
 
@@ -23,43 +22,23 @@ module.exports = {
             .setRequired(true)
             .setPlaceholder("e.g. I need help with my account. My issue is ...");
 
-        const executorDropdown = new StringSelectMenuBuilder()
+        const executorInput = new TextInputBuilder()
             .setCustomId("executor")
-            .setPlaceholder("What executor are you using?")
-            .addOptions([
-                {
-                    label: "Synapse X",
-                    value: "synapse",
-                    description: "Synapse X",
-                    emoji: "🔥",
-                },
-                {
-                    label: "KRNL",
-                    value: "krnl",
-                    description: "KRNL",
-                    emoji: "🔥",
-                },
-                {
-                    label: "Script-Ware Windows",
-                    value: "scriptware",
-                    description: "Script-Ware Windows",
-                    emoji: "🔥",
-                },
-                {
-                    label: "Other",
-                    value: "other",
-                    description: "Other",
-                    emoji: "🔥",
-                },
-            ]);
+            // The label is the prompt the user sees for this input
+            .setLabel("What executor are you using?")
+            .setStyle(TextInputStyle.Short)
+            .setMinLength(3)
+            .setMaxLength(20)
+            .setRequired(true)
+            .setPlaceholder("e.g. Synapse X, KRNL, etc.");
 
         // An action row only holds one text input,
         // so you need one action row per text input.
-        const firstActionRow = new ActionRowBuilder().addComponents(reasonInput, executorDropdown);
-        // const secondActionRow = new ActionRowBuilder().addComponents();
+        const firstActionRow = new ActionRowBuilder().addComponents(reasonInput);
+        const secondActionRow = new ActionRowBuilder().addComponents(executorInput);
 
         // Add inputs to the modal
-        modal.addComponents(firstActionRow);
+        modal.addComponents(firstActionRow, secondActionRow);
         await interaction.showModal(modal);
     },
 };
