@@ -5,6 +5,7 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
     switch (args[0]) {
         case "confirmChanges": {
             const unconfirmedEmbedOptions = client.settings.get(interaction.guild.id, `embeds.${args[1]}.unconfirmed`);
+            console.log(unconfirmedEmbedOptions);
             client.settings.set(interaction.guild.id, unconfirmedEmbedOptions, `embeds.${args[1]}`);
             client.settings.delete(interaction.guild.id, `embeds.${args[1]}.unconfirmed`);
             interaction.editReply({ content: `Embed \`${args[1]}\` has been updated.` });
