@@ -96,6 +96,7 @@ module.exports = {
                         ),
                     ],
                 });
+                break;
             }
             case "delete": {
                 const embedOptions = client.settings.get(interaction.guild.id, `embeds.${id}`);
@@ -117,6 +118,7 @@ module.exports = {
                         ),
                     ],
                 });
+                break;
             }
             case "display": {
                 const embedOptions = client.settings.get(interaction.guild.id, `embeds.${id}`);
