@@ -14,7 +14,31 @@ module.exports = {
             case "add": {
                 const user = interaction.options.getUser("user");
                 const type = interaction.options.getString("type");
-                const amount = interaction.options.getInteger("amount");
+
+                if (!user) return interaction.editReply({ content: "You must provide a user." });
+                if (!type) return interaction.editReply({ content: "You must provide the type of premium." });
+
+                const premium = client.premium.get(user.id, "premium");
+                break;
+            }
+            case "remove": {
+                const user = interaction.options.getUser("user");
+
+                if (!user) return interaction.editReply({ content: "You must provide a user." });
+
+                const premium = client.premium.get(user.id, "premium");
+
+                if (!premium) return interaction.editReply({ content: "This user does not have premium." });
+
+                // remove premium role
+                const guild = client.guilds.cache.get(interaction.guild);
+                const member = guild.members.cache.get(user.id);
+                const role = guild.roles.cache.get(client.settings.get(interaction.guild, "premium.role"));
+                if (member.roles.cache.has(role.id)) member.roles.remove(role);
+                client.userDB.delete(user.id, "premium");
+
+                interaction.editReply({ content: "Successfully removed premium from this user." });
+                break;
             }
         }
     },
