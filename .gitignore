@@ -1,5 +1,6 @@
 /node_modules
 .env
 systems/settings/data/*
+systems/userDB/data/*
 package-lock.json
 pnpm-lock.yaml
