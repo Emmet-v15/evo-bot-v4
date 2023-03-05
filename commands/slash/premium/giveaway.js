@@ -28,7 +28,7 @@ module.exports = {
             .setTimestamp();
 
         const row = new ActionRowBuilder().addComponents(
-            new ButtonBuilder().setCustomId(`premium-register-${giveawayUUID}`).setLabel("Get Premium").setStyle(ButtonStyle.Primary)
+            new ButtonBuilder().setCustomId(`premium-giveaway-${giveawayUUID}`).setLabel("Get Premium").setStyle(ButtonStyle.Primary)
         );
 
         await interaction.editReply({ content: "Sent" });
