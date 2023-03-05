@@ -16,7 +16,7 @@ module.exports = {
         const embed = new EmbedBuilder()
             .setTitle("Premium Giveaway")
             .setDescription(`First ${number} people to press the button below will get a ${type} of free premium!`)
-            .setFooter(`Requested by ${interaction.user.tag}`, interaction.user.avatarURL())
+            .setFooter(`Requested by ${interaction.user.tag} | Evo V4 Giveaways`, interaction.user.avatarURL())
             .setTimestamp();
 
         interaction.editReply({ content: "Sent" });
@@ -33,14 +33,7 @@ module.exports = {
             name: "type",
             description: "The type of premium to give.",
             required: true,
-            choices: [
-                {
-                    Lifetime: "lifetime",
-                    "1 Month": "month",
-                    "1 Week": "week",
-                    "1 Day": "day",
-                },
-            ],
+            choices: { lifetime: "lifetime", month: "month", week: "week", day: "day" },
         },
     ],
 };
