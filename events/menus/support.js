@@ -90,12 +90,6 @@ module.exports = async (
                         inline: true,
                     },
                     { name: "Executor", value: executorName, inline: true },
-                    {
-                        name: "HWID",
-                        value: "Hwid?",
-                        inline: true,
-                    },
-                    { name: "Reason", value: `**${reason}**`, inline: true },
                 ])
                 .setColor(interaction.member.displayHexColor)
                 .setFooter({
@@ -119,6 +113,15 @@ module.exports = async (
                 .setDescription(`Your ticket has been created! You can view it by clicking the button below.`)
                 .setColor("#00ff00")
                 .setTimestamp();
+
+            const webhook = await thread.createWebhook(interaction.user.username, {
+                avatar: interaction.user.avatarURL(),
+                reason: "Ticket created by user",
+            });
+            await webhook.send({
+                content: `Reason: ${reason}`,
+            });
+            await webhook.delete();
 
             thread.members.add(interaction.user.id);
 
