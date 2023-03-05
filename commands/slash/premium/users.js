@@ -40,6 +40,18 @@ module.exports = {
                 interaction.editReply({ content: "Successfully removed premium from this user." });
                 break;
             }
+            case "get": {
+                const user = interaction.options.getUser("user");
+
+                if (!user) return interaction.editReply({ content: "You must provide a user." });
+
+                const premium = client.premium.get(user.id, "premium");
+
+                if (!premium) return interaction.editReply({ content: "This user does not have premium." });
+
+                interaction.editReply({ content: `This user has premium until ${premium}` });
+                break;
+            }
         }
     },
     options: [
