@@ -91,7 +91,10 @@ module.exports = {
                     embeds: [embed],
                     components: [
                         new ActionRowBuilder().addComponents(
-                            new ButtonBuilder().setCustomId(`embeds-confirmChanges-${id}`).setLabel("Confirm").setStyle(ButtonStyle.Success),
+                            new ButtonBuilder()
+                                .setCustomId(`embeds-confirmChanges-${id}`)
+                                .setLabel("Confirm")
+                                .setStyle(ButtonStyle.Success),
                             new ButtonBuilder().setCustomId(`embeds-cancelChanges-${id}`).setLabel("Cancel").setStyle(ButtonStyle.Danger)
                         ),
                     ],

@@ -4,7 +4,10 @@ module.exports = {
     name: "embedlist",
     description: "Display a list of embeds.",
     permission: 1,
-    execute: async (/** @type {require("discord.js").Client} */ client, /** @type {require("discord.js").CommandInteraction} */ interaction) => {
+    execute: async (
+        /** @type {require("discord.js").Client} */ client,
+        /** @type {require("discord.js").CommandInteraction} */ interaction
+    ) => {
         await interaction.deferReply({ ephemeral: true });
 
         const embeds = client.settings.get(interaction.guild.id, "embeds");

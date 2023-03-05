@@ -2,7 +2,10 @@ module.exports = {
     name: "roles",
     description: "Set roles for various different parts of the bot.",
     permission: 2,
-    execute: async (/** @type {require("discord.js").Client} */ client, /** @type {require("discord.js").CommandInteraction} */ interaction) => {
+    execute: async (
+        /** @type {require("discord.js").Client} */ client,
+        /** @type {require("discord.js").CommandInteraction} */ interaction
+    ) => {
         await interaction.deferReply({ ephemeral: true });
 
         const type = interaction.options.getString("type");
@@ -28,6 +31,8 @@ module.exports = {
                 "Ticket Opening": "ticketOpen",
                 "Roblox Update": "updates",
                 "Roblox Prediction": "predictions",
+                "Evo Premium": "premium",
+                "Evo Staff": "staff",
             },
         },
         { type: "Role", name: "role", description: "The role to assign a function." },
