@@ -5,7 +5,6 @@ const { readdirSync } = require("fs");
 const enmap = require("enmap");
 
 const logger = require("./systems/logging/logger");
-if (process.env.DEV) logger.warn("Running in Development Mode.");
 
 const exception = require("./systems/logging/exception");
 
@@ -86,4 +85,5 @@ for (const event of readdirSync("./events/")) {
 //     }
 // }
 
+if (process.env.DEV) logger.warn("Running in Development Mode.");
 client.login(process.env.DEV ? process.env.DISCORD_TOKEN_DEV : process.env.DISCORD_TOKEN_PROD);

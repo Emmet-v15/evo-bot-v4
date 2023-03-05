@@ -23,6 +23,7 @@ module.exports = {
             fields.push({ name: id, value: embedOptions.description ? embedOptions.description : "No description" });
         }
 
+        console.log(fields);
         embed.addFields(fields);
 
         interaction.editReply({
