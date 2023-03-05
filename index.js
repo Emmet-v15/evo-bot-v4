@@ -1,11 +1,12 @@
 require("dotenv").config();
-if (process.env.DEV) logger.warn("Running in Development Mode.");
 
 const { Client, GatewayIntentBits } = require("discord.js");
 const { readdirSync } = require("fs");
 const enmap = require("enmap");
 
 const logger = require("./systems/logging/logger");
+if (process.env.DEV) logger.warn("Running in Development Mode.");
+
 const exception = require("./systems/logging/exception");
 
 logger.log("Starting...", "log");
