@@ -5,3 +5,5 @@ const uuidv4 = () => {
         return v.toString(16);
     });
 };
+
+module.exports = { uuidv4 };
