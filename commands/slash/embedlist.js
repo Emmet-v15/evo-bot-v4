@@ -18,9 +18,21 @@ module.exports = {
             .setDescription("Below are a list of embeds that are available on this server alongside their description")
             .setColor("0099FF");
         let fields = [];
+
+        // make description max 1024 characters
+        let description = "";
+        description = description.length > 1024 ? description.substring(0, 1024) + "..." : description;
+
         for (const [id, embedOptions] of Object.entries(embeds)) {
             if (!embedOptions) continue;
-            fields.push({ name: id, value: embedOptions.description ? embedOptions.description : "No description" });
+            fields.push({
+                name: id,
+                value: embedOptions.description
+                    ? embedOptions.description.length > 1024
+                        ? embedOptions.description.substring(0, 1024) + "..."
+                        : embedOptions.description
+                    : "No description",
+            });
         }
 
         console.log(fields);
