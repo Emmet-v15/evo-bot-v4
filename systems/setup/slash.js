@@ -5,7 +5,8 @@ const { readdirSync } = require("fs");
 const register = require("./register");
 
 const logger = require("../logging/logger");
-const rest = new REST({ version: "10" }).setToken(process.env.DISCORD_TOKEN);
+const rest = new REST({ version: "10" }).setToken(process.env.DEV ? process.env.DISCORD_TOKEN_DEV : process.env.DISCORD_TOKEN_PROD);
+
 module.exports = async (client) => {
     const commands = [];
     const store = {};

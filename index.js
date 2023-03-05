@@ -1,4 +1,6 @@
 require("dotenv").config();
+if (process.env.DEV) logger.warn("Running in Development Mode.");
+
 const { Client, GatewayIntentBits } = require("discord.js");
 const { readdirSync } = require("fs");
 const enmap = require("enmap");
@@ -81,4 +83,4 @@ for (const event of readdirSync("./events/")) {
 //     }
 // }
 
-client.login();
+client.login(process.env.DEV ? process.env.DISCORD_TOKEN_DEV : process.env.DISCORD_TOKEN_PROD);
