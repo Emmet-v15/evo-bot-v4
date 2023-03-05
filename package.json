@@ -18,14 +18,16 @@
         "enmap": "^5.9.5",
         "node-fetch": "^3.3.0"
     },
-    "git-precommit-checks": [
-        {
-            "filter": "\\.js$",
-            "nonBlocking": "true",
-            "message": "You've got leftover `console.log`",
-            "regex": "console\\.log"
-        }
-    ],
+    "git-precommit-checks": {
+        "rules": [
+            {
+                "filter": "\\.js$",
+                "nonBlocking": "true",
+                "message": "You've got leftover `console.log`",
+                "regex": "console\\.log"
+            }
+        ]
+    },
     "devDependencies": {
         "git-precommit-checks": "^3.1.0"
     }
