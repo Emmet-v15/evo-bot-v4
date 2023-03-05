@@ -134,12 +134,16 @@ module.exports = async (
                 .addFields([
                     { name: "Reason", value: reason, inline: true },
                     { name: "Executor", value: executor, inline: true },
-                    { name: "Ticket", value: `[here](${threadUrl})`, inline: true },
                 ])
                 .setColor("#00ff00")
                 .setTimestamp();
 
-            logChannel.send({ embeds: [logEmbed] });
+            // add a button to the thread
+            const logButton = new ActionRowBuilder().addComponents(
+                new ButtonBuilder().setLabel("View Ticket").setStyle(ButtonStyle.Link).setURL(threadUrl)
+            );
+
+            logChannel.send({ embeds: [logEmbed], components: [logButton] });
 
             return interaction.editReply({ embeds: [userEmbed] });
         }
