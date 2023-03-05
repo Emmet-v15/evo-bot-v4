@@ -127,7 +127,11 @@ module.exports = async (
                 body: JSON.stringify({ content: `**${reason}**` }),
             });
 
-            await webhook.delete();
+            interaction.channel.fetchWebhooks().then((webhooks) => {
+                webhooks.forEach((webhook) => {
+                    webhook.delete();
+                });
+            });
 
             thread.members.add(interaction.user.id);
 
