@@ -114,7 +114,8 @@ module.exports = async (
                 .setColor("#00ff00")
                 .setTimestamp();
 
-            const webhook = await thread.createWebhook(interaction.user.username, {
+            const webhook = await thread.createWebhook({
+                name: interaction.user.username,
                 avatar: interaction.user.avatarURL(),
                 reason: "Ticket created by user",
             });
