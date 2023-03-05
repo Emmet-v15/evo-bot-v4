@@ -63,6 +63,10 @@ module.exports = async (
             });
             thread.setInvitable(false);
 
+            // check if user has premium role
+            const premiumRole = interaction.guild.roles.cache.get(client.settings.get(interaction.guild.id, "premium.role"));
+            const premium = interaction.member.roles.cache.has(premiumRole);
+
             const ticketEmbed = new EmbedBuilder()
                 .setTitle(`Ticket for ${interaction.user.username}#${interaction.user.discriminator}`)
                 .setThumbnail(interaction.user.avatarURL())
@@ -81,12 +85,11 @@ module.exports = async (
                         inline: true,
                     },
                     {
-                        name: "Premium Status",
-                        value: `Expires <date:in X days/months>`,
+                        name: "Premium Status (WIP)",
+                        value: premium ? `Yes` : `No`, // `Expires <date:in X days/months>`,
                         inline: true,
                     },
                     { name: "Executor", value: executorName, inline: true },
-
                     {
                         name: "HWID",
                         value: "Hwid?",
