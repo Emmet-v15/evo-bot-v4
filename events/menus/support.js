@@ -111,12 +111,9 @@ module.exports = async (
                 components: [ticketButtons],
             });
 
-            // get url of thread
-            const threadUrl = `https://discord.com/channels/${interaction.guild.id}/${thread.id}`;
-
             const userEmbed = new EmbedBuilder()
                 .setTitle("Ticket created")
-                .setDescription(`Your ticket has been created! You can view it by clicking [here](${threadUrl})`)
+                .setDescription(`Your ticket has been created! You can view it by clicking the button below.`)
                 .setColor("#00ff00")
                 .setTimestamp();
 
@@ -126,13 +123,18 @@ module.exports = async (
             const logChannel = interaction.guild.channels.cache.find(
                 (c) => c.id == client.settings.get(interaction.guild.id, "logs.channel")
             );
+
+            // get url of thread
+            const threadUrl = `https://discord.com/channels/${interaction.guild.id}/${thread.id}`;
+
+            // create the embed
             const logEmbed = new EmbedBuilder()
                 .setTitle("Ticket created")
                 .setDescription(`Ticket created by <@${interaction.user.id}>`)
                 .addFields([
                     { name: "Reason", value: reason, inline: true },
                     { name: "Executor", value: executor, inline: true },
-                    { name: "Ticket", value: `<#${thread.id}>`, inline: true },
+                    { name: "Ticket", value: `[here](${threadUrl})`, inline: true },
                 ])
                 .setColor("#00ff00")
                 .setTimestamp();
