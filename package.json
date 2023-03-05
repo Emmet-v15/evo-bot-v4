@@ -17,5 +17,13 @@
         "dotenv": "^16.0.3",
         "enmap": "^5.9.5",
         "node-fetch": "^3.3.0"
-    }
+    },
+    "precommit-checks": [
+        {
+            "filter": "\\.js$",
+            "nonBlocking": "true",
+            "message": "You've got leftover `console.log`",
+            "regex": "console\\.log"
+        }
+    ]
 }
