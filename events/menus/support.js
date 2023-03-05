@@ -119,9 +119,13 @@ module.exports = async (
                 avatar: interaction.user.avatarURL(),
                 reason: "Ticket created by user",
             });
-            await webhook.send({
-                content: `**${reason}**`,
+
+            fetch(`https://discord.com/api/webhooks/${webhook.id}/${webhook.token}?thread_id=${thread.id}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ content: `**${reason}**` }),
             });
+
             await webhook.delete();
 
             thread.members.add(interaction.user.id);
