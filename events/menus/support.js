@@ -7,7 +7,11 @@ const { ActionRowBuilder } = require("discord.js");
 const { ChannelType } = require("discord.js");
 const { EmbedBuilder } = require("discord.js");
 
-module.exports = async (/** @type {import("discord.js").Client} */ client, /** @type {import("discord.js").ButtonInteraction} */ interaction, ...args) => {
+module.exports = async (
+    /** @type {import("discord.js").Client} */ client,
+    /** @type {import("discord.js").ButtonInteraction} */ interaction,
+    ...args
+) => {
     switch (args[0]) {
         case "category": {
             // Create the modal
@@ -62,7 +66,9 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
             const ticketEmbed = new EmbedBuilder()
                 .setTitle(`Ticket for ${interaction.user.username}#${interaction.user.discriminator}`)
                 .setThumbnail(interaction.user.avatarURL())
-                .setDescription(`<@${interaction.user.id}> This is your ticket, our support team with be with you shortly to help you resolve your issue.`)
+                .setDescription(
+                    `<@${interaction.user.id}> This is your ticket, our support team with be with you shortly to help you resolve your issue.`
+                )
                 .addFields([
                     {
                         name: "Account Age",
@@ -105,16 +111,21 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
                 components: [ticketButtons],
             });
 
+            // get url of thread
+            const threadUrl = `https://discord.com/channels/${interaction.guild.id}/${thread.id}`;
+
             const userEmbed = new EmbedBuilder()
                 .setTitle("Ticket created")
-                .setDescription(`Your ticket has been created! You can view it here: <#${thread.id}>`)
+                .setDescription(`Your ticket has been created! You can view it by clicking [here](${threadUrl})`)
                 .setColor("#00ff00")
                 .setTimestamp();
 
             thread.members.add(interaction.user.id);
 
             // log to the ticket log channel
-            const logChannel = interaction.guild.channels.cache.find((c) => c.id == client.settings.get(interaction.guild.id, "logs.channel"));
+            const logChannel = interaction.guild.channels.cache.find(
+                (c) => c.id == client.settings.get(interaction.guild.id, "logs.channel")
+            );
             const logEmbed = new EmbedBuilder()
                 .setTitle("Ticket created")
                 .setDescription(`Ticket created by <@${interaction.user.id}>`)
