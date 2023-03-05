@@ -21,7 +21,7 @@
     "git-precommit-checks": {
         "rules": [
             {
-                "filter": "\\.js$",
+                "filter": "*.js$",
                 "nonBlocking": "true",
                 "message": "You've got leftover `console.log`",
                 "regex": "console\\.log"
