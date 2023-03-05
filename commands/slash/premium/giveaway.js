@@ -23,7 +23,7 @@ module.exports = {
 
         const embed = new EmbedBuilder()
             .setTitle("Premium Giveaway")
-            .setDescription(`**First ${number} people to press the button below will get a ${type} of free premium!**`)
+            .setDescription(`**First ${number} people to press the button below will get Evo:tm: Beta!**`)
             .setFooter({ text: `Giveaways | Evo V4™️`, iconURL: client.user.displayAvatarURL() })
             .setTimestamp();
 
@@ -42,12 +42,12 @@ module.exports = {
             description: "The number of people to give premium to.",
             required: true,
         },
-        {
-            type: "String",
-            name: "type",
-            description: "The type of premium to give.",
-            required: true,
-            choices: { lifetime: "lifetime", month: "month", week: "week", day: "day" },
-        },
+        // {
+        //     type: "String",
+        //     name: "type",
+        //     description: "The type of premium to give.",
+        //     required: true,
+        //     choices: { lifetime: "lifetime", month: "month", week: "week", day: "day", hour: "hour", beta: "beta" },
+        // },
     ],
 };
