@@ -24,8 +24,8 @@ module.exports = {
             fields.push({
                 name: id,
                 value: embedOptions.description
-                    ? embedOptions.description.length > 1024
-                        ? embedOptions.description.substring(0, 1021) + "..."
+                    ? embedOptions.description.length > 256
+                        ? embedOptions.description.substring(0, 253) + "..."
                         : embedOptions.description
                     : "No description",
             });
