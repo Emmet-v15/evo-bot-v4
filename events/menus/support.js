@@ -121,7 +121,7 @@ module.exports = async (
                 reason: "Ticket created by user",
             });
 
-            fetch(`https://discord.com/api/webhooks/${webhook.id}/${webhook.token}?thread_id=${thread.id}`, {
+            await fetch(`https://discord.com/api/webhooks/${webhook.id}/${webhook.token}?thread_id=${thread.id}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ content: `**${reason}**` }),
