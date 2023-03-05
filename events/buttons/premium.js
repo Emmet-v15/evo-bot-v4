@@ -38,7 +38,14 @@ module.exports = async (
                 }
                 client.settings.set(interaction.guild.id, number - 1, `premium.giveaway.${args[1]}.number`);
 
-                client.userDB.set(interaction.user.id, true, "premium");
+                // set premium to date of expiry depending on type
+                if (type == "hour") client.userDB.set(interaction.user.id, Date.now() + 3600000, "premium");
+                else if (type === "day") client.userDB.set(interaction.user.id, Date.now() + 86400000, "premium");
+                else if (type === "week") client.userDB.set(interaction.user.id, Date.now() + 604800000, "premium");
+                else if (type === "month") client.userDB.set(interaction.user.id, Date.now() + 2592000000, "premium");
+                else if (type === "year") client.userDB.set(interaction.user.id, Date.now() + 31536000000, "premium");
+                else if (type === "lifetime") client.userDB.set(interaction.user.id, "lifetime", "premium");
+
                 // set premium type
                 client.userDB.set(interaction.user.id, type, "premiumType");
                 client.userDB.set(interaction.user.id, Date.now(), "premiumClaimedAtTime");

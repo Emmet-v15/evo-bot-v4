@@ -49,7 +49,7 @@ module.exports = {
 
                 if (!premium) return interaction.editReply({ content: "This user does not have premium." });
 
-                interaction.editReply({ content: `This user has premium until ${premium}` });
+                interaction.editReply({ content: `This user has premium until <t:${premium}:R>` });
                 break;
             }
         }
