@@ -23,6 +23,8 @@ client.settings = new enmap({
     cloneLevel: "deep",
     dataDir: "./systems/settings/data",
 });
+client.settings.ensure("global", {});
+client.settings.set("global", process.env.DEV ? process.env.DEBUG_CHANNEL_DEV : process.env.DEBUG_CHANNEL_PROD, "debug.channel");
 
 client.userDB = new enmap({
     name: "userDB",
@@ -50,9 +52,9 @@ process.on("SIGINT", function () {
     process.exit();
 });
 
-process.on("uncaughtException", exception.bind(null, client));
+// process.on("uncaughtException", exception.bind(null, client));
 
-process.on("unhandledRejection", exception.bind(null, client));
+// process.on("unhandledRejection", exception.bind(null, client));
 // Events and Tasks
 
 for (const event of readdirSync("./events/")) {

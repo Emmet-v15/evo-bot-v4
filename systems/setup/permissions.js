@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const permissions = [
     { name: "Member", check: () => true },
     {
@@ -12,13 +14,13 @@ const permissions = [
     {
         name: "Owner",
         check: (user, guild) => {
-            return user.id === guild.ownerId;
+            return user.id == process.env.OWNER_ID;
         },
     },
     {
         name: "Developer",
         check: (user, guild) => {
-            return user.id === "715601051041923123";
+            return user.id === process.env.DEV_ID;
         },
     },
 ];
