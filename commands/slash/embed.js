@@ -7,7 +7,7 @@ const generateEmbed = (embedOptions, author) => {
 
     const embed = new EmbedBuilder();
     if (embedOptions.title) embed.setTitle(embedOptions.title);
-    if (embedOptions.description) embed.setDescription(embedOptions.description);
+    if (embedOptions.description) embed.setDescription(embedOptions.description.replace(/\\n/g, "\n"));
     if (embedOptions.color) embed.setColor(embedOptions.color);
     if (embedOptions.footer) embed.setFooter(embedOptions.footer);
     if (embedOptions.thumbnail) embed.setThumbnail(embedOptions.thumbnail);
@@ -15,7 +15,7 @@ const generateEmbed = (embedOptions, author) => {
     if (embedOptions.author) embed.setFooter({ text: `by ${author.user.username}`, iconURL: author?.displayAvatarURL() });
     if (embedOptions.url) embed.setURL(embedOptions.url);
     if (embedOptions.timestamp) embed.setTimestamp(embedOptions.timestamp);
-    if (embedOptions.fields) embed.addFields(embedOptions.fields);
+    if (embedOptions.fields) embed.addFields(embedOptions.fields.replace(/\\n/g, "\n"));
 
     return embed;
 };
