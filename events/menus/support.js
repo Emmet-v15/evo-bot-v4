@@ -6,6 +6,7 @@ const { TextInputStyle } = require("discord.js");
 const { ActionRowBuilder } = require("discord.js");
 const { ChannelType } = require("discord.js");
 const { EmbedBuilder } = require("discord.js");
+const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
 module.exports = async (
     /** @type {import("discord.js").Client} */ client,
