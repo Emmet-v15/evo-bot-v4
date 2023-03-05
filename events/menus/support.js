@@ -119,7 +119,7 @@ module.exports = async (
                 reason: "Ticket created by user",
             });
             await webhook.send({
-                content: `Reason: **${reason}**`,
+                content: `**${reason}**`,
             });
             await webhook.delete();
 
