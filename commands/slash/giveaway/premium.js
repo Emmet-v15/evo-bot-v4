@@ -1,3 +1,5 @@
+const { EmbedBuilder } = require("discord.js");
+
 module.exports = {
     name: "premium",
     description: "Gives premium to the first X people that press a button.",
@@ -6,7 +8,18 @@ module.exports = {
         /** @type {require("discord.js").Client} */ client,
         /** @type {require("discord.js").CommandInteraction} */ interaction
     ) => {
-        interaction.editReply({ content: "Example response" });
+        interaction.deferReply();
+
+        const number = interaction.options.getInteger("number");
+        const type = interaction.options.getString("type");
+
+        const embed = new EmbedBuilder()
+            .setTitle("Premium Giveaway")
+            .setDescription(`First ${number} people to press the button below will get a ${type} of free premium!`)
+            .setFooter(`Requested by ${interaction.user.tag}`, interaction.user.avatarURL())
+            .setTimestamp();
+
+        interaction.editReply({ content: "Sent" });
     },
     options: [
         {
@@ -14,6 +27,20 @@ module.exports = {
             name: "number",
             description: "The number of people to give premium to.",
             required: true,
+        },
+        {
+            type: "String",
+            name: "type",
+            description: "The type of premium to give.",
+            required: true,
+            choices: [
+                {
+                    Lifetime: "lifetime",
+                    "1 Month": "month",
+                    "1 Week": "week",
+                    "1 Day": "day",
+                },
+            ],
         },
     ],
 };
