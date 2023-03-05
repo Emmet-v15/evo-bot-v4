@@ -38,7 +38,7 @@ module.exports = {
 
         const embedOptions = {
             title: interaction.options.getString("title"),
-            description: interaction.options.getString("description"),
+            description: interaction.options.getString("description").replace(/\\n/g, "\n"),
             color: interaction.options.getString("color"),
             footer: interaction.options.getString("footer"),
             thumbnail: interaction.options.getString("thumbnail"),
@@ -46,7 +46,7 @@ module.exports = {
             author: interaction.options.getBoolean("author"),
             url: interaction.options.getString("url"),
             timestamp: interaction.options.getString("timestamp"),
-            fields: interaction.options.getString("fields"),
+            fields: interaction.options.getString("fields").replace(/\\n/g, "\n"),
         };
 
         switch (action) {
