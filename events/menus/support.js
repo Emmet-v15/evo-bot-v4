@@ -16,6 +16,7 @@ module.exports = async (
     switch (args[0]) {
         case "category": {
             const category = interaction.values[0];
+            console.log("category", category);
 
             switch (category) {
                 case "bug": {
