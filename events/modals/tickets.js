@@ -38,6 +38,7 @@ module.exports = async (
                         label: "Other",
                         value: "other",
                         description: "Support for other executors is not guaranteed.",
+                        emoji: "💩",
                     },
                 ]);
 
