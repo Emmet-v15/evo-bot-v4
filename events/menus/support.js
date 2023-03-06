@@ -51,7 +51,7 @@ module.exports = async (
 
             switch (category) {
                 case "bug": {
-                    interaction.deferReply({ ephemeral: true });
+                    await interaction.deferReply({ ephemeral: true });
                     interaction.editReply({ content: "Not yet implemented.", ephemeral: true });
                     break;
                     const bugModal = new ModalBuilder().setCustomId("tickets-create-bug").setTitle("Create a bug report");
@@ -104,7 +104,7 @@ module.exports = async (
                     return await interaction.showModal(bugModal);
                 }
                 case "suggestion": {
-                    interaction.deferReply({ ephemeral: true });
+                    await interaction.deferReply({ ephemeral: true });
                     interaction.editReply({ content: "Not yet implemented.", ephemeral: true });
                     break;
 
