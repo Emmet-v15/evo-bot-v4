@@ -63,7 +63,7 @@ module.exports = async (
 
                     const suggestionType = new TextInputBuilder()
                         .setCustomId("suggestion-type")
-                        .setLabel("State a title for this suggestion.")
+                        .setLabel("State a name for this suggestion.")
                         .setStyle(TextInputStyle.Short)
                         .setMinLength(10)
                         .setMaxLength(50)
