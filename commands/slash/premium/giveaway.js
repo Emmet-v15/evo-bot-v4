@@ -18,8 +18,8 @@ module.exports = {
         const type = interaction.options.getString("type");
 
         const mappings = {
-            premium: "Evo:tm: Premium",
-            beta: "Evo:tm: Beta",
+            premium: "Evo™️ Premium",
+            beta: "Evo™️ Beta",
         };
 
         const role = client.settings.get(interaction.guild.id, `${type}.role`);

@@ -21,8 +21,8 @@ module.exports = async (
             const type = client.settings.get(interaction.guild.id, `giveaway.${args[1]}.type`);
 
             const mappings = {
-                premium: "Evo:tm: Premium",
-                beta: "Evo:tm: Beta",
+                premium: "Evo™️ Premium",
+                beta: "Evo™️ Beta",
             };
 
             if (number > 0) {
@@ -35,7 +35,7 @@ module.exports = async (
                 if (premium) {
                     embed = new EmbedBuilder()
                         .setTitle("Premium")
-                        .setDescription(`You already have premium!`)
+                        .setDescription(`You already have ${mappings[type]}!`)
                         .setFooter({ text: `Giveaways | Evo V4™️`, iconURL: client.user.displayAvatarURL() })
                         .setColor(role.hexColor)
                         .setTimestamp();
@@ -79,7 +79,7 @@ module.exports = async (
             } else {
                 // say what number they were with embed
                 logger.log(
-                    `User ${interaction.user.tag} [${interaction.user.id}] tried to claim giveaway for premium ${convertToOrdinal(
+                    `User ${interaction.user.tag} [${interaction.user.id}] tried to claim giveaway for ${mappings[type]} ${convertToOrdinal(
                         original - number + 1
                     )}.`
                 );
