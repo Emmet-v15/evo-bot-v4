@@ -1,10 +1,14 @@
+const { EmbedBuilder } = require("discord.js");
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 
 module.exports = {
     name: "close",
     description: "Close the ticket.",
     permission: 1,
-    execute: async (/** @type {require("discord.js").Client} */ client, /** @type {require("discord.js").CommandInteraction} */ interaction) => {
+    execute: async (
+        /** @type {require("discord.js").Client} */ client,
+        /** @type {require("discord.js").CommandInteraction} */ interaction
+    ) => {
         const embed = new EmbedBuilder()
             .setTitle("Ticket Closing...")
             .setDescription(`This ticket will be closed <t:${parseInt(Date.now().toString().slice(0, -3)) + 10}:R>`)
@@ -18,6 +22,23 @@ module.exports = {
                     new ButtonBuilder().setCustomId("cancel-close-ticket").setLabel("Cancel").setStyle(ButtonStyle.Danger).setEmoji("🛑")
                 ),
             ],
+        });
+
+        const filter = (i) => i.customId === "cancel-close-ticket" && i.user.id === interaction.user.id;
+        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 10000 });
+
+        collector.on("collect", async (i) => {
+            if (i.customId === "cancel-close-ticket") {
+                await i.deferUpdate();
+                collector.stop();
+                interaction.deleteReply();
+            }
+        });
+
+        collector.on("end", async (collected) => {
+            if (collected.size === 0) {
+                interaction.channel.delete();
+            }
         });
     },
     options: [
