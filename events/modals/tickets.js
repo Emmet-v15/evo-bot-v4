@@ -1,6 +1,35 @@
 const { StringSelectMenuBuilder } = require("discord.js");
 const { ButtonBuilder, ActionRowBuilder, EmbedBuilder, ChannelType, ButtonStyle } = require("discord.js");
 
+const executorDropdown = new StringSelectMenuBuilder()
+    .setCustomId("support-executor")
+    // The label is the prompt the user sees for this input
+    .setPlaceholder("Select your executor")
+    .addOptions([
+        {
+            label: "Synapse X",
+            value: "synapse",
+            emoji: "<:syn:1082307590983270410>",
+        },
+        {
+            label: "KRNL",
+            value: "krnl",
+            emoji: "<:krnl:1082307592732283001>",
+        },
+        {
+            label: "Script-Ware Windows",
+            value: "scriptware",
+            description: "Script-Ware Mac is only supported on Pet X.",
+            emoji: "<:sw:1082307588357627904>",
+        },
+        {
+            label: "Other",
+            value: "other",
+            description: "Support for other executors is not guaranteed.",
+            emoji: "💩",
+        },
+    ]);
+
 module.exports = async (
     /** @type {import("discord.js").Client} */ client,
     /** @type {import("discord.js").ModalSubmitInteraction} */ interaction,
@@ -15,35 +44,6 @@ module.exports = async (
                     break;
                 }
                 case "bug": {
-                    const executorDropdown = new StringSelectMenuBuilder()
-                        .setCustomId("support-executor")
-                        // The label is the prompt the user sees for this input
-                        .setPlaceholder("Select your executor")
-                        .addOptions([
-                            {
-                                label: "Synapse X",
-                                value: "synapse",
-                                emoji: "<:syn:1082307590983270410>",
-                            },
-                            {
-                                label: "KRNL",
-                                value: "krnl",
-                                emoji: "<:krnl:1082307592732283001>",
-                            },
-                            {
-                                label: "Script-Ware Windows",
-                                value: "scriptware",
-                                description: "Script-Ware Mac is only supported on Pet X.",
-                                emoji: "<:sw:1082307588357627904>",
-                            },
-                            {
-                                label: "Other",
-                                value: "other",
-                                description: "Support for other executors is not guaranteed.",
-                                emoji: "💩",
-                            },
-                        ]);
-
                     const executorRow = new ActionRowBuilder().addComponents(executorDropdown);
 
                     const executorEmbed = new EmbedBuilder()
