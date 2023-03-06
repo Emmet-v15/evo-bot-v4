@@ -77,7 +77,7 @@ module.exports = async (
                         .setMinLength(10)
                         .setMaxLength(400)
                         .setRequired(true)
-                        .setPlaceholder("e.g. I would like to see a new feature (penis esp) that ...");
+                        .setPlaceholder("e.g. I suggest (penis esp) to be ...");
 
                     const firstActionRow = new ActionRowBuilder().addComponents(suggestionType).addComponents(suggestionInfo);
 
