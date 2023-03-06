@@ -20,7 +20,7 @@ module.exports = {
 
         client.settings.set(interaction.guild.id, number, `premium.giveaway.${giveawayUUID}.number`);
         client.settings.set(interaction.guild.id, type, `premium.giveaway.${giveawayUUID}.type`);
-        interaction.channel.send(`Giveaway created with ID \`${giveawayUUID}\``);
+        interaction.channel.send();
 
         const embed = new EmbedBuilder()
             .setTitle("Premium Giveaway")
@@ -32,8 +32,7 @@ module.exports = {
             new ButtonBuilder().setCustomId(`premium-giveaway-${giveawayUUID}`).setLabel("Get Premium").setStyle(ButtonStyle.Primary)
         );
 
-        await interaction.editReply({ content: "Sent" });
-        interaction.deleteReply();
+        await interaction.editReply({ content: `Giveaway created with ID \`${giveawayUUID}\`` });
         interaction.channel.send({ embeds: [embed], components: [row] });
     },
     options: [
