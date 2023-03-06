@@ -22,6 +22,15 @@ module.exports = async (
                 case "bug": {
                     const bugModal = new ModalBuilder().setCustomId("tickets-create-bug").setTitle("Create a bug report");
 
+                    const bugLocation = new TextInputBuilder()
+                        .setCustomId("bug-location")
+                        .setLabel("Please provide the location of the bug.")
+                        .setStyle(TextInputStyle.Short)
+                        .setMinLength(3)
+                        .setMaxLength(50)
+                        .setRequired(true)
+                        .setPlaceholder("e.g. Phantom forces, Discord bot etc.");
+
                     const bugInfo = new TextInputBuilder()
                         .setCustomId("bug-info")
                         .setLabel("Please describe the bug in detail.")
