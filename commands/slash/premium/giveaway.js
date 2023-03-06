@@ -20,6 +20,7 @@ module.exports = {
 
         client.settings.set(interaction.guild.id, number, `premium.giveaway.${giveawayUUID}.number`);
         client.settings.set(interaction.guild.id, type, `premium.giveaway.${giveawayUUID}.type`);
+        interaction.channel.send(`Giveaway created with ID \`${giveawayUUID}\``);
 
         const embed = new EmbedBuilder()
             .setTitle("Premium Giveaway")
