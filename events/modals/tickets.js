@@ -31,7 +31,7 @@ module.exports = async (
                     {
                         label: "Script-Ware Windows",
                         value: "scriptware",
-                        description: "Script-Ware Mac is not supported",
+                        description: "Script-Ware Mac is only supported on Pet X.",
                         emoji: "<:sw:1082307588357627904>",
                     },
                     {
