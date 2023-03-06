@@ -67,6 +67,7 @@ module.exports = async (
                     break;
                 }
             }
+            break;
         }
         default:
             interaction.editReply({ content: "[Error]: Modal not implemented." });

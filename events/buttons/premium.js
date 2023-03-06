@@ -15,12 +15,9 @@ module.exports = async (
 
         case "giveaway": {
             await interaction.deferReply({ ephemeral: true });
-            // sub 1 from number
             const number = client.settings.get(interaction.guild.id, `premium.giveaway.${args[1]}.number`);
             const type = client.settings.get(interaction.guild.id, `premium.giveaway.${args[1]}.type`);
-            if (number <= 10) {
-                // const type = client.settings.get(interaction.guild.id, `premium.giveaway.${args[1]}.type`);
-
+            if (number > 0) {
                 const role = interaction.guild.roles.cache.get(client.settings.get(interaction.guild.id, "premium.role"));
                 const member = interaction.member;
                 const premium = member.roles.cache.has(role);
@@ -36,7 +33,7 @@ module.exports = async (
                             `You have successfully claimed premium! You were the ${convertToOrdinal(number)} to click the button.`
                         );
                 }
-                client.settings.set(interaction.guild.id, number + 1, `premium.giveaway.${args[1]}.number`);
+                client.settings.set(interaction.guild.id, number - 1, `premium.giveaway.${args[1]}.number`);
 
                 // set premium to date of expiry depending on type
                 if (type == "hour") client.userDB.set(interaction.user.id, Date.now() + 3600000, "premium");
