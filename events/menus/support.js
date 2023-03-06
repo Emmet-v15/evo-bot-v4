@@ -8,6 +8,28 @@ const { ChannelType } = require("discord.js");
 const { EmbedBuilder } = require("discord.js");
 const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
+const supportComponents = new ActionRowBuilder().addComponents(
+    new StringSelectMenuBuilder()
+        .setCustomId("support-category")
+        .setPlaceholder("Select a category")
+        .addOptions([
+            {
+                label: "General",
+                value: "general",
+            },
+            {
+                label: "Report a bug",
+                value: "bug",
+            },
+            {
+                label: "Make a suggestion",
+                value: "suggestion",
+            },
+        ])
+        .setMinValues(0)
+        .setMaxValues(1)
+);
+
 module.exports = async (
     /** @type {import("discord.js").Client} */ client,
     /** @type {import("discord.js").ButtonInteraction} */ interaction,
@@ -16,6 +38,9 @@ module.exports = async (
     switch (args[0]) {
         case "category": {
             const category = interaction.values[0];
+
+            interaction.update({ components: [supportComponents] });
+
             console.log("category", category);
 
             switch (category) {
