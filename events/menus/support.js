@@ -65,7 +65,7 @@ module.exports = async (
                         .setCustomId("suggestion-type")
                         .setLabel("State a name for this suggestion.")
                         .setStyle(TextInputStyle.Short)
-                        .setMinLength(10)
+                        .setMinLength(3)
                         .setMaxLength(25)
                         .setRequired(true)
                         .setPlaceholder("e.g. Aimbot, Discord bot, etc.");
