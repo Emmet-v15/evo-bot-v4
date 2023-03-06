@@ -12,7 +12,7 @@ module.exports = async (
         case "create": {
             switch (args[1]) {
                 case "suggestion": {
-                    return;
+                    break;
                 }
                 case "bug": {
                     const executorDropdown = new StringSelectMenuBuilder()
@@ -64,7 +64,7 @@ module.exports = async (
                 case "general": {
                     const reason = interaction.fields.getTextInputValue("reason");
 
-                    return;
+                    break;
                 }
             }
         }
