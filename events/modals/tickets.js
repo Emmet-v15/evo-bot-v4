@@ -77,8 +77,8 @@ module.exports = async (
                     const collector = interaction.channel.createMessageComponentCollector({ filter, time: 60000 });
 
                     collector.on("collect", async (i) => {
+                        interaction.deleteReply();
                         const executor = i.values[0];
-                        console.log(executor);
                         const mappings = {
                             synapse: "Synapse X",
                             krnl: "KRNL",
