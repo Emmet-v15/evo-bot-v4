@@ -15,32 +15,94 @@ module.exports = async (
 ) => {
     switch (args[0]) {
         case "category": {
-            // Create the modal
-            const modal = new ModalBuilder().setCustomId("tickets-create").setTitle("Create a ticket");
+            const category = interaction.values[0];
 
-            // Add components to modal
+            switch (category) {
+                case "bug": {
+                    const bugModal = new ModalBuilder().setCustomId("tickets-create-bug").setTitle("Create a bug report");
 
-            // Create the text input components
-            const reasonInput = new TextInputBuilder()
-                .setCustomId("reason")
-                // The label is the prompt the user sees for this input
-                .setLabel("Please describe your issue in detail.")
-                .setStyle(TextInputStyle.Paragraph)
-                .setMinLength(10)
-                .setMaxLength(400)
-                .setRequired(true)
-                .setPlaceholder("e.g. I need help with my account. My issue is ...");
+                    const bugInfo = new TextInputBuilder()
+                        .setCustomId("bug-info")
+                        .setLabel("Please describe the bug in detail.")
+                        .setStyle(TextInputStyle.Paragraph)
+                        .setMinLength(10)
+                        .setMaxLength(400)
+                        .setRequired(true)
+                        .setPlaceholder("e.g. I found a bug with the silent aim. The bug is ...");
 
-            // An action row only holds one text input,
-            // so you need one action row per text input.
-            const firstActionRow = new ActionRowBuilder().addComponents(reasonInput);
+                    const stepsToReproduce = new TextInputBuilder()
+                        .setCustomId("bug-stepstoreproduce")
+                        .setLabel("Please provide steps to reproduce the bug.")
+                        .setStyle(TextInputStyle.Paragraph)
+                        .setMinLength(10)
+                        .setMaxLength(400)
+                        .setRequired(true)
+                        .setPlaceholder("e.g. 1. Turn on silent aim 2. Try to shoot 3. ... e.t.c.");
 
-            // Add inputs to the modal
-            modal.addComponents(firstActionRow);
-            return await interaction.showModal(modal);
+                    const bugVideo = new TextInputBuilder()
+                        .setCustomId("bug-video")
+                        .setLabel("Please provide a video of the bug while it is happening if applicable.")
+                        .setStyle(TextInputStyle.Paragraph)
+                        .setMinLength(10)
+                        .setMaxLength(400)
+                        .setRequired(false)
+                        .setPlaceholder("e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+
+                    const firstActionRow = new ActionRowBuilder().addComponents(bugInfo);
+                    const secondActionRow = new ActionRowBuilder().addComponents(bugVideo);
+                    const thirdActionRow = new ActionRowBuilder().addComponents(stepsToReproduce);
+
+                    bugModal.addComponents(firstActionRow);
+                    bugModal.addComponents(secondActionRow);
+                    bugModal.addComponents(thirdActionRow);
+                    return await interaction.showModal(bugModal);
+                }
+                case "suggestion": {
+                    const suggestionModal = new ModalBuilder().setCustomId("tickets-create-suggestion").setTitle("Create a suggestion");
+
+                    const suggestionType = new TextInputBuilder()
+                        .setCustomId("suggestion-type")
+                        .setLabel("Please state what part/feature of Evo:tm: this suggestion is for.")
+                        .setStyle(TextInputStyle.Short)
+                        .setMinLength(10)
+                        .setMaxLength(50)
+                        .setRequired(true)
+                        .setPlaceholder("e.g. GUI, Aimbot, Discord bot, etc.");
+
+                    const suggestionInfo = new TextInputBuilder()
+                        .setCustomId("suggestion-info")
+                        .setLabel("Please describe what you wish to see in Evo:tm:.")
+                        .setStyle(TextInputStyle.Paragraph)
+                        .setMinLength(10)
+                        .setMaxLength(400)
+                        .setRequired(true)
+                        .setPlaceholder("e.g. I would like to see a new feature (penis esp) that allows me to ...");
+
+                    const firstActionRow = new ActionRowBuilder().addComponents(suggestionType).addComponents(suggestionInfo);
+
+                    suggestionModal.addComponents(firstActionRow);
+                    return await interaction.showModal(suggestionModal);
+                }
+                case "ticket": {
+                    const modal = new ModalBuilder().setCustomId("tickets-create").setTitle("Create a ticket");
+
+                    const reasonInput = new TextInputBuilder()
+                        .setCustomId("reason")
+                        .setLabel("Please describe your issue in detail.")
+                        .setStyle(TextInputStyle.Paragraph)
+                        .setMinLength(10)
+                        .setMaxLength(400)
+                        .setRequired(true)
+                        .setPlaceholder("e.g. I need help with my account. My issue is ...");
+
+                    const firstActionRow = new ActionRowBuilder().addComponents(reasonInput);
+
+                    modal.addComponents(firstActionRow);
+                    return await interaction.showModal(modal);
+                }
+            }
         }
         case "executor": {
-            /** @type {import("discord.js").ThreadChannel} */
             interaction.deferReply({ ephemeral: true });
 
             const executor = interaction.values[0];

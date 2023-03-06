@@ -1,7 +1,11 @@
 const { StringSelectMenuBuilder } = require("discord.js");
 const { ButtonBuilder, ActionRowBuilder, EmbedBuilder, ChannelType, ButtonStyle } = require("discord.js");
 
-module.exports = async (/** @type {import("discord.js").Client} */ client, /** @type {import("discord.js").ModalSubmitInteraction} */ interaction, ...args) => {
+module.exports = async (
+    /** @type {import("discord.js").Client} */ client,
+    /** @type {import("discord.js").ModalSubmitInteraction} */ interaction,
+    ...args
+) => {
     await interaction.deferReply({ ephemeral: true });
 
     switch (args[0]) {
@@ -17,24 +21,23 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
                     {
                         label: "Synapse X",
                         value: "synapse",
-                        emoji: "🔥",
+                        emoji: "<:syn:1082307590983270410>",
                     },
                     {
                         label: "KRNL",
                         value: "krnl",
-                        emoji: "🔥",
+                        emoji: "<:krnl:1082307592732283001>",
                     },
                     {
                         label: "Script-Ware Windows",
                         value: "scriptware",
                         description: "Script-Ware Mac is not supported",
-                        emoji: "🔥",
+                        emoji: "<:sw:1082307588357627904>",
                     },
                     {
                         label: "Other",
                         value: "other",
                         description: "Support for other executors is not guaranteed.",
-                        emoji: "🔥",
                     },
                 ]);
 

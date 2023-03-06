@@ -29,8 +29,8 @@ const supportComponents = new ActionRowBuilder().addComponents(
                 value: "bug",
             },
             {
-                label: "Suggest a feature",
-                value: "feature",
+                label: "Make a suggestion",
+                value: "suggestion",
             },
         ])
         .setMinValues(0)
@@ -39,7 +39,9 @@ const supportComponents = new ActionRowBuilder().addComponents(
 
 const donatorEmbed = new EmbedBuilder()
     .setTitle("Premium Access")
-    .setDescription(`If you have bought Premium, click the button below and the bot will guide you through the process of gaining access to the Premium script`)
+    .setDescription(
+        `If you have bought Premium, click the button below and the bot will guide you through the process of gaining access to the Premium script`
+    )
     .setColor("BE00FC");
 
 const donatorComponents = new ActionRowBuilder().addComponents(
@@ -50,18 +52,23 @@ module.exports = {
     name: "embed",
     description: "Sends embeds used to allow easier accessibility for users, e.g. via buttons & dropdown menus.",
     permission: 3,
-    execute: async (/** @type {require("discord.js").Client} */ client, /** @type {require("discord.js").CommandInteraction} */ interaction) => {
+    execute: async (
+        /** @type {require("discord.js").Client} */ client,
+        /** @type {require("discord.js").CommandInteraction} */ interaction
+    ) => {
         await interaction.deferReply({ ephemeral: true });
         const command = interaction.options.getString("type");
 
         switch (command) {
-            case "ticket":
+            case "ticket": {
                 interaction.deleteReply();
                 interaction.channel.send({ embeds: [supportEmbed], components: [supportComponents] });
+                break;
+            }
             case "premium": {
                 interaction.deleteReply();
                 interaction.channel.send({ embeds: [donatorEmbed], components: [donatorComponents] });
-                return;
+                break;
             }
         }
     },
