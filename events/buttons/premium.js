@@ -33,7 +33,7 @@ module.exports = async (
                     embed = new EmbedBuilder()
                         .setTitle("Premium")
                         .setDescription(
-                            `You have successfully claimed premium! You were the ${convertToOrdinal(args[1])} to click the button.`
+                            `You have successfully claimed premium! You were the ${convertToOrdinal(number)} to click the button.`
                         );
                 }
                 client.settings.set(interaction.guild.id, number - 1, `premium.giveaway.${args[1]}.number`);
