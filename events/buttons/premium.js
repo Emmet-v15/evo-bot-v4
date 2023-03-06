@@ -16,6 +16,8 @@ module.exports = async (
         case "giveaway": {
             await interaction.deferReply({ ephemeral: true });
             const number = client.settings.get(interaction.guild.id, `premium.giveaway.${args[1]}.number`);
+            const original = client.settings.get(interaction.guild.id, `premium.giveaway.${args[1]}}.original`);
+
             const type = client.settings.get(interaction.guild.id, `premium.giveaway.${args[1]}.type`);
             if (number > 0) {
                 const role = interaction.guild.roles.cache.get(client.settings.get(interaction.guild.id, "premium.role"));
@@ -30,7 +32,9 @@ module.exports = async (
                     embed = new EmbedBuilder()
                         .setTitle("Premium")
                         .setDescription(
-                            `You have successfully claimed premium! You were the ${convertToOrdinal(number)} to click the button.`
+                            `You have successfully claimed premium! You were the ${convertToOrdinal(
+                                original - number + 1
+                            )} to click the button.`
                         );
                 }
                 client.settings.set(interaction.guild.id, number - 1, `premium.giveaway.${args[1]}.number`);

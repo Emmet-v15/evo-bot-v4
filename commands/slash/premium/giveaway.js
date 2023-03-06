@@ -19,6 +19,7 @@ module.exports = {
         const giveawayUUID = uuidv4();
 
         client.settings.set(interaction.guild.id, number, `premium.giveaway.${giveawayUUID}.number`);
+        client.settings.set(interaction.guild.id, number, `premium.giveaway.${giveawayUUID}.original`);
         client.settings.set(interaction.guild.id, type, `premium.giveaway.${giveawayUUID}.type`);
 
         const embed = new EmbedBuilder()
