@@ -51,6 +51,8 @@ module.exports = async (
 
             switch (category) {
                 case "bug": {
+                    interaction.reply({ content: "Not yet implemented.", ephemeral: true });
+                    break;
                     const bugModal = new ModalBuilder().setCustomId("tickets-create-bug").setTitle("Create a bug report");
 
                     const bugLocation = new TextInputBuilder()
