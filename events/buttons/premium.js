@@ -29,10 +29,7 @@ module.exports = async (
                     embed = new EmbedBuilder().setTitle("Premium").setDescription(`You already have premium!`);
                 } else {
                     member.roles.add(role);
-                    console.log(`[Premium] ${member.user.tag} (${member.id}) has claimed premium!`);
-                    console.log(original - number + 1);
-                    console.log("original", original);
-                    console.log("number", number);
+                    logger.event(`User ${interaction.user.tag} (${interaction.user.id}) won giveaway for premium.`);
                     embed = new EmbedBuilder()
                         .setTitle("Premium")
                         .setDescription(
