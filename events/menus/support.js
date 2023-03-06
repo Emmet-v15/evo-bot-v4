@@ -63,7 +63,7 @@ module.exports = async (
 
                     const suggestionType = new TextInputBuilder()
                         .setCustomId("suggestion-type")
-                        .setLabel("Please state what part/feature of Evo:tm: this suggestion is for.")
+                        .setLabel("State a title for this suggestion.")
                         .setStyle(TextInputStyle.Short)
                         .setMinLength(10)
                         .setMaxLength(50)
