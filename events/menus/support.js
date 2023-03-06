@@ -53,8 +53,6 @@ module.exports = async (
 
             await interaction.message.edit({ embeds: [supportEmbed], components: [supportComponents] });
 
-            console.log("category", category);
-
             switch (category) {
                 case "bug": {
                     const bugModal = new ModalBuilder().setCustomId("tickets-create-bug").setTitle("Create a bug report");
@@ -136,7 +134,7 @@ module.exports = async (
                     return await interaction.showModal(suggestionModal);
                 }
                 case "general": {
-                    const modal = new ModalBuilder().setCustomId("tickets-create").setTitle("Create a ticket");
+                    const modal = new ModalBuilder().setCustomId("tickets-create-general").setTitle("Create a ticket");
 
                     const reasonInput = new TextInputBuilder()
                         .setCustomId("reason")
