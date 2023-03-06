@@ -61,12 +61,12 @@ module.exports = {
             required: true,
             choices: { premium: "premium", beta: "beta" },
         },
-        {
-            type: "String",
-            name: "duration",
-            description: "The duration of the premium. (default lifetime)",
-            required: false,
-            choices: { lifetime: "lifetime", month: "month", week: "week", day: "day", hour: "hour" },
-        },
+        // {
+        //     type: "String",
+        //     name: "duration",
+        //     description: "The duration of the premium. (default lifetime)",
+        //     required: false,
+        //     choices: { lifetime: "lifetime", month: "month", week: "week", day: "day", hour: "hour" },
+        // },
     ],
 };
