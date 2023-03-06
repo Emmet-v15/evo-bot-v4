@@ -63,6 +63,8 @@ module.exports = async (
                     break;
                 }
                 case "general": {
+                    i.deferReply({ ephemeral: true });
+
                     const reason = interaction.fields.getTextInputValue("reason");
 
                     const executorRow = new ActionRowBuilder().addComponents(executorDropdown);
