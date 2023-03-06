@@ -59,6 +59,7 @@ module.exports = async (
 
                     collector.on("collect", async (i) => {
                         interaction.deleteReply();
+                        i.reply({ content: "Not yet implemented", ephemeral: true });
                     });
                     break;
                 }
