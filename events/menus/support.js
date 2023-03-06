@@ -40,7 +40,7 @@ module.exports = async (
         case "category": {
             const category = interaction.values[0];
 
-            interaction.update({ components: [supportComponents] });
+            await interaction.update({ components: [supportComponents] });
 
             console.log("category", category);
 
