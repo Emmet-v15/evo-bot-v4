@@ -36,7 +36,7 @@ module.exports = async (
                             `You have successfully claimed premium! You were the ${convertToOrdinal(number)} to click the button.`
                         );
                 }
-                client.settings.set(interaction.guild.id, number - 1, `premium.giveaway.${args[1]}.number`);
+                client.settings.set(interaction.guild.id, number + 1, `premium.giveaway.${args[1]}.number`);
 
                 // set premium to date of expiry depending on type
                 if (type == "hour") client.userDB.set(interaction.user.id, Date.now() + 3600000, "premium");
