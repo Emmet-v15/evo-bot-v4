@@ -103,6 +103,9 @@ module.exports = async (
                     return await interaction.showModal(bugModal);
                 }
                 case "suggestion": {
+                    interaction.reply({ content: "Not yet implemented.", ephemeral: true });
+                    break;
+
                     const suggestionModal = new ModalBuilder().setCustomId("tickets-create-suggestion").setTitle("Create a suggestion");
 
                     const suggestionType = new TextInputBuilder()
