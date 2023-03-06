@@ -1,5 +1,6 @@
 const { StringSelectMenuBuilder } = require("discord.js");
 const { ButtonBuilder, ActionRowBuilder, EmbedBuilder, ChannelType, ButtonStyle } = require("discord.js");
+const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
 const executorDropdown = new StringSelectMenuBuilder()
     .setCustomId("support-executor")

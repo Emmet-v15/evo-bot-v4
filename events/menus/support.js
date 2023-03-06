@@ -1,13 +1,9 @@
 const { TextInputBuilder } = require("discord.js");
 const { ModalBuilder } = require("discord.js");
-const { ButtonBuilder } = require("discord.js");
 const { StringSelectMenuBuilder } = require("discord.js");
-const { ButtonStyle } = require("discord.js");
 const { TextInputStyle } = require("discord.js");
 const { ActionRowBuilder } = require("discord.js");
-const { ChannelType } = require("discord.js");
 const { EmbedBuilder } = require("discord.js");
-const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
 const supportComponents = new ActionRowBuilder().addComponents(
     new StringSelectMenuBuilder()
