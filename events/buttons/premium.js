@@ -16,7 +16,7 @@ module.exports = async (
         case "giveaway": {
             await interaction.deferReply({ ephemeral: true });
             const number = client.settings.get(interaction.guild.id, `premium.giveaway.${args[1]}.number`);
-            const original = client.settings.get(interaction.guild.id, `premium.giveaway.${args[1]}}.original`);
+            const original = client.settings.get(interaction.guild.id, `premium.giveaway.${args[1]}.original`);
 
             const type = client.settings.get(interaction.guild.id, `premium.giveaway.${args[1]}.type`);
             if (number > 0) {
