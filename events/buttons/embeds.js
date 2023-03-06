@@ -1,11 +1,14 @@
 // const { getEmbedIds, setEmbedIds } = require("../../commands/slash/embeds.js");
 
-module.exports = async (/** @type {import("discord.js").Client} */ client, /** @type {import("discord.js").ButtonInteraction} */ interaction, ...args) => {
+module.exports = async (
+    /** @type {import("discord.js").Client} */ client,
+    /** @type {import("discord.js").ButtonInteraction} */ interaction,
+    ...args
+) => {
     await interaction.deferReply({ ephemeral: true });
     switch (args[0]) {
         case "confirmChanges": {
             const unconfirmedEmbedOptions = client.settings.get(interaction.guild.id, `embeds.${args[1]}.unconfirmed`);
-            console.log(unconfirmedEmbedOptions);
             client.settings.set(interaction.guild.id, unconfirmedEmbedOptions, `embeds.${args[1]}`);
             client.settings.delete(interaction.guild.id, `embeds.${args[1]}.unconfirmed`);
             interaction.editReply({ content: `Embed \`${args[1]}\` has been updated.` });

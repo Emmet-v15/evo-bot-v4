@@ -33,6 +33,7 @@ module.exports = {
                 "Roblox Prediction": "predictions",
                 "Evo Premium": "premium",
                 "Evo Staff": "staff",
+                "Evo Beta": "beta",
             },
         },
         { type: "Role", name: "role", description: "The role to assign a function." },

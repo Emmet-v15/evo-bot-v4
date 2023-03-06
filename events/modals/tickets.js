@@ -64,8 +64,6 @@ module.exports = async (
                     break;
                 }
                 case "general": {
-                    i.deferReply({ ephemeral: true });
-
                     const reason = interaction.fields.getTextInputValue("reason");
 
                     const executorRow = new ActionRowBuilder().addComponents(executorDropdown);
@@ -82,6 +80,7 @@ module.exports = async (
 
                     collector.on("collect", async (i) => {
                         interaction.deleteReply();
+                        i.deferReply({ ephemeral: true });
                         const executor = i.values[0];
                         const mappings = {
                             synapse: "Synapse X",

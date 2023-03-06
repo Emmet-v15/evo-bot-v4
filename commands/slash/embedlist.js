@@ -31,7 +31,6 @@ module.exports = {
             });
         }
 
-        console.log(fields);
         embed.addFields(fields);
 
         interaction.editReply({

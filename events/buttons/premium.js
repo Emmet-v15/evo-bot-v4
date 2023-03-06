@@ -1,5 +1,6 @@
 const { convertToOrdinal } = require("../../util/common");
 const { EmbedBuilder } = require("discord.js");
+const logger = require("../../systems/logging/logger");
 
 module.exports = async (
     /** @type {import("discord.js").Client} */ client,
@@ -15,98 +16,84 @@ module.exports = async (
 
         case "giveaway": {
             await interaction.deferReply({ ephemeral: true });
-            const number = client.settings.get(interaction.guild.id, `premium.giveaway.${args[1]}.number`);
-            const original = client.settings.get(interaction.guild.id, `premium.giveaway.${args[1]}.original`);
+            const number = client.settings.get(interaction.guild.id, `giveaway.${args[1]}.number`);
+            const original = client.settings.get(interaction.guild.id, `giveaway.${args[1]}.original`);
+            const type = client.settings.get(interaction.guild.id, `giveaway.${args[1]}.type`);
 
-            const type = client.settings.get(interaction.guild.id, `premium.giveaway.${args[1]}.type`);
+            const mappings = {
+                premium: "Evo:tm: Premium",
+                beta: "Evo:tm: Beta",
+            };
+
             if (number > 0) {
-                const role = interaction.guild.roles.cache.get(client.settings.get(interaction.guild.id, "premium.role"));
+                const role = interaction.guild.roles.cache.get(client.settings.get(interaction.guild.id, `${type}.role`));
                 const member = interaction.member;
-                const premium = member.roles.cache.has(role);
+                const premium = member.roles.cache.has(role.id);
 
                 let embed;
+
                 if (premium) {
-                    embed = new EmbedBuilder().setTitle("Premium").setDescription(`You already have premium!`);
+                    embed = new EmbedBuilder()
+                        .setTitle("Premium")
+                        .setDescription(`You already have premium!`)
+                        .setFooter({ text: `Giveaways | Evo V4™️`, iconURL: client.user.displayAvatarURL() })
+                        .setColor(role.hexColor)
+                        .setTimestamp();
                 } else {
                     member.roles.add(role);
-                    logger.event(`User ${interaction.user.tag} (${interaction.user.id}) won giveaway for premium.`);
+                    logger.event(`User ${interaction.user.tag} [${interaction.user.id}] won giveaway for ${mappings[type]}.`);
                     embed = new EmbedBuilder()
                         .setTitle("Premium")
                         .setDescription(
-                            `You have successfully claimed premium! You were the ${convertToOrdinal(
+                            `You have successfully claimed ${mappings[type]}! You were the **${convertToOrdinal(
                                 original - number + 1
-                            )} to click the button.`
-                        );
+                            )}** to click the button.`
+                        )
+                        .setFooter({ text: `Giveaways | Evo V4™️`, iconURL: client.user.displayAvatarURL() })
+                        .setColor(role.hexColor)
+                        .setTimestamp();
+                    client.settings.set(interaction.guild.id, number - 1, `giveaway.${args[1]}.number`);
+
+                    // set premium to date of expiry depending on type
+                    if (type == "hour") client.userDB.set(interaction.user.id, Date.now() + 3600000, "premium");
+                    else if (type === "day") client.userDB.set(interaction.user.id, Date.now() + 86400000, "premium");
+                    else if (type === "week") client.userDB.set(interaction.user.id, Date.now() + 604800000, "premium");
+                    else if (type === "month") client.userDB.set(interaction.user.id, Date.now() + 2592000000, "premium");
+                    else if (type === "year") client.userDB.set(interaction.user.id, Date.now() + 31536000000, "premium");
+                    else if (type === "lifetime") client.userDB.set(interaction.user.id, "lifetime", "premium");
+
+                    // set premium type
+                    client.userDB.set(interaction.user.id, type, "premiumType");
+                    client.userDB.set(interaction.user.id, Date.now(), "premiumClaimedAtTime");
+                    client.userDB.set(interaction.user.id, args[1], "premiumClaimedAtPosition");
+                    client.userDB.set(interaction.user.id, interaction.guild.id, "premiumClaimedAtGuild");
+                    client.userDB.set(interaction.user.id, interaction.channel.id, "premiumClaimedAtChannel");
+                    client.userDB.set(interaction.user.id, interaction.message.id, "premiumClaimedAtMessage");
+                    client.userDB.set(interaction.user.id, interaction.id, "premiumClaimedAtInteraction");
+
+                    const total = client.userDB.filter((user) => user.premium).size;
+                    client.userDB.set(interaction.user.id, total, "premiumClaimedAtTotal");
                 }
-                client.settings.set(interaction.guild.id, number - 1, `premium.giveaway.${args[1]}.number`);
 
-                // set premium to date of expiry depending on type
-                if (type == "hour") client.userDB.set(interaction.user.id, Date.now() + 3600000, "premium");
-                else if (type === "day") client.userDB.set(interaction.user.id, Date.now() + 86400000, "premium");
-                else if (type === "week") client.userDB.set(interaction.user.id, Date.now() + 604800000, "premium");
-                else if (type === "month") client.userDB.set(interaction.user.id, Date.now() + 2592000000, "premium");
-                else if (type === "year") client.userDB.set(interaction.user.id, Date.now() + 31536000000, "premium");
-                else if (type === "lifetime") client.userDB.set(interaction.user.id, "lifetime", "premium");
-
-                // set premium type
-                client.userDB.set(interaction.user.id, type, "premiumType");
-                client.userDB.set(interaction.user.id, Date.now(), "premiumClaimedAtTime");
-                client.userDB.set(interaction.user.id, args[1], "premiumClaimedAtPosition");
-                client.userDB.set(interaction.user.id, interaction.guild.id, "premiumClaimedAtGuild");
-                client.userDB.set(interaction.user.id, interaction.channel.id, "premiumClaimedAtChannel");
-                client.userDB.set(interaction.user.id, interaction.message.id, "premiumClaimedAtMessage");
-                client.userDB.set(interaction.user.id, interaction.id, "premiumClaimedAtInteraction");
-
-                const total = client.userDB.filter((user) => user.premium).size;
-                console.log(total);
-                client.userDB.set(interaction.user.id, total, "premiumClaimedAtTotal");
                 interaction.editReply({ embeds: [embed] });
             } else {
-                interaction.editReply({ content: `Too late.` });
+                // say what number they were with embed
+                logger.log(
+                    `User ${interaction.user.tag} [${interaction.user.id}] tried to claim giveaway for premium ${convertToOrdinal(
+                        original - number + 1
+                    )}.`
+                );
+                const embed = new EmbedBuilder()
+                    .setTitle("Premium")
+                    .setDescription(`You were the **${convertToOrdinal(original - number + 1)}** to click the button, too late.`)
+                    .setFooter({ text: `Giveaways | Evo V4™️`, iconURL: client.user.displayAvatarURL() })
+                    .setColor("FF0000")
+                    .setTimestamp();
+
+                client.settings.set(interaction.guild.id, number - 1, `giveaway.${args[1]}.number`);
+                interaction.editReply({ embeds: [embed] });
             }
             break;
-        }
-        case "register": {
-            await interaction.deferReply({ ephemeral: true });
-
-            // check if giveaway number is valid
-
-            const number = client.settings.get(interaction.guild.id, `premium.giveaway.${args[1]}.number`);
-            if (number <= 10) {
-                const type = client.settings.get(interaction.guild.id, `premium.giveaway.${args[1]}.type`);
-                const role = interaction.guild.roles.cache.get(client.settings.get(interaction.guild.id, "premium.role"));
-            } else {
-                interaction.editReply({ content: `Too late.` });
-            }
-
-            const member = interaction.member;
-            const premiumRole = interaction.guild.roles.cache.get(client.settings.get(interaction.guild.id, "premium.role"));
-            const premium = member.roles.cache.has(premiumRole);
-
-            let embed;
-            if (premium) {
-                embed = new EmbedBuilder().setTitle("Premium").setDescription(`You already have premium!`);
-            } else {
-                member.roles.add(premiumRole);
-                embed = new EmbedBuilder()
-                    .setTitle("Premium")
-                    .setDescription(
-                        `You have successfully claimed premium! You were the ${convertToOrdinal(args[1])} to click the button.`
-                    );
-            }
-            client.userDB.set(interaction.user.id, true, "premium");
-            client.userDB.set(interaction.user.id, Date.now(), "premiumClaimedAtTime");
-            client.userDB.set(interaction.user.id, args[1], "premiumClaimedAtPosition");
-            client.userDB.set(interaction.user.id, interaction.guild.id, "premiumClaimedAtGuild");
-            client.userDB.set(interaction.user.id, interaction.channel.id, "premiumClaimedAtChannel");
-            client.userDB.set(interaction.user.id, interaction.message.id, "premiumClaimedAtMessage");
-            client.userDB.set(interaction.user.id, interaction.id, "premiumClaimedAtInteraction");
-
-            const total = client.userDB.filter((user) => user.premium).size;
-            console.log(total);
-            client.userDB.set(interaction.user.id, total, "premiumClaimedAtTotal");
-
-            interaction.editReply({ embeds: [embed] });
         }
     }
 };
