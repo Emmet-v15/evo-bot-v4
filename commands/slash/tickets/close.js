@@ -11,7 +11,7 @@ module.exports = {
     ) => {
         const embed = new EmbedBuilder()
             .setTitle("Ticket Closing...")
-            .setDescription(`This ticket will be closed <t:${parseInt(Date.now().toString().slice(0, -3)) + 10}:R>`)
+            .setDescription(`This ticket will be closed <t:${parseInt(Date.now().toString().slice(0, -3)) + 10000}:R>`)
             .setAuthor({ name: "⚠️ Request by " + interaction.user.username, iconUrl: interaction.user.avatarURL() })
             .setFooter({ text: "EvoTickets [BETA] | Project Evo V4", iconURL: client.user.avatarURL() });
 
