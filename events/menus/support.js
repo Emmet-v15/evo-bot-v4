@@ -106,6 +106,7 @@ module.exports = async (
             interaction.deferReply({ ephemeral: true });
 
             const executor = interaction.values[0];
+            console.log(executor);
             const mappings = {
                 synapse: "Synapse X",
                 krnl: "KRNL",
