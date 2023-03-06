@@ -31,6 +31,17 @@ const supportComponents = new ActionRowBuilder().addComponents(
         .setMaxValues(1)
 );
 
+const supportEmbed = new EmbedBuilder()
+    .setTitle("Support panel")
+    .setDescription(
+        `If you have a problem with the script, you can open a ticket so we can help resolve your issue. **Use the dropdown below to open a support ticket**, and our team will shortly be with you.
+        
+        If you have a question, you can create a thread in <#1031233062706622544> where other community members can help you.`
+    )
+    .setColor("0099FF")
+    .setTimestamp()
+    .setFooter({ text: "EvoTickets | Evo v4™️ | Select an action below" });
+
 module.exports = async (
     /** @type {import("discord.js").Client} */ client,
     /** @type {import("discord.js").ButtonInteraction} */ interaction,
@@ -40,7 +51,7 @@ module.exports = async (
         case "category": {
             const category = interaction.values[0];
 
-            await interaction.update({ components: [supportComponents] });
+            await interaction.message.edit({ content: [supportEmbed], components: [supportComponents] });
 
             console.log("category", category);
 
