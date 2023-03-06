@@ -10,9 +10,9 @@ module.exports = {
     ) => {
         await interaction.deferReply({ ephemeral: true });
         let tickets = [];
-        interaction.guild.channels.cache.forEach((channel) => {
-            if (channel.type === ChannelType.GUILD_TEXT) {
-                tickets.push(channel);
+        interaction.guild.channels.cache.forEach((thread) => {
+            if (thread.type === ChannelType.PrivateThread) {
+                if (thread.parentId === "1074426376469356724" && !thread.archived) tickets.push(thread);
             }
         });
         let ticketList = "";
