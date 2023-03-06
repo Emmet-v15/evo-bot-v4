@@ -42,7 +42,7 @@ module.exports = async (
 
                     const bugVideo = new TextInputBuilder()
                         .setCustomId("bug-video")
-                        .setLabel("Please provide a video of the bug while it is happening if applicable.")
+                        .setLabel("Please provide a video of the bug occuring.")
                         .setStyle(TextInputStyle.Paragraph)
                         .setMinLength(10)
                         .setMaxLength(400)
