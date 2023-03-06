@@ -58,13 +58,15 @@ module.exports = async (
                         .setRequired(false)
                         .setPlaceholder("e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ");
 
-                    const firstActionRow = new ActionRowBuilder().addComponents(bugInfo);
-                    const secondActionRow = new ActionRowBuilder().addComponents(stepsToReproduce);
-                    const thirdActionRow = new ActionRowBuilder().addComponents(bugVideo);
+                    const firstActionRow = new ActionRowBuilder().addComponents(bugLocation);
+                    const secondActionRow = new ActionRowBuilder().addComponents(bugInfo);
+                    const thirdActionRow = new ActionRowBuilder().addComponents(stepsToReproduce);
+                    const fourthActionRow = new ActionRowBuilder().addComponents(bugVideo);
 
                     bugModal.addComponents(firstActionRow);
                     bugModal.addComponents(secondActionRow);
                     bugModal.addComponents(thirdActionRow);
+                    bugModal.addComponents(fourthActionRow);
                     return await interaction.showModal(bugModal);
                 }
                 case "suggestion": {
