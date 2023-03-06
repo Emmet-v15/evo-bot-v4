@@ -4,7 +4,10 @@ module.exports = {
     name: "list",
     description: "lists all open tickets.",
     permission: 1,
-    execute: async (/** @type {require("discord.js").Client} */ client, /** @type {require("discord.js").CommandInteraction} */ interaction) => {
+    execute: async (
+        /** @type {require("discord.js").Client} */ client,
+        /** @type {require("discord.js").CommandInteraction} */ interaction
+    ) => {
         await interaction.deferReply({ ephemeral: true });
         let tickets = [];
         interaction.guild.channels.cache.forEach((channel) => {
@@ -16,6 +19,6 @@ module.exports = {
         tickets.forEach((ticket) => {
             ticketList += `**${ticket.name}**\n`;
         });
-        interaction.reply(ticketList);
+        interaction.editReply(ticketList);
     },
 };
