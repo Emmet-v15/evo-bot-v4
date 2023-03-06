@@ -83,7 +83,7 @@ module.exports = async (
                     suggestionModal.addComponents(firstActionRow);
                     return await interaction.showModal(suggestionModal);
                 }
-                case "ticket": {
+                case "general": {
                     const modal = new ModalBuilder().setCustomId("tickets-create").setTitle("Create a ticket");
 
                     const reasonInput = new TextInputBuilder()
@@ -101,6 +101,7 @@ module.exports = async (
                     return await interaction.showModal(modal);
                 }
             }
+            break;
         }
         case "executor": {
             interaction.deferReply({ ephemeral: true });
