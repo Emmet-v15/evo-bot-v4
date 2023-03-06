@@ -51,7 +51,7 @@ module.exports = async (
         case "category": {
             const category = interaction.values[0];
 
-            await interaction.message.edit({ content: [supportEmbed], components: [supportComponents] });
+            await interaction.message.edit({ embeds: [supportEmbed], components: [supportComponents] });
 
             console.log("category", category);
 
