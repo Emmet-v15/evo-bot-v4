@@ -79,9 +79,12 @@ module.exports = async (
                         .setRequired(true)
                         .setPlaceholder("e.g. I suggest adding penis esp ...");
 
-                    const firstActionRow = new ActionRowBuilder().addComponents(suggestionType).addComponents(suggestionInfo);
+                    const firstActionRow = new ActionRowBuilder().addComponents(suggestionType);
+                    const secondActionRow = new ActionRowBuilder().addComponents(suggestionInfo);
 
                     suggestionModal.addComponents(firstActionRow);
+                    suggestionModal.addComponents(secondActionRow);
+
                     return await interaction.showModal(suggestionModal);
                 }
                 case "general": {
