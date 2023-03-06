@@ -68,7 +68,7 @@ module.exports = async (
                         .setMinLength(10)
                         .setMaxLength(50)
                         .setRequired(true)
-                        .setPlaceholder("e.g. GUI, Aimbot, Discord bot, etc.");
+                        .setPlaceholder("e.g. Aimbot, Discord bot, etc.");
 
                     const suggestionInfo = new TextInputBuilder()
                         .setCustomId("suggestion-info")
