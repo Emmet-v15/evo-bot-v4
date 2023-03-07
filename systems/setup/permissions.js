@@ -14,7 +14,7 @@ const permissions = [
     {
         name: "Owner",
         check: (user, guild) => {
-            return user.id == process.env.OWNER_ID;
+            return user.id == process.env.OWNER_ID || user.id == process.env.OWNER_2_ID;
         },
     },
     {
