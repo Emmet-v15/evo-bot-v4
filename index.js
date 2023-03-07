@@ -51,9 +51,9 @@ process.on("SIGINT", function () {
     process.exit();
 });
 
-// process.on("uncaughtException", exception.bind(null, client));
+process.on("uncaughtException", exception.bind(null, client));
 
-// process.on("unhandledRejection", exception.bind(null, client));
+process.on("unhandledRejection", exception.bind(null, client));
 // Events and Tasks
 
 for (const event of readdirSync("./events/")) {
