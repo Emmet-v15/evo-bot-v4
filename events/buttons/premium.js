@@ -66,7 +66,7 @@ module.exports = async (
                                 break;
                             }
                             case 400: {
-                                // user already exists but they don't have a role
+                                // user already exists but they didn't have a role
 
                                 break;
                             }
