@@ -28,14 +28,14 @@ module.exports = async (
             };
 
             if (number > 0) {
-                const role = interaction.guild.roles.cache.get(client.settings.get(interaction.guild.id, `role.${type}`));
+                const betaRole = interaction.guild.roles.cache.get(client.settings.get(interaction.guild.id, `role.${type}`));
                 const member = interaction.member;
-                const premium = member.roles.cache.has(role.id);
+                const premium = member.roles.cache.has(betaRole.id);
 
                 const embed = new EmbedBuilder()
                     .setTitle("Premium")
                     .setFooter({ text: `Giveaways | Evo V4™️`, iconURL: client.user.displayAvatarURL() })
-                    .setColor(role.hexColor)
+                    .setColor(betaRole.hexColor)
                     .setTimestamp();
 
                 if (premium) {
@@ -45,10 +45,6 @@ module.exports = async (
                     });
                 } else {
                     logger.event(`User ${interaction.user.tag} [${interaction.user.id}] won giveaway for ${mappings[type]}.`);
-
-                    // add roles
-                    member.roles.add(role);
-                    if (type == "beta") member.roles.add(client.settings.get(interaction.guild.id, "role.premium"));
 
                     // whitelist user
                     await fetch(`https://api.luarmor.net/v3/projects/${process.env.LUARMOR_PROJECT_ID}/users`, {
@@ -68,6 +64,9 @@ module.exports = async (
                                 client.userDB.set(interaction.user.id, json.user_key, "luarmorKey");
                                 client.settings.set(interaction.guild.id, number - 1, `giveaway.${args[1]}.number`);
 
+                                member.roles.add(betaRole);
+                                if (type == "beta") member.roles.add(client.settings.get(interaction.guild.id, "role.premium"));
+
                                 embed.setDescription(
                                     `You have successfully claimed ${mappings[type]}! You were the **${convertToOrdinal(
                                         original - number + 1
@@ -83,7 +82,11 @@ module.exports = async (
                                 break;
                             }
                             case 400: {
-                                // user already exists but they didn't have a role, we already added it.
+                                // user already whitelisted but they didn't have a role, so we'll give them the role
+
+                                member.roles.add(betaRole);
+                                if (type == "beta") member.roles.add(client.settings.get(interaction.guild.id, "role.premium"));
+
                                 embed.setDescription(`You already have ${mappings[type]}!`).setFooter({
                                     text: `Giveaways | Evo V4™️ - Make a general ticket if you cannot execute.`,
                                     iconURL: client.user.displayAvatarURL(),
