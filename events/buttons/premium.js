@@ -84,13 +84,6 @@ module.exports = async (
                                 iconURL: client.user.displayAvatarURL(),
                             });
 
-                            const UID = client.settings.get(interaction.guild.id, "totalPremiumUsers") + 1;
-                            client.settings.set(interaction.guild.id, UID, "totalPremiumUsers");
-                            client.userDB.set(interaction.user.id, {
-                                timestamp: Date.now(),
-                                method: `${mappings[type]} giveaway`,
-                                UID: UID,
-                            });
                             break;
                         }
                         case 403: {
