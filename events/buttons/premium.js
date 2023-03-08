@@ -45,11 +45,6 @@ module.exports = async (
                     });
                 } else {
                     logger.event(`User ${interaction.user.tag} [${interaction.user.id}] won giveaway for ${mappings[type]}.`);
-                    embed.setDescription(
-                        `You have successfully claimed ${mappings[type]}! You were the **${convertToOrdinal(
-                            original - number + 1
-                        )}** to click the button.`
-                    );
 
                     // add roles
                     member.roles.add(role);
@@ -64,13 +59,7 @@ module.exports = async (
                         },
                         body: JSON.stringify({
                             discord_id: interaction.user.id,
-                            note:
-                                "Created by Evo V4™️ Bot:" +
-                                JSON.stringify({
-                                    timestamp: Date.now(),
-                                    method: `${mappings[type]} giveaway`,
-                                    uid: client.userDB.filter((user) => user.premium).size,
-                                }),
+                            note: "Key created by Evo V4™️ Bot",
                         }),
                     }).then((res) => {
                         switch (res.status) {
@@ -78,10 +67,27 @@ module.exports = async (
                                 const json = res.json();
                                 client.userDB.set(interaction.user.id, json.user_key, "luarmorKey");
                                 client.settings.set(interaction.guild.id, number - 1, `giveaway.${args[1]}.number`);
+
+                                embed.setDescription(
+                                    `You have successfully claimed ${mappings[type]}! You were the **${convertToOrdinal(
+                                        original - number + 1
+                                    )}** to click the button.`
+                                );
+                                const UID = client.settings.get(interaction.guild.id, "totalPremiumUsers") + 1;
+                                client.settings.set(interaction.guild.id, UID, "totalPremiumUsers");
+                                client.userDB.set(interaction.user.id, {
+                                    timestamp: Date.now(),
+                                    method: `${mappings[type]} giveaway`,
+                                    UID: UID,
+                                });
                                 break;
                             }
                             case 400: {
                                 // user already exists but they didn't have a role, we already added it.
+                                embed.setDescription(`You already have ${mappings[type]}!`).setFooter({
+                                    text: `Giveaways | Evo V4™️ - Make a general ticket if you cannot execute.`,
+                                    iconURL: client.user.displayAvatarURL(),
+                                });
                                 break;
                             }
                             case 403: {
@@ -95,12 +101,6 @@ module.exports = async (
                             }
                         }
                     });
-
-                    client.settings.set(
-                        interaction.guild.id,
-                        client.settings.get(interaction.guild.id, "totalPremiumUsers") + 1,
-                        "totalPremiumUsers"
-                    );
                 }
 
                 interaction.editReply({ embeds: [embed] });
