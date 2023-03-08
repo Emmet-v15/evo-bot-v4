@@ -96,7 +96,11 @@ module.exports = async (
                         }
                     });
 
-                    client.settings.set(interaction.guild.id, ++(client.settings.get(interaction.guild.id, "totalPremiumUsers")), "totalPremiumUsers");
+                    client.settings.set(
+                        interaction.guild.id,
+                        client.settings.get(interaction.guild.id, "totalPremiumUsers") + 1,
+                        "totalPremiumUsers"
+                    );
                 }
 
                 interaction.editReply({ embeds: [embed] });
