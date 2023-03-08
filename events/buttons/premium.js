@@ -29,8 +29,7 @@ module.exports = async (
 
             if (number > 0) {
                 const betaRole = interaction.guild.roles.cache.get(client.settings.get(interaction.guild.id, `role.${type}`));
-                const member = interaction.member;
-                const premium = member.roles.cache.has(betaRole.id);
+                const premiumRoleId = client.settings.get(interaction.guild.id, "role.premium");
 
                 const embed = new EmbedBuilder()
                     .setTitle("Premium")
@@ -38,12 +37,7 @@ module.exports = async (
                     .setColor(betaRole.hexColor)
                     .setTimestamp();
 
-                if (premium) {
-                    embed.setDescription(`You already have ${mappings[type]}!`).setFooter({
-                        text: `Giveaways | Evo V4™️ - Make a general ticket if you cannot execute.`,
-                        iconURL: client.user.displayAvatarURL(),
-                    });
-                } else {
+
                     logger.event(`User ${interaction.user.tag} [${interaction.user.id}] won giveaway for ${mappings[type]}.`);
 
                     // whitelist user
@@ -64,8 +58,8 @@ module.exports = async (
                                 client.userDB.set(interaction.user.id, json.user_key, "luarmorKey");
                                 client.settings.set(interaction.guild.id, number - 1, `giveaway.${args[1]}.number`);
 
-                                member.roles.add(betaRole);
-                                if (type == "beta") member.roles.add(client.settings.get(interaction.guild.id, "role.premium"));
+                                interaction.member.roles.add(betaRole.id);
+                                if (type == "beta") interaction.member.roles.add(premiumRoleId);
 
                                 embed.setDescription(
                                     `You have successfully claimed ${mappings[type]}! You were the **${convertToOrdinal(
@@ -82,14 +76,21 @@ module.exports = async (
                                 break;
                             }
                             case 400: {
-                                // user already whitelisted but they didn't have a role, so we'll give them the role
-
-                                member.roles.add(betaRole);
+                                // member already whitelisted
+                                interaction.member.roles.add(betaRole.id);
                                 if (type == "beta") member.roles.add(client.settings.get(interaction.guild.id, "role.premium"));
 
                                 embed.setDescription(`You already have ${mappings[type]}!`).setFooter({
                                     text: `Giveaways | Evo V4™️ - Make a general ticket if you cannot execute.`,
                                     iconURL: client.user.displayAvatarURL(),
+                                });
+
+                                const UID = client.settings.get(interaction.guild.id, "totalPremiumUsers") + 1;
+                                client.settings.set(interaction.guild.id, UID, "totalPremiumUsers");
+                                client.userDB.set(interaction.user.id, {
+                                    timestamp: Date.now(),
+                                    method: `${mappings[type]} giveaway`,
+                                    UID: UID,
                                 });
                                 break;
                             }
