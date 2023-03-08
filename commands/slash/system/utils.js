@@ -1,5 +1,6 @@
 const { Attachment } = require("discord.js");
 const { AttachmentBuilder } = require("discord.js");
+const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
 const util = require("util");
 
