@@ -1,3 +1,8 @@
+const { Attachment } = require("discord.js");
+const { AttachmentBuilder } = require("discord.js");
+
+const util = require("util");
+
 module.exports = {
     name: "utils",
     description: "Utility commands for the bot dev.",
@@ -6,31 +11,43 @@ module.exports = {
         /** @type {require("discord.js").Client} */ client,
         /** @type {require("discord.js").CommandInteraction} */ interaction
     ) => {
-        interaction.deferReply({ ephemeral: true });
+        await interaction.deferReply({ ephemeral: true });
 
         const action = interaction.options.getString("action");
+        const file = interaction.options.get("file");
 
-        if (action === "outputSettings") {
-            const settings = client.settings.get(interaction.guild.id);
-            const settingsString = JSON.stringify(settings, null, 4);
-            const settingsFile = new MessageAttachment(Buffer.from(settingsString), "settings.json");
+        if (action === "getSettings") {
+            client.settings.fetchEverything();
+            const data = client.settings.export();
+            const settingsFile = new AttachmentBuilder().setName("settings.json").setFile(Buffer.from(data));
             interaction.editReply({ files: [settingsFile] });
-        } else if (action === "outputUserDB") {
-            const userDB = client.userDB.get(interaction.guild.id);
-            const userDBString = JSON.stringify(userDB, null, 4);
-            const userDBFile = new MessageAttachment(Buffer.from(userDBString), "userdb.json");
+        } else if (action === "getUserDB") {
+            client.userDB.fetchEverything();
+            const data = client.userDB.export();
+            const userDBFile = new AttachmentBuilder().setName("userDB.json").setFile(Buffer.from(data));
             interaction.editReply({ files: [userDBFile] });
+        } else if (action === "setSettings") {
+            if (!file) return interaction.editReply({ content: "You must provide a file to import." });
+            const settingsFile = interaction.options.get("file");
+            const data = await fetch(settingsFile.attachment.url, { method: "GET" }).then((res) => res.json());
+            client.settings.import(JSON.stringify(data), true, true);
+            interaction.editReply({ content: "Success!" });
+        } else if (action === "setUserDB") {
+            if (!file) return interaction.editReply({ content: "You must provide a file to import." });
+            const userDBFile = interaction.options.get("file");
+            const data = await fetch(userDBFile.attachment.url, { method: "GET" }).then((res) => res.json());
+            client.userDB.import(JSON.stringify(data), true, true);
+            interaction.editReply({ content: "Success!" });
         }
-
-        interaction.editReply({ content: "Success!" });
     },
     options: [
         {
             type: "String",
             name: "action",
             description: "The action to perform",
-            choices: { "Output Settings": "outputSettings", "Output UserDB": "outputUserDB" },
+            choices: { "Get Settings": "getSettings", "Get UserDB": "getUserDB", "Set Settings": "setSettings", "Set UserDB": "setUserDB" },
             required: true,
         },
+        { type: "Attachment", name: "file", description: "The file to import" },
     ],
 };
