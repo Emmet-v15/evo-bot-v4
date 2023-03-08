@@ -37,75 +37,73 @@ module.exports = async (
                     .setColor(betaRole.hexColor)
                     .setTimestamp();
 
+                logger.event(`User ${interaction.user.tag} [${interaction.user.id}] won giveaway for ${mappings[type]}.`);
 
-                    logger.event(`User ${interaction.user.tag} [${interaction.user.id}] won giveaway for ${mappings[type]}.`);
+                // whitelist user
+                await fetch(`https://api.luarmor.net/v3/projects/${process.env.LUARMOR_PROJECT_ID}/users`, {
+                    method: "POST",
+                    headers: {
+                        Authorization: process.env.LUARMOR_API_KEY,
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        discord_id: interaction.user.id,
+                        note: "Key created by Evo V4™️ Bot",
+                    }),
+                }).then((res) => {
+                    switch (res.status) {
+                        case 200: {
+                            const json = res.json();
+                            client.userDB.set(interaction.user.id, json.user_key, "luarmorKey");
+                            client.settings.set(interaction.guild.id, number - 1, `giveaway.${args[1]}.number`);
 
-                    // whitelist user
-                    await fetch(`https://api.luarmor.net/v3/projects/${process.env.LUARMOR_PROJECT_ID}/users`, {
-                        method: "POST",
-                        headers: {
-                            Authorization: process.env.LUARMOR_API_KEY,
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            discord_id: interaction.user.id,
-                            note: "Key created by Evo V4™️ Bot",
-                        }),
-                    }).then((res) => {
-                        switch (res.status) {
-                            case 200: {
-                                const json = res.json();
-                                client.userDB.set(interaction.user.id, json.user_key, "luarmorKey");
-                                client.settings.set(interaction.guild.id, number - 1, `giveaway.${args[1]}.number`);
+                            interaction.member.roles.add(betaRole.id);
+                            if (type == "beta") interaction.member.roles.add(premiumRoleId);
 
-                                interaction.member.roles.add(betaRole.id);
-                                if (type == "beta") interaction.member.roles.add(premiumRoleId);
-
-                                embed.setDescription(
-                                    `You have successfully claimed ${mappings[type]}! You were the **${convertToOrdinal(
-                                        original - number + 1
-                                    )}** to click the button.`
-                                );
-                                const UID = client.settings.get(interaction.guild.id, "totalPremiumUsers") + 1;
-                                client.settings.set(interaction.guild.id, UID, "totalPremiumUsers");
-                                client.userDB.set(interaction.user.id, {
-                                    timestamp: Date.now(),
-                                    method: `${mappings[type]} giveaway`,
-                                    UID: UID,
-                                });
-                                break;
-                            }
-                            case 400: {
-                                // member already whitelisted
-                                interaction.member.roles.add(betaRole.id);
-                                if (type == "beta") member.roles.add(client.settings.get(interaction.guild.id, "role.premium"));
-
-                                embed.setDescription(`You already have ${mappings[type]}!`).setFooter({
-                                    text: `Giveaways | Evo V4™️ - Make a general ticket if you cannot execute.`,
-                                    iconURL: client.user.displayAvatarURL(),
-                                });
-
-                                const UID = client.settings.get(interaction.guild.id, "totalPremiumUsers") + 1;
-                                client.settings.set(interaction.guild.id, UID, "totalPremiumUsers");
-                                client.userDB.set(interaction.user.id, {
-                                    timestamp: Date.now(),
-                                    method: `${mappings[type]} giveaway`,
-                                    UID: UID,
-                                });
-                                break;
-                            }
-                            case 403: {
-                                throw new Error("Invalid Luarmor API Key");
-                            }
-                            case 429: {
-                                throw new Error("Rate Limited at Luarmor API");
-                            }
-                            default: {
-                                throw new Error("Unknown Error at Luarmor API: ", res.status, res.statusText, res.body, res.url);
-                            }
+                            embed.setDescription(
+                                `You have successfully claimed ${mappings[type]}! You were the **${convertToOrdinal(
+                                    original - number + 1
+                                )}** to click the button.`
+                            );
+                            const UID = client.settings.get(interaction.guild.id, "totalPremiumUsers") + 1;
+                            client.settings.set(interaction.guild.id, UID, "totalPremiumUsers");
+                            client.userDB.set(interaction.user.id, {
+                                timestamp: Date.now(),
+                                method: `${mappings[type]} giveaway`,
+                                UID: UID,
+                            });
+                            break;
                         }
-                    });
-                }
+                        case 400: {
+                            // member already whitelisted
+                            interaction.member.roles.add(betaRole.id);
+                            if (type == "beta") member.roles.add(premiumRoleId);
+
+                            embed.setDescription(`You already have ${mappings[type]}!`).setFooter({
+                                text: `Giveaways | Evo V4™️ - Make a general ticket if you cannot execute.`,
+                                iconURL: client.user.displayAvatarURL(),
+                            });
+
+                            const UID = client.settings.get(interaction.guild.id, "totalPremiumUsers") + 1;
+                            client.settings.set(interaction.guild.id, UID, "totalPremiumUsers");
+                            client.userDB.set(interaction.user.id, {
+                                timestamp: Date.now(),
+                                method: `${mappings[type]} giveaway`,
+                                UID: UID,
+                            });
+                            break;
+                        }
+                        case 403: {
+                            throw new Error("Invalid Luarmor API Key");
+                        }
+                        case 429: {
+                            throw new Error("Rate Limited at Luarmor API");
+                        }
+                        default: {
+                            throw new Error("Unknown Error at Luarmor API: ", res.status, res.statusText, res.body, res.url);
+                        }
+                    }
+                });
 
                 interaction.editReply({ embeds: [embed] });
             } else {
