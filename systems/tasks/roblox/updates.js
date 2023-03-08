@@ -54,7 +54,7 @@ const handleUpdate = (client, version, category) => {
         if (oldUpdate !== version) {
             const channel = client.channels.cache.find((c) => c.id === client.settings.get(guild.id, `${category}.channel`));
             if (channel) {
-                let roleId = client.settings.get(guild.id, `${category}.role`);
+                let roleId = client.settings.get(guild.id, `role.${category}`);
                 if (roleId) messageContent.content = `<@&${roleId}>`;
                 if (category === "updates") {
                     messageContent.embeds = [currentUpdateEmbed(version, guild)];

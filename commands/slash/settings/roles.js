@@ -12,11 +12,11 @@ module.exports = {
         const role = interaction.options.getRole("role");
         if (role) {
             const id = role.id;
-            client.settings.set(interaction.guild.id, id, `${type}.role`);
+            client.settings.set(interaction.guild.id, id, `role.${type}`);
             interaction.editReply({ content: `The \`${type}\` role has been set to <@&${id}>` });
         } else {
             interaction.editReply({
-                content: `The \`${type}\` role is currently <@&${client.settings.get(interaction.guild.id, `${type}.role`)}>`,
+                content: `The \`${type}\` role is currently <@&${client.settings.get(interaction.guild.id, `role.${type}`)}>`,
             });
         }
     },

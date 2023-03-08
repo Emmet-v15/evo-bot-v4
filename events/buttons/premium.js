@@ -28,7 +28,7 @@ module.exports = async (
             };
 
             if (number > 0) {
-                const role = interaction.guild.roles.cache.get(client.settings.get(interaction.guild.id, `${type}.role`));
+                const role = interaction.guild.roles.cache.get(client.settings.get(interaction.guild.id, `role.${type}`));
                 const member = interaction.member;
                 const premium = member.roles.cache.has(role.id);
 

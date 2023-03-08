@@ -22,7 +22,7 @@ module.exports = {
             beta: "Evo™️ Beta",
         };
 
-        const role = client.settings.get(interaction.guild.id, `${type}.role`);
+        const role = client.settings.get(interaction.guild.id, `role.${type}`);
         if (!role) return interaction.editReply({ content: `The role for ${type} is not configured.` });
 
         const giveawayUUID = uuidv4();
