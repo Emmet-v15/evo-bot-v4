@@ -1,6 +1,7 @@
 const { convertToOrdinal } = require("../../util/common");
 const { EmbedBuilder } = require("discord.js");
 const logger = require("../../systems/logging/logger");
+const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fetch(...args));
 require("dotenv").config();
 
 module.exports = async (
