@@ -66,7 +66,7 @@ module.exports = async (
                             discord_id: interaction.user.id,
                             note:
                                 "Created by Evo V4™️ Bot:" +
-                                json.stringify({
+                                JSON.stringify({
                                     timestamp: Date.now(),
                                     method: `${mappings[type]} giveaway`,
                                     uid: client.userDB.filter((user) => user.premium).size,
