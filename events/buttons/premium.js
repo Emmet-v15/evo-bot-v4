@@ -72,6 +72,7 @@ module.exports = async (
                                 break;
                             }
                             case 403: {
+                                console.log(process.env.LUARMOR_API_KEY);
                                 throw new Error("Invalid Luarmor API Key");
                             }
                             case 429: {
