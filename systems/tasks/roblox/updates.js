@@ -6,7 +6,11 @@ const { red, greenBright } = require("colorette");
 const { instantInterval } = require("../../../util/interval");
 
 const currentUpdateEmbed = (version, guild) => {
-    const embed = new EmbedBuilder().setTitle(`Roblox has Updated to ${version}`).setColor("ED4245").setTimestamp().setFooter({ text: "EvoV4" });
+    const embed = new EmbedBuilder()
+        .setTitle(`Roblox has Updated to ${version}`)
+        .setColor("ED4245")
+        .setTimestamp()
+        .setFooter({ text: "EvoV4" });
     const oldUpdate = guild.client.settings.get(guild.id, "updates.oldVersion");
     if (oldUpdate) {
         embed.setDescription(`From update ${oldUpdate}`);
@@ -27,7 +31,9 @@ const futureUpdateEmbed = (version) => {
 };
 
 const generateButton = (version) => {
-    return new ActionRowBuilder().addComponents(new ButtonBuilder().setURL(`http://setup.roblox.com/${version}-RobloxApp.zip`).setLabel("Download").setStyle(ButtonStyle.Link));
+    return new ActionRowBuilder().addComponents(
+        new ButtonBuilder().setURL(`http://setup.roblox.com/${version}-RobloxApp.zip`).setLabel("Download").setStyle(ButtonStyle.Link)
+    );
 };
 
 const handleUpdate = (client, version, category) => {
@@ -53,11 +59,15 @@ const handleUpdate = (client, version, category) => {
                 if (category === "updates") {
                     messageContent.embeds = [currentUpdateEmbed(version, guild)];
                     logger.warn(
-                        `Roblox has updated to ${red(version)}${oldUpdate ? " from " + red(oldUpdate) : ""} [${greenBright(`http://setup.roblox.com/${version}-RobloxApp.zip`)}]`
+                        `Roblox has updated to ${red(version)}${oldUpdate ? " from " + red(oldUpdate) : ""} [${greenBright(
+                            `http://setup.roblox.com/${version}-RobloxApp.zip`
+                        )}]`
                     );
                 } else if (category === "predictions") {
                     logger.warn(
-                        `Roblox will update to ${red(version)}${oldUpdate ? " from " + red(oldUpdate) : ""} [${greenBright(`http://setup.roblox.com/${version}-RobloxApp.zip`)}]`
+                        `Roblox will update to ${red(version)}${oldUpdate ? " from " + red(oldUpdate) : ""} [${greenBright(
+                            `http://setup.roblox.com/${version}-RobloxApp.zip`
+                        )}]`
                     );
                 }
                 channel.send(messageContent);

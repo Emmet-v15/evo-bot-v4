@@ -1,6 +1,10 @@
 const { EmbedBuilder } = require("discord.js");
 
-module.exports = async (/** @type {import("discord.js").Client} */ client, /** @type {import("discord.js").ModalSubmitInteraction} */ interaction, ...args) => {
+module.exports = async (
+    /** @type {import("discord.js").Client} */ client,
+    /** @type {import("discord.js").ModalSubmitInteraction} */ interaction,
+    ...args
+) => {
     await interaction.deferReply({ ephemeral: true });
 
     switch (args[0]) {
@@ -20,12 +24,13 @@ module.exports = async (/** @type {import("discord.js").Client} */ client, /** @
         }
         case "claim": {
             // check if user is allowed to claim the ticket
-            if (client.settings.get(interaction.guild.id, "ticketClaim.role")?.length > 0) {
-                const roleID = client.settings.get(interaction.guild.id, "ticketClaim.role");
+            if (client.settings.get(interaction.guild.id, "role.ticketClaim")?.length > 0) {
+                const roleID = client.settings.get(interaction.guild.id, "role.ticketClaim");
                 // get role by id
                 const role = interaction.guild.roles.cache.get(roleID);
                 // check if user has role
-                if (!interaction.member.roles.cache.has(role)) return interaction.reply({ content: "You are not allowed to claim tickets.", ephemeral: true });
+                if (!interaction.member.roles.cache.has(role))
+                    return interaction.reply({ content: "You are not allowed to claim tickets.", ephemeral: true });
             }
 
             const ticket = interaction.channel;

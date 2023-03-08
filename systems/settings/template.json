@@ -1,24 +1,12 @@
 {
     "totalPremiumUsers": 0,
     "roles": [],
-    "logs": {
-        "channel": ""
+    "updates": {
+        "channel": "",
+        "latestVersion": ""
     },
-    "roblox": {
-        "status": {
-            "channel": "",
-            "pageId": ""
-        },
-        "updates": {
-            "channel": "",
-            "latestVersion": ""
-        },
-        "predictions": {
-            "channel": "",
-            "latestVersion": ""
-        },
-        "groups": {
-            "channel": ""
-        }
+    "predictions": {
+        "channel": "",
+        "latestVersion": ""
     }
 }

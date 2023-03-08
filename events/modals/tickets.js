@@ -99,7 +99,7 @@ module.exports = async (
                         thread.setInvitable(false);
 
                         // check if user has premium role
-                        const premiumRole = i.guild.roles.cache.get(client.settings.get(i.guild.id, "premium.role"));
+                        const premiumRole = i.guild.roles.cache.get(client.settings.get(i.guild.id, "role.premium"));
                         const premium = i.member.roles.cache.has(premiumRole);
 
                         const ticketEmbed = new EmbedBuilder()
@@ -146,7 +146,7 @@ module.exports = async (
                         );
 
                         await thread.send({
-                            content: `<@&${client.settings.get(i.guild.id, "ticketOpen.role")}>`,
+                            content: `<@&${client.settings.get(i.guild.id, "role.ticketOpen")}>`,
                             embeds: [ticketEmbed],
                             components: [ticketButtons],
                         });

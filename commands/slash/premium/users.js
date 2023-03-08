@@ -33,7 +33,7 @@ module.exports = {
                 // remove premium role
                 const guild = client.guilds.cache.get(interaction.guild);
                 const member = guild.members.cache.get(user.id);
-                const role = guild.roles.cache.get(client.settings.get(interaction.guild, "premium.role"));
+                const role = guild.roles.cache.get(client.settings.get(interaction.guild, "role.premium"));
                 if (member.roles.cache.has(role.id)) member.roles.remove(role);
                 client.userDB.delete(user.id, "premium");
 

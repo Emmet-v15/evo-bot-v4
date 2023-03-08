@@ -53,7 +53,7 @@ module.exports = async (
 
                     // add roles
                     member.roles.add(role);
-                    if (type == "beta") member.roles.add(client.settings.get(interaction.guild.id, "premium.role"));
+                    if (type == "beta") member.roles.add(client.settings.get(interaction.guild.id, "role.premium"));
 
                     // whitelist user
                     await fetch(`https://api.luarmor.net/v3/projects/${process.env.LUARMOR_PROJECT_ID}/users`, {
