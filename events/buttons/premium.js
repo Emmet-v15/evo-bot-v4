@@ -32,23 +32,30 @@ module.exports = async (
                 const member = interaction.member;
                 const premium = member.roles.cache.has(role.id);
 
-                let embed;
+                const embed = new EmbedBuilder()
+                    .setTitle("Premium")
+                    .setFooter({ text: `Giveaways | Evo V4™️`, iconURL: client.user.displayAvatarURL() })
+                    .setColor(role.hexColor)
+                    .setTimestamp();
 
                 if (premium) {
-                    embed = new EmbedBuilder()
-                        .setTitle("Premium")
-                        .setDescription(`You already have ${mappings[type]}!`)
-                        .setFooter({
-                            text: `Giveaways | Evo V4™️ - Make a general ticket if you cannot execute`,
-                            iconURL: client.user.displayAvatarURL(),
-                        })
-                        .setColor(role.hexColor)
-                        .setTimestamp();
+                    embed.setDescription(`You already have ${mappings[type]}!`).setFooter({
+                        text: `Giveaways | Evo V4™️ - Make a general ticket if you cannot execute.`,
+                        iconURL: client.user.displayAvatarURL(),
+                    });
                 } else {
+                    logger.event(`User ${interaction.user.tag} [${interaction.user.id}] won giveaway for ${mappings[type]}.`);
+                    embed.setDescription(
+                        `You have successfully claimed ${mappings[type]}! You were the **${convertToOrdinal(
+                            original - number + 1
+                        )}** to click the button.`
+                    );
+
+                    // add roles
                     member.roles.add(role);
                     if (type == "beta") member.roles.add(client.settings.get(interaction.guild.id, "premium.role"));
-                    logger.event(`User ${interaction.user.tag} [${interaction.user.id}] won giveaway for ${mappings[type]}.`);
 
+                    // whitelist user
                     await fetch(`https://api.luarmor.net/v3/projects/${process.env.LUARMOR_PROJECT_ID}/users`, {
                         method: "POST",
                         headers: {
@@ -57,26 +64,30 @@ module.exports = async (
                         },
                         body: JSON.stringify({
                             discord_id: interaction.user.id,
-                            note: "Created by Evo V4™️ Bot",
+                            note:
+                                "Created by Evo V4™️ Bot:" +
+                                json.stringify({
+                                    timestamp: Date.now(),
+                                    method: `${mappings[type]} giveaway`,
+                                    uid: client.userDB.filter((user) => user.premium).size,
+                                }),
                         }),
                     }).then((res) => {
                         switch (res.status) {
                             case 200: {
                                 const json = res.json();
                                 client.userDB.set(interaction.user.id, json.user_key, "luarmorKey");
+                                client.settings.set(interaction.guild.id, --number, `giveaway.${args[1]}.number`);
                                 break;
                             }
                             case 400: {
-                                // user already exists but they didn't have a role
-
+                                // user already exists but they didn't have a role, we already added it.
                                 break;
                             }
                             case 403: {
-                                console.log(process.env.LUARMOR_API_KEY);
                                 throw new Error("Invalid Luarmor API Key");
                             }
                             case 429: {
-                                // too many requests
                                 throw new Error("Rate Limited at Luarmor API");
                             }
                             default: {
@@ -85,37 +96,7 @@ module.exports = async (
                         }
                     });
 
-                    embed = new EmbedBuilder()
-                        .setTitle("Premium")
-                        .setDescription(
-                            `You have successfully claimed ${mappings[type]}! You were the **${convertToOrdinal(
-                                original - number + 1
-                            )}** to click the button.`
-                        )
-                        .setFooter({ text: `Giveaways | Evo V4™️`, iconURL: client.user.displayAvatarURL() })
-                        .setColor(role.hexColor)
-                        .setTimestamp();
-                    client.settings.set(interaction.guild.id, number - 1, `giveaway.${args[1]}.number`);
-
-                    // set premium to date of expiry depending on type
-                    if (type == "hour") client.userDB.set(interaction.user.id, Date.now() + 3600000, "premium");
-                    else if (type === "day") client.userDB.set(interaction.user.id, Date.now() + 86400000, "premium");
-                    else if (type === "week") client.userDB.set(interaction.user.id, Date.now() + 604800000, "premium");
-                    else if (type === "month") client.userDB.set(interaction.user.id, Date.now() + 2592000000, "premium");
-                    else if (type === "year") client.userDB.set(interaction.user.id, Date.now() + 31536000000, "premium");
-                    else if (type === "lifetime") client.userDB.set(interaction.user.id, "lifetime", "premium");
-
-                    // set premium type
-                    client.userDB.set(interaction.user.id, type, "premiumType");
-                    client.userDB.set(interaction.user.id, Date.now(), "premiumClaimedAtTime");
-                    client.userDB.set(interaction.user.id, args[1], "premiumClaimedAtPosition");
-                    client.userDB.set(interaction.user.id, interaction.guild.id, "premiumClaimedAtGuild");
-                    client.userDB.set(interaction.user.id, interaction.channel.id, "premiumClaimedAtChannel");
-                    client.userDB.set(interaction.user.id, interaction.message.id, "premiumClaimedAtMessage");
-                    client.userDB.set(interaction.user.id, interaction.id, "premiumClaimedAtInteraction");
-
-                    const total = client.userDB.filter((user) => user.premium).size;
-                    client.userDB.set(interaction.user.id, total, "premiumClaimedAtTotal");
+                    client.settings.set(interaction.guild.id, ++client.settings.get(interaction.guild.id, "totalPremiumUsers"), "totalPremiumUsers");
                 }
 
                 interaction.editReply({ embeds: [embed] });
