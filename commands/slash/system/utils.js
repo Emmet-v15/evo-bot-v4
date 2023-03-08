@@ -10,12 +10,12 @@ module.exports = {
 
         const action = interaction.options.getString("action");
 
-        if (action === "outputsettings") {
+        if (action === "outputSettings") {
             const settings = client.settings.get(interaction.guild.id);
             const settingsString = JSON.stringify(settings, null, 4);
             const settingsFile = new MessageAttachment(Buffer.from(settingsString), "settings.json");
             interaction.editReply({ files: [settingsFile] });
-        } else if (action === "outputuserdb") {
+        } else if (action === "outputUserDB") {
             const userDB = client.userDB.get(interaction.guild.id);
             const userDBString = JSON.stringify(userDB, null, 4);
             const userDBFile = new MessageAttachment(Buffer.from(userDBString), "userdb.json");
@@ -29,7 +29,7 @@ module.exports = {
             type: "String",
             name: "action",
             description: "The action to perform",
-            choices: { "Output Settings": "outputsettings", "Output UserDB": "outputuserdb" },
+            choices: { "Output Settings": "outputSettings", "Output UserDB": "outputUserDB" },
             required: true,
         },
     ],
