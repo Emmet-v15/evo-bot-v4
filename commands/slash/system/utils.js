@@ -29,7 +29,7 @@ module.exports = {
             type: "String",
             name: "action",
             description: "The action to perform",
-            choices: [{ OutputSettings: "outputsettings" }, { OutputUserDB: "outputuserdb" }],
+            choices: { "Output Settings": "outputsettings", "Output UserDB": "outputuserdb" },
             required: true,
         },
     ],
