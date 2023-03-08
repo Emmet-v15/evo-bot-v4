@@ -77,7 +77,7 @@ module.exports = async (
                             case 200: {
                                 const json = res.json();
                                 client.userDB.set(interaction.user.id, json.user_key, "luarmorKey");
-                                client.settings.set(interaction.guild.id, --number, `giveaway.${args[1]}.number`);
+                                client.settings.set(interaction.guild.id, number - 1, `giveaway.${args[1]}.number`);
                                 break;
                             }
                             case 400: {
