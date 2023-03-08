@@ -77,7 +77,7 @@ module.exports = async (
                         case 400: {
                             // member already whitelisted
                             interaction.member.roles.add(betaRole.id);
-                            if (type == "beta") member.roles.add(premiumRoleId);
+                            if (type == "beta") interaction.member.roles.add(premiumRoleId);
 
                             embed.setDescription(`You already have ${mappings[type]}!`).setFooter({
                                 text: `Giveaways | Evo V4™️ - Make a general ticket if you cannot execute.`,
