@@ -21,7 +21,6 @@ module.exports = {
             const userDBFile = new MessageAttachment(Buffer.from(userDBString), "userdb.json");
             interaction.editReply({ files: [userDBFile] });
         }
-        
 
         interaction.editReply({ content: "Success!" });
     },
@@ -30,10 +29,7 @@ module.exports = {
             type: "String",
             name: "action",
             description: "The action to perform",
-            choices: [
-                { "OutputSettings": "outputsettings" },
-                { "OutputUserDB": "outputuserdb" },
-            ]
+            choices: [{ OutputSettings: "outputsettings" }, { OutputUserDB: "outputuserdb" }],
             required: true,
         },
     ],
