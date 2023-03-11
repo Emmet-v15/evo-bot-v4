@@ -28,16 +28,26 @@ module.exports = async (
             };
 
             if (number > 0) {
-                const betaRole = interaction.guild.roles.cache.get(client.settings.get(interaction.guild.id, `role.${type}`));
+                const role = interaction.guild.roles.cache.get(client.settings.get(interaction.guild.id, `role.${type}`));
                 const premiumRoleId = client.settings.get(interaction.guild.id, "role.premium");
 
                 const embed = new EmbedBuilder()
                     .setTitle("Premium")
                     .setFooter({ text: `Giveaways | Evo V4™️`, iconURL: client.user.displayAvatarURL() })
-                    .setColor(betaRole.hexColor)
+                    .setColor(role.hexColor)
                     .setTimestamp();
 
                 logger.event(`User ${interaction.user.tag} [${interaction.user.id}] won giveaway for ${mappings[type]}.`);
+
+                // check if they already have the role
+                if (interaction.member.roles.cache.has(role)) {
+                    embed.setDescription(`You already have ${mappings[type]}!`).setFooter({
+                        text: `Giveaways | Evo V4™️ - Make a general ticket if you cannot execute.`,
+                        iconURL: client.user.displayAvatarURL(),
+                    });
+                    interaction.editReply({ embeds: [embed] });
+                    return;
+                }
 
                 // whitelist user
                 await fetch(`https://api.luarmor.net/v3/projects/${process.env.LUARMOR_PROJECT_ID}/users`, {
@@ -57,7 +67,7 @@ module.exports = async (
                             client.userDB.set(interaction.user.id, json.user_key, "luarmorKey");
                             client.settings.set(interaction.guild.id, number - 1, `giveaway.${args[1]}.number`);
 
-                            interaction.member.roles.add(betaRole.id);
+                            interaction.member.roles.add(role.id);
                             if (type == "beta") interaction.member.roles.add(premiumRoleId);
 
                             embed.setDescription(
@@ -76,7 +86,7 @@ module.exports = async (
                         }
                         case 400: {
                             // member already whitelisted
-                            interaction.member.roles.add(betaRole.id);
+                            interaction.member.roles.add(role.id);
                             if (type == "beta") interaction.member.roles.add(premiumRoleId);
 
                             embed.setDescription(`You already have ${mappings[type]}!`).setFooter({

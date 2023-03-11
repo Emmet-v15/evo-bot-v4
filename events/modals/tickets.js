@@ -178,7 +178,9 @@ module.exports = async (
                         thread.members.add(i.user.id);
 
                         // log to the ticket log channel
-                        const logChannel = i.guild.channels.cache.find((c) => c.id == client.settings.get(i.guild.id, "logs.channel"));
+                        const logChannel = i.guild.channels.cache.find(
+                            (c) => c.id == client.settings.get(i.guild.id, "ticketLogs.channel")
+                        );
 
                         // get url of thread
                         const threadUrl = `https://discord.com/channels/${i.guild.id}/${thread.id}`;
