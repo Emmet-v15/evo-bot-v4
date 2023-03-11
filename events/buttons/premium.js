@@ -48,7 +48,7 @@ module.exports = async (
                     interaction.editReply({ embeds: [embed] });
                     return;
                 }
-
+                client.settings.set(interaction.guild.id, number - 1, `giveaway.${args[1]}.number`);
                 // whitelist user
                 await fetch(`https://api.luarmor.net/v3/projects/${process.env.LUARMOR_PROJECT_ID}/users`, {
                     method: "POST",
@@ -65,7 +65,6 @@ module.exports = async (
                         case 200: {
                             const json = res.json();
                             client.userDB.set(interaction.user.id, json.user_key, "luarmorKey");
-                            client.settings.set(interaction.guild.id, number - 1, `giveaway.${args[1]}.number`);
 
                             interaction.member.roles.add(role.id);
                             if (type == "beta") interaction.member.roles.add(premiumRoleId);

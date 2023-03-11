@@ -16,7 +16,7 @@ exports.log = (content, type = "log", color = "") => {
                 .setTitle("Event")
                 .setDescription(content)
                 .setFooter({ text: `Evo V4™️`, iconURL: exports.client.user.displayAvatarURL() })
-                .setColor("BC")
+                .setColor(color)
                 .setTimestamp();
 
             exports.client.channels.cache.get("1084228481287725118").send({ embeds: [embed] });
