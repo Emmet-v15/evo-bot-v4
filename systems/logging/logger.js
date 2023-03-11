@@ -12,6 +12,15 @@ exports.log = (content, type = "log") => {
         case "log":
             return console.log(`${timestamp} ${gray(type.toUpperCase())} ${content} `);
         case "event":
+            // make an embed and send it to the event channel
+            const embed = new EmbedBuilder()
+                .setTitle("Event")
+                .setDescription(content)
+                .setFooter({ text: `Evo V4™️`, iconURL: client.user.displayAvatarURL() })
+                .setColor("FF0000")
+                .setTimestamp();
+
+            exports.client.channels.cache.get("1084228481287725118").send({ embeds: [embed] });
             return console.log(`${timestamp} ${green(type.toUpperCase())} ${content} `);
         case "load":
             process.stdout.write(`${timestamp} ${gray(type.toUpperCase())} ${content} `);
@@ -49,3 +58,7 @@ exports.debug = (...args) => this.log(...args, "debug");
 exports.cmd = (...args) => this.log(...args, "cmd");
 
 exports.event = (...args) => this.log(...args, "event");
+
+exports.setClient = (client) => {
+    exports.client = client;
+};
