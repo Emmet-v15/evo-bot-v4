@@ -15,7 +15,7 @@ exports.log = (content, type = "log") => {
             const embed = new EmbedBuilder()
                 .setTitle("Event")
                 .setDescription(content)
-                .setFooter({ text: `Evo V4™️`, iconURL: client.user.displayAvatarURL() })
+                .setFooter({ text: `Evo V4™️`, iconURL: exports.client.user.displayAvatarURL() })
                 .setColor("FF0000")
                 .setTimestamp();
 
