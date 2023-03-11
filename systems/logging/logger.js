@@ -12,7 +12,6 @@ exports.log = (content, type = "log") => {
         case "log":
             return console.log(`${timestamp} ${gray(type.toUpperCase())} ${content} `);
         case "event":
-            // make an embed and send it to the event channel
             const embed = new EmbedBuilder()
                 .setTitle("Event")
                 .setDescription(content)
