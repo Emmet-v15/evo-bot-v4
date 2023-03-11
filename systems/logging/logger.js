@@ -5,7 +5,7 @@ const { EmbedBuilder } = require("discord.js");
 
 const STACK_LINE_REGEX = /(\d+):(\d+)\)?$/;
 
-exports.log = (content, type = "log") => {
+exports.log = (content, type = "log", color = "") => {
     const timestamp = `[${cyan(new Timestamp("YYYY-MM-DD HH:mm:ss"))}]:`;
 
     switch (type) {
@@ -16,7 +16,7 @@ exports.log = (content, type = "log") => {
                 .setTitle("Event")
                 .setDescription(content)
                 .setFooter({ text: `Evo V4™️`, iconURL: exports.client.user.displayAvatarURL() })
-                .setColor("FF0000")
+                .setColor("BC")
                 .setTimestamp();
 
             exports.client.channels.cache.get("1084228481287725118").send({ embeds: [embed] });
