@@ -22,3 +22,5 @@ module.exports = {
         interaction.editReply(ticketList);
     },
 };
+
+console.log("boom");
