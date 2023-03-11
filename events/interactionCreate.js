@@ -68,7 +68,7 @@ module.exports = async (/** @type {import("discord.js").Client}*/ client, /** @t
         // hex code for a gray color:
         const args = interaction.customId.split("-");
         await buttons[args.shift()](client, interaction, ...args);
-        logger.event(`Button ${interaction.customId} pressed by ${interaction.user.tag} [${interaction.user.id}]`, `36393F`);
+        logger.event(`Button ${interaction.customId} pressed by ${interaction.user.tag} [${interaction.user.id}]`);
     } else if (interaction.isModalSubmit()) {
         logger.event(`Modal ${interaction.customId} submitted by ${interaction.user.tag} [${interaction.user.id}]`);
         const args = interaction.customId.split("-");
