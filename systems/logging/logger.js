@@ -5,7 +5,7 @@ const { EmbedBuilder } = require("discord.js");
 
 const STACK_LINE_REGEX = /(\d+):(\d+)\)?$/;
 
-exports.log = (content, type = "log", color = "") => {
+exports.log = (content, type = "log", color = "ED4245") => {
     const timestamp = `[${cyan(new Timestamp("YYYY-MM-DD HH:mm:ss"))}]:`;
 
     switch (type) {
