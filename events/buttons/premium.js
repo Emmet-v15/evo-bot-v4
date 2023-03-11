@@ -110,10 +110,11 @@ module.exports = async (
                 interaction.editReply({ embeds: [embed] });
             } else {
                 // say what number they were with embed
-                logger.log(
+                logger.event(
                     `User ${interaction.user.tag} [${interaction.user.id}] tried to claim giveaway for ${mappings[type]} ${convertToOrdinal(
                         original - number + 1
-                    )}.`
+                    )}.`,
+                    "FF0000"
                 );
                 const embed = new EmbedBuilder()
                     .setTitle("Premium")
