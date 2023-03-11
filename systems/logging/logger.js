@@ -1,7 +1,7 @@
 const { cyan, red, magenta, gray, yellow, white, green } = require("colorette");
 const { Timestamp } = require("@sapphire/time-utilities");
 
-const { CombinedError, CombinedPropertyError } = require("@sapphire/shapeshift");
+const { EmbedBuilder } = require("discord.js");
 
 const STACK_LINE_REGEX = /(\d+):(\d+)\)?$/;
 

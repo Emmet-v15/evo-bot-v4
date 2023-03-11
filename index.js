@@ -14,6 +14,7 @@ const client = new Client({
     intents: [32767, GatewayIntentBits.MessageContent],
     partials: ["CHANNEL"],
 });
+logger.setClient(client);
 
 client.settings = new enmap({
     name: "settings",
