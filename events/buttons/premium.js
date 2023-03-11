@@ -122,6 +122,7 @@ module.exports = async (
                     .setColor("FF0000")
                     .setTimestamp();
 
+                client.settings.set(interaction.guild.id, number - 1, `giveaway.${args[1]}.number`);
                 interaction.editReply({ embeds: [embed] });
             }
             break;
