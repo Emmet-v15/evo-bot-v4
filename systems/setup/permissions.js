@@ -15,6 +15,7 @@ const permissions = [
         name: "Admin",
         check: (user, guild) => {
             const permission = guild.client.settings.has(guild.id, `permissions.${user.id}`);
+            console.log(permission);
             if (permission >= 2) return true;
             return false;
         },
