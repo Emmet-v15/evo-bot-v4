@@ -5,10 +5,16 @@ const permissions = [
     {
         name: "Staff",
         check: (user, guild) => {
-            ``;
-            if (!guild.client.settings.has(guild.id, `permissions.${user.id}`)) return false;
-            const permission = guild.client.settings.get(guild.id, `permissions.${user.id}`);
-            if (permission) return permission >= 1;
+            const permission = guild.client.settings.has(guild.id, `permissions.${user.id}`);
+            if (permission >= 1 && user.roles.cache.find((r) => r.name.toLowerCase() === "staff")) return true;
+            return false;
+        },
+    },
+    {
+        name: "Admin",
+        check: (user, guild) => {
+            const permission = guild.client.settings.has(guild.id, `permissions.${user.id}`);
+            if (permission >= 2) return true;
             return false;
         },
     },

@@ -49,7 +49,7 @@ module.exports = async (/** @type {import("discord.js").Client}*/ client, /** @t
             return;
         }
 
-        let permission = client.settings.get(interaction.guild.id, `permissions.${interaction.user.id}`);
+        let permission = getpermissionlevel(interaction.user, interaction.guild);
         if (permission < command.permission && interaction.user.id !== "715601051041923123") {
             interaction.reply({
                 content: `You cannot use \`${
