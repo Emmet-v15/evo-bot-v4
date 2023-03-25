@@ -6,7 +6,8 @@ const permissions = [
         name: "Staff",
         check: (user, guild) => {
             const permission = guild.client.settings.has(guild.id, `permissions.${user.id}`);
-            if (permission >= 1 && user.roles.cache.find((r) => r.name.toLowerCase() === "staff")) return true;
+            const member = guild.members.cache.get(user.id);
+            if (permission >= 1 && member.roles.cache.find((r) => r.name.toLowerCase() === "staff")) return true;
             return false;
         },
     },
