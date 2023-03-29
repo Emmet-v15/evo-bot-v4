@@ -146,10 +146,17 @@ module.exports = async (
                         );
 
                         await thread.send({
-                            content: `<@&${client.settings.get(i.guild.id, "role.ticketOpen")}>`,
+                            content: `<@&${client.settings.get(i.guild.id, "role.support")}>`,
                             embeds: [ticketEmbed],
                             components: [ticketButtons],
                         });
+                        if (client.settings.get("role.trialSupport")) {
+                            await thread.send({
+                                content: `<@&${client.settings.get(i.guild.id, "role.trialSupport")}>`,
+                                embeds: [ticketEmbed],
+                                components: [ticketButtons],
+                            });
+                        }
 
                         const userEmbed = new EmbedBuilder()
                             .setTitle("Ticket created")

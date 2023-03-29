@@ -28,7 +28,8 @@ module.exports = {
             required: true,
             choices: {
                 "Ticket Claiming": "ticketClaim",
-                "Ticket Opening": "ticketOpen",
+                Support: "support",
+                "Trial Support": "trialSupport",
                 "Roblox Update": "updates",
                 "Roblox Prediction": "predictions",
                 "Evo Premium": "premium",
