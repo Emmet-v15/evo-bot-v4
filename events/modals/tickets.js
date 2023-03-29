@@ -144,19 +144,15 @@ module.exports = async (
                                 .setEmoji("📨")
                                 .setStyle(ButtonStyle.Success)
                         );
+                        let content = `<@&${client.settings.get(i.guild.id, "role.support")}>`;
+                        if (client.settings.has("role.trialSupport")) {
+                            content += ` <@&${client.settings.get(i.guild.id, "role.trialSupport")}>`;
 
                         await thread.send({
-                            content: `<@&${client.settings.get(i.guild.id, "role.support")}>`,
+                            content: content,
                             embeds: [ticketEmbed],
                             components: [ticketButtons],
                         });
-                        if (client.settings.get("role.trialSupport")) {
-                            await thread.send({
-                                content: `<@&${client.settings.get(i.guild.id, "role.trialSupport")}>`,
-                                embeds: [ticketEmbed],
-                                components: [ticketButtons],
-                            });
-                        }
 
                         const userEmbed = new EmbedBuilder()
                             .setTitle("Ticket created")
