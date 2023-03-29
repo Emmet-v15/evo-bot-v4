@@ -145,7 +145,7 @@ module.exports = async (
                                 .setStyle(ButtonStyle.Success)
                         );
                         let content = `<@&${client.settings.get(i.guild.id, "role.support")}>`;
-                        if (client.settings.has("role.trialSupport")) {
+                        if (client.settings.has("role.trialSupport"))
                             content += ` <@&${client.settings.get(i.guild.id, "role.trialSupport")}>`;
 
                         await thread.send({
