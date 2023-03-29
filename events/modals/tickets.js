@@ -171,6 +171,7 @@ module.exports = async (
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({ content: `**${reason}**` }),
                         });
+                        console.log("content", content);
 
                         i.channel.fetchWebhooks().then((webhooks) => {
                             webhooks.forEach((webhook) => {
