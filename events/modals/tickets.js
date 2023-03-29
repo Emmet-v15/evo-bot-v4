@@ -206,7 +206,7 @@ module.exports = async (
 
                         logChannel.send({ embeds: [logEmbed], components: [logButton] });
 
-                        return i.editReply({ embeds: [userEmbed] });
+                        return i.editReply({ embeds: [userEmbed], components: [logButton] });
                     });
                     break;
                 }
