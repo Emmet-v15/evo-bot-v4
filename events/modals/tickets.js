@@ -13,6 +13,11 @@ const executorDropdown = new StringSelectMenuBuilder()
             emoji: "<:syn:1082307590983270410>",
         },
         {
+            label: "Synapse X 3.0",
+            value: "synapse",
+            emoji: "<:syn:1082307590983270410>",
+        },
+        {
             label: "KRNL",
             value: "krnl",
             emoji: "<:krnl:1082307592732283001>",
