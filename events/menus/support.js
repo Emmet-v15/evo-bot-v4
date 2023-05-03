@@ -52,8 +52,9 @@ module.exports = async (
             switch (category) {
                 case "bug": {
                     await interaction.deferReply({ ephemeral: true });
-                    interaction.editReply({ content: "Not yet implemented.", ephemeral: true });
-                    break;
+                    // interaction.editReply({ content: "Not yet implemented.", ephemeral: true });
+                    // break;
+
                     const bugModal = new ModalBuilder().setCustomId("tickets-create-bug").setTitle("Create a bug report");
 
                     const bugLocation = new TextInputBuilder()
@@ -105,8 +106,8 @@ module.exports = async (
                 }
                 case "suggestion": {
                     await interaction.deferReply({ ephemeral: true });
-                    interaction.editReply({ content: "Not yet implemented.", ephemeral: true });
-                    break;
+                    // interaction.editReply({ content: "Not yet implemented, use General tickets.", ephemeral: true });
+                    // break;
 
                     const suggestionModal = new ModalBuilder().setCustomId("tickets-create-suggestion").setTitle("Create a suggestion");
 
