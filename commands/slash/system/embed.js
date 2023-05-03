@@ -7,34 +7,16 @@ const { StringSelectMenuBuilder } = require("discord.js");
 const supportEmbed = new EmbedBuilder()
     .setTitle("Support panel")
     .setDescription(
-        `If you have a problem with the script, you can open a ticket so we can help resolve your issue. **Use the dropdown below to open a support ticket**, and our team will shortly be with you.
+        `If you have a problem with the script, you can open a ticket so we can help resolve your issue. Use the button below to create a ticket and our team will be with you shortly.
         
-        If you have a question, you can create a thread in <#1031233062706622544> where other community members can help you.`
+        For suggestions and/or bug, you can create a thread in <#1097281850503876678> or <#1097281898125987930> where other community members and staff can help you.`
     )
     .setColor("0099FF")
     .setTimestamp()
     .setFooter({ text: "EvoTickets | Evo v4™️ | Select an action below" });
 
 const supportComponents = new ActionRowBuilder().addComponents(
-    new StringSelectMenuBuilder()
-        .setCustomId("support-category")
-        .setPlaceholder("Select a category")
-        .addOptions([
-            {
-                label: "General",
-                value: "general",
-            },
-            {
-                label: "Report a bug",
-                value: "bug",
-            },
-            {
-                label: "Make a suggestion",
-                value: "suggestion",
-            },
-        ])
-        .setMinValues(0)
-        .setMaxValues(1)
+    new ButtonBuilder().setCustomId("support-ticket").setLabel("Open a ticket").setStyle(ButtonStyle.Primary).setEmoji("🎫")
 );
 
 const donatorEmbed = new EmbedBuilder()
