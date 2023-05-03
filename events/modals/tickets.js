@@ -131,6 +131,7 @@ module.exports = async (
                                 text: "EvoTickets | Evo V4™️ | Press the buttons below to close / claim the ticket",
                                 iconURL: client.user.avatarURL(),
                             });
+                        thread.members.add(i.user.id);
 
                         const ticketButtons = new ActionRowBuilder().addComponents(
                             new ButtonBuilder()
@@ -177,8 +178,6 @@ module.exports = async (
                                 webhook.delete();
                             });
                         });
-
-                        thread.members.add(i.user.id);
 
                         // log to the ticket log channel
                         const logChannel = i.guild.channels.cache.find(
