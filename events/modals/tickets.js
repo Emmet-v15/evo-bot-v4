@@ -9,7 +9,7 @@ const executorDropdown = new StringSelectMenuBuilder()
     .addOptions([
         {
             label: "Synapse X",
-            value: "synapse",
+            value: "synapse3",
             emoji: "<:syn:1082307590983270410>",
         },
         {
@@ -88,6 +88,7 @@ module.exports = async (
                         i.deferReply({ ephemeral: true });
                         const executor = i.values[0];
                         const mappings = {
+                            synapse3: "Synapse X 3.0",
                             synapse: "Synapse X",
                             krnl: "KRNL",
                             scriptware: "Script-Ware",
