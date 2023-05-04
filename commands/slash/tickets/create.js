@@ -35,7 +35,7 @@ module.exports = {
             .setMinLength(2)
             .setMaxLength(40)
             .setRequired(true)
-            .setPlaceholder("e.g. PET X, Phantom forces, etc.");
+            .setPlaceholder("e.g. None, PET X, Phantom forces, etc.");
         const firstActionRow = new ActionRowBuilder().addComponents(reasonInput, gameInput);
 
         // Add inputs to the modal
