@@ -48,7 +48,7 @@ module.exports = async (
             const gameInput = new TextInputBuilder()
                 .setCustomId("game")
                 .setLabel("What game(s) does this apply to?")
-                .setStyle(TextInputStyle.SingleLine)
+                .setStyle(TextInputStyle.Short)
                 .setMinLength(2)
                 .setMaxLength(40)
                 .setRequired(true)
