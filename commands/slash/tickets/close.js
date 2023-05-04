@@ -9,44 +9,17 @@ module.exports = {
         /** @type {require("discord.js").Client} */ client,
         /** @type {require("discord.js").CommandInteraction} */ interaction
     ) => {
-        const embed = new EmbedBuilder()
-            .setTitle("Ticket Closing...")
-            .setDescription(`This ticket will be closed <t:${Math.floor(Date.now() / 1000) + 10}:R>`)
-            .setAuthor({ name: "⚠️ Request by " + interaction.user.username, iconUrl: interaction.user.avatarURL() })
-            .setFooter({ text: "EvoTickets [BETA] | Project Evo V4", iconURL: client.user.avatarURL() });
+        const ticket = interaction.channel;
+        const closeEmbed = new EmbedBuilder()
+            .setTitle("Ticket Closed")
+            .setDescription(`This ticket has been closed & archived by <@${interaction.user.id}>`)
+            .setColor("#00ff00")
+            .setTimestamp();
 
-        interaction.reply({
-            embeds: [embed],
-            components: [
-                new ActionRowBuilder().addComponents(
-                    new ButtonBuilder().setCustomId("cancel-close-ticket").setLabel("Cancel").setStyle(ButtonStyle.Danger).setEmoji("🛑")
-                ),
-            ],
-        });
-
-        const filter = (i) => i.customId === "cancel-close-ticket" && i.user.id === interaction.user.id;
-        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 10000 });
-
-        collector.on("collect", async (i) => {
-            if (i.customId === "cancel-close-ticket") {
-                await i.deferUpdate();
-                collector.stop();
-                interaction.deleteReply();
-            }
-        });
-
-        collector.on("end", async (collected) => {
-            if (collected.size === 0) {
-                interaction.channel.delete();
-            }
-        });
+        await ticket.send({ embeds: [closeEmbed] });
+        interaction.deleteReply();
+        if (!ticket.locked) await ticket.setLocked(true);
+        if (!ticket.archived) await ticket.setArchived(true);
     },
-    options: [
-        {
-            type: "String",
-            name: "options",
-            description: "Example Options.",
-            required: false,
-        },
-    ],
+    options: [],
 };
