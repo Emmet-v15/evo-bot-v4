@@ -45,7 +45,15 @@ module.exports = async (
                 .setRequired(true)
                 .setPlaceholder("e.g. I need help with my account. My issue is ...");
 
-            const firstActionRow = new ActionRowBuilder().addComponents(reasonInput);
+            const gameInput = new TextInputBuilder()
+                .setCustomId("game")
+                .setLabel("What game(s) does this apply to?")
+                .setMinLength(2)
+                .setMaxLength(40)
+                .setRequired(false)
+                .setPlaceholder("e.g. PET X, Phantom forces, etc.");
+
+            const firstActionRow = new ActionRowBuilder().addComponents(reasonInput, gameInput);
 
             modal.addComponents(firstActionRow);
             return await interaction.showModal(modal);

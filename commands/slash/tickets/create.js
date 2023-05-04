@@ -28,8 +28,6 @@ module.exports = {
         // An action row only holds one text input,
         // so you need one action row per text input.
 
-        // i want them to tell what game they need help with if applicable
-
         const gameInput = new TextInputBuilder()
             .setCustomId("game")
             .setLabel("What game(s) does this apply to?")
