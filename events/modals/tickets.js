@@ -9,12 +9,12 @@ const executorDropdown = new StringSelectMenuBuilder()
     .addOptions([
         {
             label: "Synapse X",
-            value: "synapse3",
+            value: "synapse",
             emoji: "<:syn:1082307590983270410>",
         },
         {
             label: "Synapse X 3.0",
-            value: "synapse",
+            value: "synapse3",
             emoji: "<:syn:1082307590983270410>",
         },
         {
