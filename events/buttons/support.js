@@ -47,12 +47,12 @@ module.exports = async (
 
             const gameInput = new TextInputBuilder()
                 .setCustomId("game")
-                .setLabel("What game does this apply to?")
+                .setLabel("What game(s) does this apply to?")
                 .setStyle(TextInputStyle.Short)
                 .setMinLength(2)
                 .setMaxLength(40)
                 .setRequired(true)
-                .setPlaceholder("None, PET X, Phantom forces.");
+                .setPlaceholder("e.g. None, PET X.");
 
             const firstActionRow = new ActionRowBuilder().addComponents(reasonInput, gameInput);
 
