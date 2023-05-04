@@ -70,6 +70,7 @@ module.exports = async (
                 }
                 case "general": {
                     const reason = interaction.fields.getTextInputValue("reason");
+                    const game = interaction.fields.getTextInputValue("game");
 
                     const executorRow = new ActionRowBuilder().addComponents(executorDropdown);
 
@@ -131,6 +132,7 @@ module.exports = async (
                                     inline: true,
                                 },
                                 { name: "Executor", value: executorName, inline: true },
+                                { name: "Game", value: game, inline: true },
                             ])
                             .setColor(i.member.displayHexColor)
                             .setFooter({

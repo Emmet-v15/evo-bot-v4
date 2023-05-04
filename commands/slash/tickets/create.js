@@ -5,7 +5,10 @@ module.exports = {
     name: "create",
     description: "Create a ticket.",
     permission: 0,
-    execute: async (/** @type {require("discord.js").Client} */ client, /** @type {require("discord.js").CommandInteraction} */ interaction) => {
+    execute: async (
+        /** @type {require("discord.js").Client} */ client,
+        /** @type {require("discord.js").CommandInteraction} */ interaction
+    ) => {
         // Create the modal
         const modal = new ModalBuilder().setCustomId("tickets-create").setTitle("Create a ticket");
 
@@ -24,7 +27,17 @@ module.exports = {
 
         // An action row only holds one text input,
         // so you need one action row per text input.
-        const firstActionRow = new ActionRowBuilder().addComponents(reasonInput);
+
+        // i want them to tell what game they need help with if applicable
+
+        const gameInput = new TextInputBuilder()
+            .setCustomId("game")
+            .setLabel("What game(s) does this apply to?")
+            .setMinLength(2)
+            .setMaxLength(40)
+            .setRequired(false)
+            .setPlaceholder("e.g. PET X, Phantom forces, etc.");
+        const firstActionRow = new ActionRowBuilder().addComponents(reasonInput, gameInput);
 
         // Add inputs to the modal
         modal.addComponents(firstActionRow);
