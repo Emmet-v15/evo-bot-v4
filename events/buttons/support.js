@@ -54,9 +54,10 @@ module.exports = async (
                 .setRequired(true)
                 .setPlaceholder("e.g. None, PET X.");
 
-            const firstActionRow = new ActionRowBuilder().addComponents(reasonInput, gameInput);
+            const firstActionRow = new ActionRowBuilder().addComponents(reasonInput);
+            const secondActionRow = new ActionRowBuilder().addComponents(gameInput);
 
-            modal.addComponents(firstActionRow);
+            modal.addComponents(firstActionRow, secondActionRow);
             return await interaction.showModal(modal);
 
             // switch (category) {
