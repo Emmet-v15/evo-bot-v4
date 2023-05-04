@@ -52,7 +52,7 @@ module.exports = async (
                 .setMinLength(2)
                 .setMaxLength(40)
                 .setRequired(true)
-                .setPlaceholder("e.g. None, PET X, Phantom forces, etc.");
+                .setPlaceholder("None, PET X, Phantom forces.");
 
             const firstActionRow = new ActionRowBuilder().addComponents(reasonInput, gameInput);
 
