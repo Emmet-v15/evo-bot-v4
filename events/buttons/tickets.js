@@ -16,8 +16,7 @@ module.exports = async (
                 .setColor("#00ff00")
                 .setTimestamp();
 
-            await ticket.send({ embeds: [closeEmbed] });
-            await interaction.deleteReply();
+            await interaction.reply({ embeds: [closeEmbed] });
             if (!ticket.locked) await ticket.setLocked(true);
             if (!ticket.archived) await ticket.setArchived(true);
             return;
