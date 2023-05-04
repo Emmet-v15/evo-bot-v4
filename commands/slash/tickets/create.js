@@ -12,12 +12,8 @@ module.exports = {
         // Create the modal
         const modal = new ModalBuilder().setCustomId("tickets-create").setTitle("Create a ticket");
 
-        // Add components to modal
-
-        // Create the text input components
         const reasonInput = new TextInputBuilder()
             .setCustomId("reason")
-            // The label is the prompt the user sees for this input
             .setLabel("Please describe your issue in detail.")
             .setStyle(TextInputStyle.Paragraph)
             .setMinLength(10)
@@ -25,21 +21,20 @@ module.exports = {
             .setRequired(true)
             .setPlaceholder("e.g. I need help with my account. My issue is ...");
 
-        // An action row only holds one text input,
-        // so you need one action row per text input.
-
         const gameInput = new TextInputBuilder()
             .setCustomId("game")
             .setLabel("What game(s) does this apply to?")
-            .setStyle(TextInputStyle.SingleLine)
+            .setStyle(TextInputStyle.Short)
             .setMinLength(2)
             .setMaxLength(40)
             .setRequired(true)
-            .setPlaceholder("e.g. None, PET X, Phantom forces, etc.");
-        const firstActionRow = new ActionRowBuilder().addComponents(reasonInput, gameInput);
+            .setPlaceholder("e.g. None, PET X.");
 
-        // Add inputs to the modal
-        modal.addComponents(firstActionRow);
+        const firstActionRow = new ActionRowBuilder().addComponents(reasonInput);
+        const secondActionRow = new ActionRowBuilder().addComponents(gameInput);
+
+        modal.addComponents(firstActionRow, secondActionRow);
+
         await interaction.showModal(modal);
     },
 };
